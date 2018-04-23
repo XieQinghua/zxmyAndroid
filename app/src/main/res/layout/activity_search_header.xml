@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bk"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/icon_hot_search"
+                android:drawablePadding="5dp"
+                android:padding="10dp"
+                android:text="@string/hot_search"
+                android:textColor="@color/app_text_color2"
+                android:textSize="@dimen/font_size_middle" />
+
+            <com.weishi.yiye.view.ZFlowLayout
+                android:id="@+id/flowLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icon_shops_zan"
+            android:drawablePadding="5dp"
+            android:padding="10dp"
+            android:text="@string/shops_recommend"
+            android:textColor="@color/app_text_color2"
+            android:textSize="@dimen/font_size_middle" />
+
+    </LinearLayout>
+</RelativeLayout>

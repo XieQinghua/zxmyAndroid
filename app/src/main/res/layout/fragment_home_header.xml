@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bk"
+    android:orientation="vertical">
+
+    <!--轮播图布局-->
+    <com.weishi.yiye.view.CusConvenientBanner
+        android:id="@+id/convenientBanner"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <LinearLayout
+        android:id="@+id/ll_shop_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_shopType0"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                fresco:placeholderImage="@drawable/icon_default_shops_head"
+                fresco:placeholderImageScaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/tv_shopType0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/app_main_text_color"
+                android:textSize="@dimen/font_size_middle" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_shopType1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                fresco:placeholderImage="@drawable/icon_default_shops_head"
+                fresco:placeholderImageScaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/tv_shopType1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/app_main_text_color"
+                android:textSize="@dimen/font_size_middle" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_shopType2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                fresco:placeholderImage="@drawable/icon_default_shops_head"
+                fresco:placeholderImageScaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/tv_shopType2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/app_main_text_color"
+                android:textSize="@dimen/font_size_middle" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_shopType3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                fresco:placeholderImage="@drawable/icon_default_shops_head"
+                fresco:placeholderImageScaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/tv_shopType3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/app_main_text_color"
+                android:textSize="@dimen/font_size_middle" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_third_platform"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_thirdPlatform0"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                fresco:placeholderImage="@drawable/icon_default_shops_head"
+                fresco:placeholderImageScaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/tv_thirdPlatform0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/app_main_text_color"
+                android:textSize="@dimen/font_size_middle" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_thirdPlatform1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                fresco:placeholderImage="@drawable/icon_default_shops_head"
+                fresco:placeholderImageScaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/tv_thirdPlatform1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/app_main_text_color"
+                android:textSize="@dimen/font_size_middle" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_thirdPlatform2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                fresco:placeholderImage="@drawable/icon_default_shops_head"
+                fresco:placeholderImageScaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/tv_thirdPlatform2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/app_main_text_color"
+                android:textSize="@dimen/font_size_middle" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_thirdPlatform3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                fresco:placeholderImage="@drawable/icon_default_shops_head"
+                fresco:placeholderImageScaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/tv_thirdPlatform3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/app_main_text_color"
+                android:textSize="@dimen/font_size_middle" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingRight="@dimen/icon_padding">
+
+        <ImageView
+            android:id="@+id/iv_bulletin"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="@dimen/icon_padding"
+            android:src="@drawable/img_bulletin" />
+
+        <LinearLayout
+            android:id="@+id/ll_move"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:padding="@dimen/icon_padding">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_adv1"
+            android:layout_width="130dp"
+            android:layout_height="240dp"
+            fresco:placeholderImage="@drawable/adv1"
+            fresco:placeholderImageScaleType="centerInside" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_adv2"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/sdv_adv1"
+            fresco:placeholderImage="@drawable/adv2"
+            fresco:placeholderImageScaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/sdv_adv2"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/sdv_adv1"
+            android:orientation="horizontal">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_adv3"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_toRightOf="@+id/sdv_adv1"
+                android:layout_weight="1"
+                fresco:placeholderImage="@drawable/adv3"
+                fresco:placeholderImageScaleType="centerCrop" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_adv4"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/sdv_adv1"
+                android:layout_weight="1"
+                fresco:placeholderImage="@drawable/adv4"
+                fresco:placeholderImageScaleType="centerCrop" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_adv5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            fresco:placeholderImage="@drawable/adv5"
+            fresco:placeholderImageScaleType="fitXY" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_top_bar"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:padding="@dimen/icon_padding"
+        android:text="推荐商家"
+        android:textColor="@color/app_main_text_color"
+        android:textSize="@dimen/font_size_normal" />
+
+    <com.weishi.yiye.view.MyListView
+        android:id="@+id/lv_explosive_store"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="1dp"
+        android:divider="@color/main_bk"
+        android:dividerHeight="1dp"
+        android:overScrollMode="never" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_top_bar"
+        android:layout_marginTop="6dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:padding="@dimen/icon_padding"
+        android:text="附近商家"
+        android:textColor="@color/app_main_text_color"
+        android:textSize="@dimen/font_size_normal" />
+
+</LinearLayout>

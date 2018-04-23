@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_bk"
+        android:fitsSystemWindows="true">
+
+        <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_top_bar"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:onClick="back"
+                android:padding="@dimen/icon_padding"
+                android:src="@drawable/icon_arrow_header"
+                android:visibility="visible" />
+
+            <RelativeLayout
+                android:id="@+id/rl_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@+id/iv_back"
+                android:layout_weight="1"
+                android:background="@drawable/btn_search_shape">
+
+                <TextView
+                    android:id="@+id/tv_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:drawableLeft="@drawable/icon_edit_search"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:hint="@string/search_goods"
+                    android:imeOptions="actionSearch"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="30dp"
+                    android:singleLine="true"
+                    android:textColor="@color/app_text_color1"
+                    android:textSize="@dimen/font_size_middle" />
+
+                <ImageView
+                    android:id="@+id/iv_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:padding="5dp"
+                    android:src="@drawable/icon_edit_del"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <com.qbw.customview.RefreshLoadMoreLayout
+            android:id="@+id/refreshloadmore"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_title"
+            app:rll_bg="@color/main_bk"
+            app:rll_footer_progress="@drawable/header_progress"
+            app:rll_footer_progress_size="15dp"
+            app:rll_footer_title_size="@dimen/font_size_middle"
+            app:rll_header_progress="@drawable/header_progress"
+            app:rll_header_progress_size="15dp"
+            app:rll_header_subtitle_size="@dimen/font_size_middle"
+            app:rll_header_title_size="@dimen/font_size_middle"
+            app:rll_textcolor="@color/app_text_color2">
+
+            <ListView
+                android:id="@+id/lv_rec_shops"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/ll_filtrate"
+                android:divider="@color/main_bk"
+                android:dividerHeight="1dp"
+                android:headerDividersEnabled="false"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+
+        </com.qbw.customview.RefreshLoadMoreLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_filtrate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_title"
+            android:background="@color/mask_black"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:id="@+id/rl_fit_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/main_bk">
+
+                <TextView
+                    android:id="@+id/tv_fit_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textColor="@color/app_text_color2"
+                    android:textSize="@dimen/font_size_normal" />
+
+                <ImageView
+                    android:id="@+id/iv_fit_refresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:src="@drawable/icon_refresh" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_top_bar"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <RelativeLayout
+                    android:id="@+id/rl_fit_all"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_fit_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="全部"
+                        android:textColor="@color/app_text_color1"
+                        android:textSize="@dimen/font_size_normal" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/tv_fit_all"
+                        android:padding="10dp"
+                        android:src="@drawable/icon_pull_up" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_fit_nearby"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_fit_nearby"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="附近"
+                        android:textColor="@color/app_text_color1"
+                        android:textSize="@dimen/font_size_normal" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/tv_fit_nearby"
+                        android:padding="10dp"
+                        android:src="@drawable/icon_pull_up" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_fit_smart"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_fit_smart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="智能排序"
+                        android:textColor="@color/app_text_color1"
+                        android:textSize="@dimen/font_size_normal" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/tv_fit_smart"
+                        android:padding="10dp"
+                        android:src="@drawable/icon_pull_up" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View style="@style/DivideLine" />
+
+            <ListView
+                android:id="@+id/lv_condition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:divider="@color/main_bk"
+                android:dividerHeight="1px"
+                android:headerDividersEnabled="false"
+                android:listSelector="@color/transparent"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_no_shops"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="20dp"
+            android:drawableTop="@drawable/img_no_collect_shops"
+            android:gravity="center"
+            android:text="@string/no_shops"
+            android:textColor="@color/app_text_color2"
+            android:textSize="@dimen/font_size_middle"
+            android:visibility="gone" />
+
+        <include layout="@layout/activity_layout_foot" />
+
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,1 @@
+include ':app', ':app', ':SlidingLibrary', ':ZxingLibrary', ':SliderLibrary', ':picture_library'

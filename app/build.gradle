@@ -1,0 +1,153 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.mob.sdk'
+apply plugin: 'bugly'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '26.0.2'
+
+    defaultConfig {
+        applicationId "com.yskjyxgs.meiye"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+
+    lintOptions {
+        abortOnError true
+    }
+
+    //签名
+    signingConfigs {
+        debug {
+            storeFile file("/sign/zhongxiangmeiye.jks")
+            storePassword "meiye2018"
+            keyAlias "meiye"
+            keyPassword "meiye2018"
+        }
+        relealse {
+            storeFile file("/sign/zhongxiangmeiye.jks")
+            storePassword "meiye2018"
+            keyAlias "meiye"
+            keyPassword "meiye2018"
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            if (variant.buildType.name.equals('release')) {
+                outputFileName = 'ZhongXiangMeiYe' + '_v' + variant.getVersionName() + '_' + new Date().format('YYYYMMddHHmm') + '.apk'
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            matchingFallbacks = ['debug']
+        }
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            matchingFallbacks = ['release']
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    //noinspection GradleCompatible
+    compile 'com.android.support:design:25.+'
+    //noinspection GradleCompatible
+    compile 'com.android.support:appcompat-v7:25.+'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile project(':SlidingLibrary')
+    /** 工具类类库 **/
+    compile 'com.blankj:utilcode:1.9.1'
+    /** gson **/
+    compile 'com.google.code.gson:gson:2.8.0'
+    /** 本地组件通信 **/
+    compile 'org.greenrobot:eventbus:3.0.0'
+    /** bugly **/
+    compile 'com.tencent.bugly:crashreport:latest.release'
+    /** 图片加载库 **/
+    compile 'com.facebook.fresco:fresco:0.12.0'
+    /** okhttp **/
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.squareup.okio:okio:1.6.0'
+    compile 'com.huxq17.handygridview:handygridview:1.1.0'
+    /** 下拉刷新上拉加载 */
+    compile 'com.qbw.customview:refreshloadmorelayout:2.3.0-beta2'
+    /** 沉浸式状态栏 **/
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
+    /** 6.0权限管理工具 */
+    compile 'com.yanzhenjie:permission:1.1.0'
+    /** 扫一扫类库 */
+    compile project(':ZxingLibrary')
+    /** 轮播图 */
+    compile project(':SliderLibrary')
+    /** 加载中动画 */
+    compile 'com.wang.avi:library:2.1.3'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+    /** 微信登录 */
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    /** 二维码扫描 */
+    compile 'cn.bingoogolapple:bga-qrcodecore:1.1.7@aar'
+    compile 'cn.bingoogolapple:bga-zxing:1.1.7@aar'
+    /** 多选图片 */
+    compile project(':picture_library')
+}
+
+MobSDK {
+    appKey "23d1b90cc622a"
+    appSecret "1806fd8fb71c0213225f0eb542dff04a"
+
+    ShareSDK {
+        //平台配置信息
+        devInfo {
+            Wechat {
+                appId "wx2bf3127030b5618e"
+                appSecret "c2517eb75d38e168be0c0720443b376e"
+            }
+            WechatMoments {
+                appId "wx2bf3127030b5618e"
+                appSecret "c2517eb75d38e168be0c0720443b376e"
+            }
+//            QQ {
+//                appId "1104935393"
+//                appKey "SpFeAPQtvUuXxXhW"
+//                shareByAppClient true
+//            }
+//            SinaWeibo {
+//                appKey "568898243"
+//                appSecret "38a4f8204cc784f81f9f0daaf31e02e3"
+//                callbackUri "http://www.sharesdk.cn"
+//                shareByAppClient true
+//            }
+        }
+    }
+}
+
+bugly {
+    appId = 'dc5b54677d'
+    appKey = 'd2ae620d-6542-4a0b-bc7b-90211680691b'
+    execute = true
+    upload = true
+}

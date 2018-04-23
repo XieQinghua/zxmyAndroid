@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_bk"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <include layout="@layout/activity_layout_head" />
+
+        <include layout="@layout/activity_layout_foot" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_layout_title">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_test"
+                        style="@style/RedButton"
+                        android:layout_margin="10dp"
+                        android:text="loading" />
+
+                    <Button
+                        android:id="@+id/btn_crash"
+                        style="@style/RedButton"
+                        android:layout_margin="10dp"
+                        android:text="crash" />
+
+                    <Button
+                        android:id="@+id/btn_create_order"
+                        style="@style/RedButton"
+                        android:layout_margin="10dp"
+                        android:text="创建订单" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_create_order_comment"
+                        style="@style/RedButton"
+                        android:layout_margin="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="创建订单评论" />
+
+                    <Button
+                        android:id="@+id/btn_order_list"
+                        style="@style/RedButton"
+                        android:layout_margin="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="获取订单列表" />
+
+                    <Button
+                        android:id="@+id/btn_cancel_order"
+                        style="@style/RedButton"
+                        android:layout_margin="10dp"
+                        android:text="取消订单" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_score_balance"
+                        style="@style/RedButton"
+                        android:layout_margin="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="积分余额" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_json"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/btn_gray_rim_shape2"
+                    android:padding="10dp"
+                    android:textColor="@color/app_text_color1"
+                    android:textSize="@dimen/font_size_normal" />
+
+            </LinearLayout>
+
+
+        </ScrollView>
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bk"
+    android:orientation="vertical">
+
+    <!--头部栏-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_top_bar"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@drawable/icon_address"
+            android:drawablePadding="3dp"
+            android:ellipsize="end"
+            android:ems="5"
+            android:lines="1"
+            android:text=""
+            android:textColor="@color/app_text_color1"
+            android:textSize="@dimen/font_size_middle" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="60dp"
+            android:background="@drawable/btn_search_shape">
+
+            <TextView
+                android:id="@+id/tv_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawableLeft="@drawable/icon_edit_search"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="30dp"
+                android:singleLine="true"
+                android:text="@string/search_goods"
+                android:textColor="#9B9B9B"
+                android:textSize="@dimen/font_size_middle" />
+
+            <ImageView
+                android:id="@+id/iv_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:padding="5dp"
+                android:src="@drawable/icon_edit_del"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_qr_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/icon_padding"
+            android:src="@drawable/icon_qr_code" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/main_bk" />
+    </RelativeLayout>
+
+    <com.weishi.yiye.view.CusRefreshLoadMoreLayout
+        android:id="@+id/refreshloadmore"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:rll_bg="@color/main_bk"
+        app:rll_footer_progress="@drawable/header_progress"
+        app:rll_footer_progress_size="15dp"
+        app:rll_footer_title_size="@dimen/font_size_middle"
+        app:rll_header_progress="@drawable/header_progress"
+        app:rll_header_progress_size="15dp"
+        app:rll_header_subtitle_size="@dimen/font_size_middle"
+        app:rll_header_title_size="@dimen/font_size_middle"
+        app:rll_textcolor="@color/app_text_color2">
+
+        <ListView
+            android:id="@+id/lv_rec_shops"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:divider="@color/main_bk"
+            android:dividerHeight="1dp"
+            android:overScrollMode="never" />
+
+    </com.weishi.yiye.view.CusRefreshLoadMoreLayout>
+</LinearLayout>

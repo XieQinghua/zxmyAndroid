@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--透明-->
+    <color name="transparent">#00000000</color>
+    <!--白色-->
+    <color name="white">#FFFFFF</color>
+    <!--黑色-->
+    <color name="black">#000000</color>
+    <!--遮罩黑色-->
+    <color name="mask_black">#30000000</color>
+    <!--红色-->
+    <color name="red">#FF0000</color>
+    <!--黄色-->
+    <color name="yellow">#FFFF00</color>
+    <!--橙色-->
+    <color name="orange">#FAA346</color>
+    <!--蓝色-->
+    <color name="blue">#0000FF</color>
+    <!--画布灰色-->
+    <color name="gray">#EFEFEF</color>
+    <!--背景色-->
+    <color name="main_bk">#F5F5F5</color>
+
+    <!--导航字颜色/红色背景色-->
+    <color name="main_text_color">#FA5146</color>
+    <!--app深色字颜色-->
+    <color name="app_main_text_color">#333333</color>
+    <color name="dark">#666666</color>
+    <!--app深颜色字-->
+    <color name="app_text_color1">#1A1A1A</color>
+    <!--app浅颜色字-->
+    <color name="app_text_color2">#808080</color>
+    <!--分割线颜色-->
+    <color name="layout_split_color">#f1f2f6</color>
+    <!--分割线颜色-->
+    <color name="grey_text">#646464</color>
+</resources>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_bk"
+        android:fitsSystemWindows="true">
+
+        <include layout="@layout/activity_layout_head" />
+
+        <include layout="@layout/activity_layout_foot" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_layout_title"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="15dp"
+                    android:text="手机号"
+                    android:textColor="@color/app_main_text_color"
+                    android:textSize="@dimen/font_size_normal" />
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/btn_change_phone"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="15dp"
+                    android:textColor="@color/app_text_color2"
+                    android:textSize="@dimen/font_size_normal" />
+
+                <Button
+                    android:id="@+id/btn_change_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/button_top_bar"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/btn_red_rim_shape"
+                    android:gravity="center"
+                    android:text="@string/change"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/font_size_normal" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="15dp"
+                    android:text="微信"
+                    android:textColor="@color/app_main_text_color"
+                    android:textSize="@dimen/font_size_normal" />
+
+                <TextView
+                    android:id="@+id/tv_wechat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/btn_wechat_unbundling"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="15dp"
+                    android:textColor="@color/app_text_color2"
+                    android:textSize="@dimen/font_size_normal" />
+
+                <Button
+                    android:id="@+id/btn_wechat_unbundling"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/button_top_bar"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/btn_red_rim_shape"
+                    android:gravity="center"
+                    android:text="@string/bundling"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/font_size_normal" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="15dp"
+                    android:text="@string/pay_password"
+                    android:textColor="@color/app_main_text_color"
+                    android:textSize="@dimen/font_size_normal" />
+
+                <Button
+                    android:id="@+id/btn_change_pay_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/button_top_bar"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/btn_red_rim_shape"
+                    android:gravity="center"
+                    android:text="@string/setting"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/font_size_normal" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

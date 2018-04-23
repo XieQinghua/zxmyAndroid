@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_bk"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/title"
+            layout="@layout/activity_layout_head" />
+
+        <include layout="@layout/activity_layout_foot" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title">
+
+            <LinearLayout
+                android:id="@+id/ll_shop_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!--轮播图布局-->
+                    <!--<com.daimajia.slider.library.SliderLayout
+                        android:id="@+id/sliderLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_alignParentTop="true"
+                        custom:indicator_visibility="visible"
+                        custom:pager_animation="Accordion"
+                        custom:pager_animation_span="1100" />-->
+
+                    <RelativeLayout
+                        android:id="@+id/rl_goods_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_alignParentTop="true">
+
+                        <com.facebook.drawee.view.SimpleDraweeView
+                            android:id="@+id/sdv_goods_img"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            fresco:placeholderImage="@drawable/icon_default_banner"
+                            fresco:placeholderImageScaleType="fitXY" />
+
+                        <TextView
+                            android:id="@+id/tv_img_num"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_margin="@dimen/icon_padding"
+                            android:background="@drawable/circle_transparent_shape"
+                            android:drawableTop="@drawable/icon_img_label"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="1张"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/font_size_middle"
+                            android:visibility="visible" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rl_goods_img"
+                        android:layout_marginLeft="70dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_shop_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="2"
+                            android:padding="@dimen/icon_padding"
+                            android:textColor="@color/app_text_color1"
+                            android:textSize="@dimen/font_size_normal" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:orientation="horizontal">
+
+                            <com.weishi.yiye.view.RatingBar
+                                android:id="@+id/rb"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                app:clickable="false"
+                                app:starCount="5"
+                                app:starEmpty="@drawable/icon_star_empty"
+                                app:starFill="@drawable/icon_star_full"
+                                app:starHalf="@drawable/icon_star_empty"
+                                app:starImageSize="15dp"
+                                app:starPadding="5dp"
+                                app:starStep="5"
+                                app:stepSize="Full" />
+
+                            <TextView
+                                android:id="@+id/tv_grade"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="5dp"
+                                android:layout_toRightOf="@+id/rb"
+                                android:text="5.0分"
+                                android:textColor="@color/app_text_color2"
+                                android:textSize="@dimen/font_size_middle" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:id="@+id/tv_shop_address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="30dp"
+                                android:drawableLeft="@drawable/icon_location"
+                                android:drawablePadding="3dp"
+                                android:gravity="center_vertical"
+                                android:maxLines="2"
+                                android:textColor="@color/app_text_color2"
+                                android:textSize="@dimen/font_size_normal" />
+
+                            <!-- <TextView
+                                 android:id="@+id/tv_distant"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginLeft="10dp"
+                                 android:layout_toRightOf="@id/tv_shop_address"
+                                 android:textColor="@color/app_text_color2"
+                                 android:textSize="@dimen/font_size_normal" />-->
+
+                            <ImageView
+                                android:id="@+id/iv_service_tel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/icon_call_up" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/sdv_shops_head"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="120dp"
+                        fresco:placeholderImage="@drawable/icon_default_shops_head"
+                        fresco:placeholderImageScaleType="fitXY"
+                        fresco:roundAsCircle="true"
+                        fresco:roundingBorderColor="@color/main_bk"
+                        fresco:roundingBorderWidth="1dp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/main_bk" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_hot_goods"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/icon_padding"
+                            android:text="热门商品"
+                            android:textColor="@color/app_text_color1"
+                            android:textSize="@dimen/font_size_normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:padding="@dimen/icon_padding"
+                            android:text="查看全部商品 >>"
+                            android:textColor="@color/app_text_color2"
+                            android:textSize="@dimen/font_size_normal" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/main_bk" />
+
+                    <com.weishi.yiye.view.MyListView
+                        android:id="@+id/lv_hot_goods"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:divider="@color/main_bk"
+                        android:dividerHeight="1dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/main_bk" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/icon_padding"
+                            android:text="最新评价"
+                            android:textColor="@color/app_text_color1"
+                            android:textSize="@dimen/font_size_normal" />
+
+                        <TextView
+                            android:id="@+id/tv_total_comment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:padding="@dimen/icon_padding"
+                            android:textColor="@color/app_text_color2"
+                            android:textSize="@dimen/font_size_normal" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/main_bk" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.weishi.yiye.view.MyListView
+                            android:id="@+id/lv_comments"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:divider="@color/main_bk"
+                            android:dividerHeight="1dp" />
+
+                        <TextView
+                            android:id="@+id/tv_comment_empty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="50dp"
+                            android:layout_marginTop="50dp"
+                            android:drawablePadding="20dp"
+                            android:drawableTop="@drawable/img_no_comment"
+                            android:gravity="center"
+                            android:text="@string/no_comments"
+                            android:textColor="@color/app_text_color2"
+                            android:textSize="@dimen/font_size_middle"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</layout>

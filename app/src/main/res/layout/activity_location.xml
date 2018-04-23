@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_bk"
+        android:orientation="vertical">
+
+        <include layout="@layout/activity_layout_head" />
+
+        <ListView
+            android:id="@+id/lv_location_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_layout_title"
+            android:background="@color/white"
+            android:divider="@color/main_bk"
+            android:dividerHeight="@dimen/dp"
+            android:scrollbars="none" />
+
+        <include layout="@layout/activity_layout_foot" />
+
+    </RelativeLayout>
+</layout>

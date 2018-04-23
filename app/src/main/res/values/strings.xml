@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">众享美业</string>
+    <string name="main_home">首页</string>
+    <string name="main_nearby">附近</string>
+    <string name="main_order">订单</string>
+    <string name="main_mine">我的</string>
+    <string name="search_goods">输入商品或店铺</string>
+    <string name="enter_address">请输入地址</string>
+    <string name="enter_nickname">请输入昵称</string>
+    <!-- 订单-->
+    <string name="order_top_lef">我的订单</string>
+    <string name="order_top_rig">全部订单></string>
+    <string name="enter_shops">进入店铺</string>
+    <string name="shopping">立即抢购</string>
+    <string name="submit_order">提交订单</string>
+
+    <string name="sdcard_no_exist">SD卡不存在</string>
+    <string name="camera_not_prepared">摄像头尚未准备好</string>
+    <string name="cancel_value">取消</string>
+    <string name="permission_request_error">"申请权限失败"</string>
+    <string name="permission_storage">我们需要读写内存权限，被您拒绝或者系统发生错误申请失败，请您到权限设置页面手动授权，否则功能无法正常使用！</string>
+    <string name="permission_image">我们需要拍照和读写内存权限的被您拒绝或者系统发生错误申请失败，请您到权限设置页面手动授权，否则功能无法正常使用！</string>
+    <string name="permission_location">我们需要读取位置信息权限的被您拒绝或者系统发生错误申请失败，请您到权限设置页面手动授权，否则功能无法正常使用！</string>
+    <string name="permission_call_phone">我们需要拨打电话权限的被您拒绝或者系统发生错误申请失败，请您到权限设置页面手动授权，否则功能无法正常使用！</string>
+
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="shops_recommend">商家推荐</string>
+    <string name="hot_search">热门搜索</string>
+
+    <string name="enter_invitation_code">请输入邀请码</string>
+    <string name="enter_phone_number">请输入手机号</string>
+    <string name="enter_verification_code">请输入验证码</string>
+    <string name="enter_password">请输入新密码</string>
+    <string name="get_verification_code">获取验证码</string>
+    <string name="login">立即登录</string>
+    <string name="register">立即注册</string>
+    <string name="bind">立即绑定</string>
+    <string name="logout">退出登录</string>
+    <string name="invite_friend">邀请伙伴加入</string>
+
+    <string name="change">更换</string>
+    <string name="bundling">绑定</string>
+    <string name="unbundling">解绑</string>
+    <string name="setting">设置</string>
+    <string name="modification">修改</string>
+    <string name="login_password">登录密码</string>
+    <string name="pay_password">支付密码</string>
+    <string name="affirm_payment">确认支付</string>
+    <string name="accomplish">完成</string>
+    <string name="money_unit">¥</string>
+    <string name="service_tel">客服电话</string>
+    <string name="service_tel_number">15399793962</string>
+    <string name="yiye_service_tel_number">13874930708</string>
+    <string name="wechat_official_account">微信公众号</string>
+    <string name="yiye_wechat_official_account">众享美业服务号</string>
+    <string name="lianqu_wechat_official_account">众享美业公众服务号</string>
+
+    <string name="contact_service">如有任何疑问，请联系客服帮您解决</string>
+    <string name="license_agreement">众享美业用户许可及服务协议</string>
+    <string name="license_agreement_url">http://meiye-h5.lianqumall.com/meiye_test/html/userAgreement.html</string>
+
+    <string name="no_collect_goods">亲，你还没有关注任何商品</string>
+    <string name="no_collect_shops">亲，你还没有关注任何店铺</string>
+    <string name="no_orders">您还没有相关订单</string>
+    <string name="no_shops">暂无该类目相关店铺</string>
+    <string name="no_comments">暂无评论</string>
+    <string name="no_datas">没有数据了</string>
+    <string name="goods_have_deleted">该商品已删除</string>
+    <string name="bottom_line">我是有底线的</string>
+
+    <string name="user_id_found">正在跳转登录操作…</string>
+    <string name="login_ing">使用%s帐号登录中…</string>
+    <string name="auth_cancel">授权操作已取消</string>
+    <string name="auth_error">授权操作遇到错误，请阅读Logcat输出</string>
+    <string name="auth_complete">授权成功，正在跳转登录操作…</string>
+
+</resources>

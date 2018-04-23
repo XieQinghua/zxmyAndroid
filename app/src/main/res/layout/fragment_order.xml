@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bk">
+
+    <include layout="@layout/fragment_top" />
+
+    <LinearLayout
+        android:id="@+id/ll_order_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_fragment_top"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <com.qbw.customview.RefreshLoadMoreLayout
+            android:id="@+id/refreshloadmore"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:rll_bg="@color/main_bk"
+            app:rll_footer_progress="@drawable/header_progress"
+            app:rll_footer_progress_size="15dp"
+            app:rll_footer_title_size="@dimen/font_size_middle"
+            app:rll_header_progress="@drawable/header_progress"
+            app:rll_header_progress_size="15dp"
+            app:rll_header_subtitle_size="@dimen/font_size_middle"
+            app:rll_header_title_size="@dimen/font_size_middle"
+            app:rll_textcolor="@color/app_text_color2">
+
+            <ListView
+                android:id="@+id/lv_order"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:divider="@color/main_bk"
+                android:dividerHeight="1dp"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+
+        </com.qbw.customview.RefreshLoadMoreLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_login_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_app_logo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            fresco:placeholderImage="@mipmap/ic_launcher"
+            fresco:placeholderImageScaleType="fitCenter"
+            fresco:roundAsCircle="true" />
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="登录后可查看订单信息"
+            android:textColor="@color/app_text_color2"
+            android:textSize="@dimen/font_size_normal" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_top_bar"
+            android:layout_marginLeft="75dp"
+            android:layout_marginRight="75dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_red_selector"
+            android:gravity="center"
+            android:text="@string/login"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_normal" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_order_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:drawablePadding="20dp"
+        android:drawableTop="@drawable/img_no_order"
+        android:gravity="center"
+        android:text="@string/no_orders"
+        android:textColor="@color/app_text_color2"
+        android:textSize="@dimen/font_size_middle"
+        android:visibility="gone" />
+
+</RelativeLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_bk">
+
+        <include layout="@layout/activity_layout_head" />
+
+        <include layout="@layout/activity_layout_foot" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_layout_title"
+            android:orientation="vertical">
+
+            <RadioGroup
+                android:id="@+id/rg"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_top_bar"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_whole"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/rb_tab_line_full_selector"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="全部"
+                    android:textColor="@color/tab_text_color"
+                    android:textSize="@dimen/font_size_normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_takepayment"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/rb_tab_line_full_selector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="待付款"
+                    android:textColor="@color/tab_text_color"
+                    android:textSize="@dimen/font_size_normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_banduse"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/rb_tab_line_full_selector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="待使用"
+                    android:textColor="@color/tab_text_color"
+                    android:textSize="@dimen/font_size_normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_evaluation"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/rb_tab_line_full_selector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="待评价"
+                    android:textColor="@color/tab_text_color"
+                    android:textSize="@dimen/font_size_normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_refund"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/rb_tab_line_full_selector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="退款"
+                    android:textColor="@color/tab_text_color"
+                    android:textSize="@dimen/font_size_normal" />
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

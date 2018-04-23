@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bk">
+
+    <com.qbw.customview.RefreshLoadMoreLayout
+        android:id="@+id/refreshloadmore"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:rll_bg="@color/main_bk"
+        app:rll_footer_progress="@drawable/header_progress"
+        app:rll_footer_progress_size="15dp"
+        app:rll_footer_title_size="@dimen/font_size_middle"
+        app:rll_header_progress="@drawable/header_progress"
+        app:rll_header_progress_size="15dp"
+        app:rll_header_subtitle_size="@dimen/font_size_middle"
+        app:rll_header_title_size="@dimen/font_size_middle"
+        app:rll_textcolor="@color/app_text_color2">
+
+        <ListView
+            android:id="@+id/lv_collect_goods"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/main_bk"
+            android:dividerHeight="1dp"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+
+    </com.qbw.customview.RefreshLoadMoreLayout>
+
+    <TextView
+        android:id="@+id/tv_no_goods"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:drawablePadding="20dp"
+        android:drawableTop="@drawable/img_no_collect_goods"
+        android:gravity="center"
+        android:text="@string/no_collect_goods"
+        android:textColor="@color/app_text_color2"
+        android:textSize="@dimen/font_size_middle"
+        android:visibility="gone" />
+</RelativeLayout>

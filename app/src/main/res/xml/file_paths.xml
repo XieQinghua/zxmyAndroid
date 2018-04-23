@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <paths>
+        <!--将path设置为root-path解决FileProvider无法使用外置SD卡-->
+        <root-path
+            name="camera_photos"
+            path="" />
+    </paths>
+</resources>

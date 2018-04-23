@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null">
+
+    <RelativeLayout
+        android:id="@+id/rl_popup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_popup_payment"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_oval_gradient_red_shape"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/icon_payment_mode"
+                    android:drawablePadding="5dp"
+                    android:padding="20dp"
+                    android:text="支付方式"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_normal"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/rg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rb_alipay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableLeft="@drawable/icon_alipay"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/radiobutton_selector"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="15dp"
+                    android:text="支付宝"
+                    android:textColor="@color/app_text_color1"
+                    android:textSize="@dimen/font_size_normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_wechat_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/white"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/icon_wechat_pay"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/radiobutton_selector"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="15dp"
+                    android:text="微信"
+                    android:textColor="@color/app_text_color1"
+                    android:textSize="@dimen/font_size_normal"
+                    android:visibility="gone" />
+
+                <RadioButton
+                    android:id="@+id/rb_unionpay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/white"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/icon_unionpay"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/radiobutton_selector"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="15dp"
+                    android:text="银联"
+                    android:textColor="@color/app_text_color1"
+                    android:textSize="@dimen/font_size_normal"
+                    android:visibility="gone" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btn_payment"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_top_bar"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/btn_red_selector"
+                android:gravity="center"
+                android:text="@string/affirm_payment"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_normal" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_del_pop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="4dp"
+            android:src="@drawable/icon_del_pop"
+            android:visibility="visible" />
+    </RelativeLayout>
+</RelativeLayout>
