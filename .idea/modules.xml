@@ -3,11 +3,17 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SliderLibrary/SliderLibrary.iml" filepath="$PROJECT_DIR$/SliderLibrary/SliderLibrary.iml" />
+      <module fileurl="file://D:\projects\companys\meiye\customer\SliderLibrary\SliderLibrary.iml" filepath="D:\projects\companys\meiye\customer\SliderLibrary\SliderLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/SlidingLibrary/SlidingLibrary.iml" filepath="$PROJECT_DIR$/SlidingLibrary/SlidingLibrary.iml" />
+      <module fileurl="file://D:\projects\companys\meiye\customer\SlidingLibrary\SlidingLibrary.iml" filepath="D:\projects\companys\meiye\customer\SlidingLibrary\SlidingLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/ZxingLibrary/ZxingLibrary.iml" filepath="$PROJECT_DIR$/ZxingLibrary/ZxingLibrary.iml" />
+      <module fileurl="file://D:\projects\companys\meiye\customer\ZxingLibrary\ZxingLibrary.iml" filepath="D:\projects\companys\meiye\customer\ZxingLibrary\ZxingLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\projects\companys\meiye\customer\app\app.iml" filepath="D:\projects\companys\meiye\customer\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/customer.iml" filepath="$PROJECT_DIR$/customer.iml" />
       <module fileurl="file://$PROJECT_DIR$/picture_library/picture_library.iml" filepath="$PROJECT_DIR$/picture_library/picture_library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zxmyAndroid.iml" filepath="$PROJECT_DIR$/zxmyAndroid.iml" />
+      <module fileurl="file://D:\projects\companys\meiye\customer\picture_library\picture_library.iml" filepath="D:\projects\companys\meiye\customer\picture_library\picture_library.iml" />
+      <module fileurl="file://D:\projects\companys\meiye\customer\zxmyAndroid.iml" filepath="D:\projects\companys\meiye\customer\zxmyAndroid.iml" />
     </modules>
   </component>
 </project>

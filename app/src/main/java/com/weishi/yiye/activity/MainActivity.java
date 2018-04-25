@@ -1,13 +1,18 @@
 package com.weishi.yiye.activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.weishi.yiye.R;
 import com.weishi.yiye.adapter.FragmentTabAdapter;
@@ -17,6 +22,7 @@ import com.weishi.yiye.bean.ConfigListBean;
 import com.weishi.yiye.bean.LocationListBean;
 import com.weishi.yiye.bean.eventbus.LoadingStateEvent;
 import com.weishi.yiye.common.Api;
+import com.weishi.yiye.common.ConfigConstants;
 import com.weishi.yiye.common.util.CheckPermission;
 import com.weishi.yiye.common.util.GsonUtil;
 import com.weishi.yiye.common.util.HttpUtils;
@@ -25,6 +31,7 @@ import com.weishi.yiye.fragment.HomeFragment;
 import com.weishi.yiye.fragment.MineFragment;
 import com.weishi.yiye.fragment.NearbyFragment;
 import com.weishi.yiye.fragment.OrderFragment;
+import com.weishi.yiye.view.CustomDialog;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -124,12 +131,45 @@ public class MainActivity extends BaseActivity implements LocationUtils.Location
                                 for (ConfigListBean.DataBean bean : configListBean.getData()) {
                                     mSp.putString(bean.getKey(), bean.getValue());
                                 }
+                                checkUpdate();
                             }
                         }
                     }
                 });
             }
         });
+    }
+
+    /**
+     * 检查更新
+     */
+    private void checkUpdate() {
+        int versionCode = AppUtils.getAppVersionCode();
+        int configCode = Integer.parseInt(mSp.getString(ConfigConstants.VERSIONCODE, "0"));
+        if (configCode > versionCode) {
+            CustomDialog.Builder builder = new CustomDialog.Builder(this);
+            builder.setMessage("更新内容:\n" + mSp.getString(ConfigConstants.VERSIONDESC, ""));
+            builder.setTitle("新版本" + mSp.getString(ConfigConstants.VERSION, ""));
+            builder.setTitleVisibility(View.VISIBLE);
+            builder.setPositiveButton("立即更新", new android.content.DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    Uri url = Uri.parse(mSp.getString(ConfigConstants.VERSIONADDRESS, ""));
+                    intent.setData(url);
+                    startActivity(intent);
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.create().show();
+        }
     }
 
     public void startLocation() {

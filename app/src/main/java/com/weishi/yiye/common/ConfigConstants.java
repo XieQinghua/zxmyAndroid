@@ -18,4 +18,10 @@ public class ConfigConstants {
     public static final String USER_COVERCHARGE = "userCoverCharge";
     public static final String BELONG_BUSI_CHARGE = "belongBusiCharge";
     public static final String NOT_BELONG_BUSI_CHARGE = "notBelongBusiCharge";
+
+    //app更新
+    public static final String VERSIONCODE = "versionCode";
+    public static final String VERSION = "version";
+    public static final String VERSIONDESC = "versionDesc";
+    public static final String VERSIONADDRESS = "versionAddress";
 }
