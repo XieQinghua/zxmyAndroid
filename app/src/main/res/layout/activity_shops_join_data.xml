@@ -40,6 +40,11 @@
                         android:text="点击添加banner图"
                         android:textColor="@color/app_text_color2"
                         android:textSize="@dimen/font_size_normal" />
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/vp_banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
                 </RelativeLayout>
 
                 <RelativeLayout

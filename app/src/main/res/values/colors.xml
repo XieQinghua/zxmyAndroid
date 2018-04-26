@@ -22,7 +22,8 @@
     <color name="main_bk">#F5F5F5</color>
 
     <!--导航字颜色/红色背景色-->
-    <color name="main_text_color">#FA5146</color>
+    <color name="main_text_color">#F173B1</color><!--#FA5146-->
+    <color name="main_text_color1">#FA5146</color>
     <!--app深色字颜色-->
     <color name="app_main_text_color">#333333</color>
     <color name="dark">#666666</color>

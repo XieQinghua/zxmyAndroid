@@ -22,7 +22,7 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="长沙"
-            android:textColor="#fa5146"
+            android:textColor="@color/main_text_color"
             android:visibility="gone" />
 
         <EditText
