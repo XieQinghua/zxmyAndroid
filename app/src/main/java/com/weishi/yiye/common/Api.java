@@ -83,6 +83,10 @@ public class Api {
     public static final String GET_BUSI_TYPE = SERVER_URL + "api/front/business/getBusiType";
 
     /**
+     * 商家分类（新）
+     */
+    public static final String GET_PROPERTY_SORT = SERVER_URL + "api/front/business/getPropertySort";
+    /**
      * 众享爆品
      */
     public static final String GET_EXPLOSIVE_STORE_LIST = SERVER_URL + "api/front/store/getExplosiveStoreList";

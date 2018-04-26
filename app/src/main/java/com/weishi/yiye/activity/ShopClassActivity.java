@@ -1,5 +1,6 @@
 package com.weishi.yiye.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,7 +46,7 @@ public class ShopClassActivity extends BaseSwipeBackActivity implements View.OnC
     private ActivityAddressLayoutBinding addressLayoutBinding;
     private ShopTypeAdapter adapter;
     private List<ShopTypeBean.ShopType> shopTypes = new ArrayList<ShopTypeBean.ShopType>();
-    private int shopTypeParentId;//类型的父ID
+    private int sortId;//类型的父ID
     private int shopTypeFirstParentId;//第一级类型的父ID
     private String shopTypeFirstParentName;//第一级类型的名字
 
@@ -69,7 +70,7 @@ public class ShopClassActivity extends BaseSwipeBackActivity implements View.OnC
     protected void initView() {
         addressLayoutBinding = DataBindingUtil.setContentView(ShopClassActivity.this, R.layout.activity_address_layout);
         setTitleCenter("请选择商家分类");
-        shopTypeParentId = getIntent().getIntExtra(ShopConstants.TYPE_SHOP_PARENT_ID, 0);
+        sortId = getIntent().getIntExtra(ShopConstants.TYPE_SHOP_PARENT_ID, 0);
         shopTypeFirstParentId = getIntent().getIntExtra(ShopConstants.TYPE_SHOP_FIRST_PARENT_ID, 0);
         shopTypeFirstParentName = getIntent().getStringExtra(ShopConstants.TYPE_SHOP_FIRST_PARENT_NAME);
         adapter = new ShopTypeAdapter(this, shopTypes);
@@ -78,28 +79,28 @@ public class ShopClassActivity extends BaseSwipeBackActivity implements View.OnC
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //第一级才会继续往下跳
-//                if (ShopConstants.DEFAULT_VALUE_SHOP_ID == shopTypeParentId) {
-//                    Intent shopClassIntent = new Intent(ShopClassActivity.this, ShopClassActivity.class);
-//                    shopClassIntent.putExtra(ShopConstants.TYPE_SHOP_PARENT_ID, shopTypes.get(position).getId());
-//                    shopClassIntent.putExtra(ShopConstants.TYPE_SHOP_FIRST_PARENT_ID, shopTypes.get(position).getId());
-//                    shopClassIntent.putExtra(ShopConstants.TYPE_SHOP_FIRST_PARENT_NAME, shopTypes.get(position).getTypeName());
-//                    startActivity(shopClassIntent);
-//                }
-//                //否则直接变更记录
-//                else {
-                //选择完分类后发送事件
-                SelectShopTypeBean model = new SelectShopTypeBean();
-                model.setShopTypeFirstParentId(shopTypes.get(position).getId());
-                model.setShopTypeFirstParentName(shopTypes.get(position).getTypeName());
-                model.setShopTypeSecondParentId(shopTypes.get(position).getId());
-                model.setShopTypeSecondParentName(shopTypes.get(position).getTypeName());
+                if (ShopConstants.DEFAULT_VALUE_SHOP_ID == sortId) {
+                    Intent shopClassIntent = new Intent(ShopClassActivity.this, ShopClassActivity.class);
+                    shopClassIntent.putExtra(ShopConstants.TYPE_SHOP_PARENT_ID, shopTypes.get(position).getSortId());
+                    shopClassIntent.putExtra(ShopConstants.TYPE_SHOP_FIRST_PARENT_ID, shopTypes.get(position).getSortId());
+                    shopClassIntent.putExtra(ShopConstants.TYPE_SHOP_FIRST_PARENT_NAME, shopTypes.get(position).getTypeName());
+                    startActivity(shopClassIntent);
+                }
+                //否则直接变更记录
+                else {
+                    //选择完分类后发送事件
+                    SelectShopTypeBean model = new SelectShopTypeBean();
+                    model.setShopTypeFirstParentId(shopTypeFirstParentId);
+                    model.setShopTypeFirstParentName(shopTypeFirstParentName);
+                    model.setShopTypeSecondParentId(shopTypes.get(position).getSortId());
+                    model.setShopTypeSecondParentName(shopTypes.get(position).getTypeName());
 
-                SelectShopTypeEvent sEvent = new SelectShopTypeEvent();
-                sEvent.setModel(model);
-                EventBus.getDefault().post(sEvent);
-                EventBus.getDefault().post(new FinishEvents());
-                finish();
-//                }
+                    SelectShopTypeEvent sEvent = new SelectShopTypeEvent();
+                    sEvent.setModel(model);
+                    EventBus.getDefault().post(sEvent);
+                    EventBus.getDefault().post(new FinishEvents());
+                    finish();
+                }
             }
         });
 
@@ -113,8 +114,8 @@ public class ShopClassActivity extends BaseSwipeBackActivity implements View.OnC
 
     private void getShopType() {
         Map<String, Object> mapParams = new HashMap<>();
-        mapParams.put("parentId", shopTypeParentId);
-        HttpUtils.doGet(Api.GET_BUSI_TYPE, mapParams, new Callback() {
+        mapParams.put("sortId", sortId);
+        HttpUtils.doGet(Api.GET_PROPERTY_SORT, mapParams, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 
@@ -133,6 +134,16 @@ public class ShopClassActivity extends BaseSwipeBackActivity implements View.OnC
                             shopTypes = shopTypeBean.getData();
                             adapter.setData(shopTypes);
                             adapter.notifyDataSetChanged();
+                        } else {
+                            SelectShopTypeBean model = new SelectShopTypeBean();
+                            model.setShopTypeFirstParentId(shopTypeFirstParentId);
+                            model.setShopTypeFirstParentName(shopTypeFirstParentName);
+
+                            SelectShopTypeEvent sEvent = new SelectShopTypeEvent();
+                            sEvent.setModel(model);
+                            EventBus.getDefault().post(sEvent);
+                            EventBus.getDefault().post(new FinishEvents());
+                            finish();
                         }
                     }
                 });

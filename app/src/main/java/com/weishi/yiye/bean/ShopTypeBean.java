@@ -56,6 +56,61 @@ public class ShopTypeBean implements Serializable {
         private int status;
         private String icon;
 
+        private String fatherTypeName;
+        private String lineColors;
+        private String ombre;
+        private int sortId;
+        private int weight;
+        private String property;
+
+        public String getFatherTypeName() {
+            return fatherTypeName;
+        }
+
+        public void setFatherTypeName(String fatherTypeName) {
+            this.fatherTypeName = fatherTypeName;
+        }
+
+        public String getLineColors() {
+            return lineColors;
+        }
+
+        public void setLineColors(String lineColors) {
+            this.lineColors = lineColors;
+        }
+
+        public String getOmbre() {
+            return ombre;
+        }
+
+        public void setOmbre(String ombre) {
+            this.ombre = ombre;
+        }
+
+        public int getSortId() {
+            return sortId;
+        }
+
+        public void setSortId(int sortId) {
+            this.sortId = sortId;
+        }
+
+        public int getWeight() {
+            return weight;
+        }
+
+        public void setWeight(int weight) {
+            this.weight = weight;
+        }
+
+        public String getProperty() {
+            return property;
+        }
+
+        public void setProperty(String property) {
+            this.property = property;
+        }
+
         public int getId() {
             return id;
         }

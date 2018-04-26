@@ -5,6 +5,10 @@
             "map": [
                 {
                     "source": "D:\\projects\\companys\\meiye\\customer\\SlidingLibrary\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+            "outputFile": "D:\\Code\\zxmyAndroid\\SlidingLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\values_values.arsc.flat",
+            "map": [
+                {
+                    "source": "D:\\Code\\zxmyAndroid\\SlidingLibrary\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "from": {
                         "startLines": "12",
                         "startColumns": "4",

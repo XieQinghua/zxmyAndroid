@@ -466,7 +466,12 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
         shopTypeFirstParentName = selectShopTypeBean.getShopTypeFirstParentName();
         shopTypeSecondParentId = selectShopTypeBean.getShopTypeSecondParentId();
         shopTypeSecondParentName = selectShopTypeBean.getShopTypeSecondParentName();
-        shopsJoinDataBinding.tvChooseShopsResult.setText(shopTypeFirstParentName);
+        if (shopTypeSecondParentName != null) {
+            shopsJoinDataBinding.tvChooseShopsResult.setText(shopTypeFirstParentName + "-" + shopTypeSecondParentName);
+        } else {
+            shopsJoinDataBinding.tvChooseShopsResult.setText(shopTypeFirstParentName);
+        }
+
     }
 
     /**
