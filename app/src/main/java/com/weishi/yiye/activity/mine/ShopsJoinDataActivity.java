@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -27,6 +29,8 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.compress.Luban;
 import com.luck.picture.lib.config.PictureConfig;
@@ -89,11 +93,11 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
 
     private CheckPermission checkPermission;
 
-    private int presentView;
-    //营业执照图片路径
-    private String businessLicensePath;
-    //身份证图片路径
-    private String identityCardPath;
+    //    private int presentView;
+//    //营业执照图片路径
+//    private String businessLicensePath;
+//    //身份证图片路径
+//    private String identityCardPath;
     private String provinceCode, provinceName, cityCode, cityName, areaCode, areaName;
     private int shopTypeFirstParentId;
     private String shopTypeFirstParentName;
@@ -103,7 +107,11 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
     private Integer shopId;
 
     private List<LocalMedia> selectList = new ArrayList<>();
+    private ArrayList<ImageView> imageViewList = new ArrayList<ImageView>();
     private int maxSelectNum = 9;
+
+    private MyPagerAdapter pagerAdapter;
+    private MyPageChangeListener pageChangeListener;
 
     @Override
     protected void initView() {
@@ -117,14 +125,14 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
             @Override
             public void permissionSuccess(int requestCode) {
                 switch (requestCode) {
-                    case CheckPermission.REQUEST_CODE_PERMISSION_CAMERA:
-                        CropImageUtils.getInstance().takePhoto(ShopsJoinDataActivity.this);
-                        break;
-                    case CheckPermission.REQUEST_CODE_PERMISSION_STORAGE:
-                        CropImageUtils.getInstance().openAlbum(ShopsJoinDataActivity.this);
-                        break;
-                    default:
-                        break;
+//                    case CheckPermission.REQUEST_CODE_PERMISSION_CAMERA:
+//                        CropImageUtils.getInstance().takePhoto(ShopsJoinDataActivity.this);
+//                        break;
+//                    case CheckPermission.REQUEST_CODE_PERMISSION_STORAGE:
+//                        CropImageUtils.getInstance().openAlbum(ShopsJoinDataActivity.this);
+//                        break;
+//                    default:
+//                        break;
                 }
             }
 
@@ -136,23 +144,27 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
             }
         };
 
-        WindowManager wm = (WindowManager) ShopsJoinDataActivity.this.getSystemService(Context.WINDOW_SERVICE);
-        ViewGroup.LayoutParams para1 = shopsJoinDataBinding.rlIdentityPhoto.getLayoutParams();
-        para1.width = wm.getDefaultDisplay().getWidth();
-        para1.height = wm.getDefaultDisplay().getWidth() * 1 / 2;
-        shopsJoinDataBinding.rlIdentityPhoto.setLayoutParams(para1);
-        ViewGroup.LayoutParams para2 = shopsJoinDataBinding.rlBusinessLicense.getLayoutParams();
-        para2.width = wm.getDefaultDisplay().getWidth();
-        para2.height = wm.getDefaultDisplay().getWidth() * 1 / 2;
-        shopsJoinDataBinding.rlBusinessLicense.setLayoutParams(para2);
-
-        shopsJoinDataBinding.tvIdentityPhoto.setOnClickListener(this);
-        shopsJoinDataBinding.tvBusinessLicense.setOnClickListener(this);
+//        WindowManager wm = (WindowManager) ShopsJoinDataActivity.this.getSystemService(Context.WINDOW_SERVICE);
+//        ViewGroup.LayoutParams para1 = shopsJoinDataBinding.rlIdentityPhoto.getLayoutParams();
+//        para1.width = wm.getDefaultDisplay().getWidth();
+//        para1.height = wm.getDefaultDisplay().getWidth() * 1 / 2;
+//        shopsJoinDataBinding.rlIdentityPhoto.setLayoutParams(para1);
+//        ViewGroup.LayoutParams para2 = shopsJoinDataBinding.rlBusinessLicense.getLayoutParams();
+//        para2.width = wm.getDefaultDisplay().getWidth();
+//        para2.height = wm.getDefaultDisplay().getWidth() * 1 / 2;
+//        shopsJoinDataBinding.rlBusinessLicense.setLayoutParams(para2);
+//
+//        shopsJoinDataBinding.tvIdentityPhoto.setOnClickListener(this);
+//        shopsJoinDataBinding.tvBusinessLicense.setOnClickListener(this);
 
         shopsJoinDataBinding.btnSubmitApply.setOnClickListener(this);
         shopsJoinDataBinding.rlChooseAddress.setOnClickListener(this);
         shopsJoinDataBinding.tvChooseShopsClass.setOnClickListener(this);
 
+        pagerAdapter = new MyPagerAdapter();
+        pageChangeListener = new MyPageChangeListener();
+        shopsJoinDataBinding.vpBanner.setAdapter(pagerAdapter);
+        shopsJoinDataBinding.vpBanner.setOnPageChangeListener(pageChangeListener);
         shopsJoinDataBinding.tvAddBanner.setOnClickListener(this);
     }
 
@@ -167,16 +179,16 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
             case R.id.tv_add_banner:
                 openAlbum();
                 break;
-            case R.id.tv_identity_photo:
-                //记录当前点击view
-                presentView = R.id.tv_identity_photo;
-                new PopupWindows(ShopsJoinDataActivity.this, view);
-                break;
-            case R.id.tv_business_license:
-                //记录当前点击view
-                presentView = R.id.tv_business_license;
-                new PopupWindows(ShopsJoinDataActivity.this, view);
-                break;
+//            case R.id.tv_identity_photo:
+//                //记录当前点击view
+//                presentView = R.id.tv_identity_photo;
+//                new PopupWindows(ShopsJoinDataActivity.this, view);
+//                break;
+//            case R.id.tv_business_license:
+//                //记录当前点击view
+//                presentView = R.id.tv_business_license;
+//                new PopupWindows(ShopsJoinDataActivity.this, view);
+//                break;
             case R.id.tv_choose_shops_class:
                 //选择商家分类
                 Intent shopClassIntent = new Intent(this, ShopClassActivity.class);
@@ -187,14 +199,14 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
                 //选择地址区域
                 IntentUtil.startActivity(ShopsJoinDataActivity.this, ProvinceActivity.class, 1);
                 break;
-            case R.id.iv_del_identity_photo:
-                shopsJoinDataBinding.sdvIdentityPhoto.setVisibility(View.GONE);
-                shopsJoinDataBinding.ivDelIdentityPhoto.setVisibility(View.GONE);
-                break;
-            case R.id.iv_del_business_license:
-                shopsJoinDataBinding.sdvBusinessLicense.setVisibility(View.GONE);
-                shopsJoinDataBinding.ivDelBusinessLicense.setVisibility(View.GONE);
-                break;
+//            case R.id.iv_del_identity_photo:
+//                shopsJoinDataBinding.sdvIdentityPhoto.setVisibility(View.GONE);
+//                shopsJoinDataBinding.ivDelIdentityPhoto.setVisibility(View.GONE);
+//                break;
+//            case R.id.iv_del_business_license:
+//                shopsJoinDataBinding.sdvBusinessLicense.setVisibility(View.GONE);
+//                shopsJoinDataBinding.ivDelBusinessLicense.setVisibility(View.GONE);
+//                break;
             case R.id.btn_submit_apply:
                 if (shopId != null) {
                     new PayPopupWindows(ShopsJoinDataActivity.this, shopsJoinDataBinding.btnSubmitApply, shopId + "");
@@ -240,6 +252,65 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
                 //.videoSecond()//显示多少秒以内的视频
                 //.recordVideoSecond()//录制视频秒数 默认60秒
                 .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
+    }
+
+    /**
+     * 自定义pageradapter  适配viewpager
+     */
+    public class MyPagerAdapter extends PagerAdapter {
+
+        @Override
+        public int getCount() {
+            return selectList.size();
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, final int position) {
+            ImageView imageView = new ImageView(container.getContext());
+            imageView.setId(999 + position);
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ScreenUtils.getScreenWidth() - SizeUtils.dp2px(20), SizeUtils.dp2px(150));
+//            lp.width = ScreenUtils.getScreenWidth() - SizeUtils.dp2px(20);
+//            lp.height = SizeUtils.dp2px(150);
+            imageView.setLayoutParams(lp);
+            //为imageView加载本地图片
+            imageView.setImageURI(Uri.fromFile(new File(selectList.get(position).getPath())));
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            (container).addView(imageView);
+            return imageView;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            ((ViewPager) container).removeView((View) object);
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return false;
+        }
+    }
+
+    /**
+     * 当ViewPager中页面的状态发生改变时调用
+     *
+     * @author xieqinghua
+     */
+    private class MyPageChangeListener implements ViewPager.OnPageChangeListener {
+
+        /**
+         * This method will be invoked when a new page becomes selected.
+         * position: Position index of the new selected page.
+         */
+        public void onPageSelected(int position) {
+            shopsJoinDataBinding.tvVpIndicator.setVisibility(View.VISIBLE);
+            shopsJoinDataBinding.tvVpIndicator.setText((position + 1) + "/" + selectList.size());
+        }
+
+        public void onPageScrollStateChanged(int arg0) {
+        }
+
+        public void onPageScrolled(int arg0, float arg1, int arg2) {
+        }
     }
 
     /**
@@ -423,42 +494,42 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        CropImageUtils.getInstance().onActivityResult(this, requestCode, resultCode, data, new CropImageUtils.OnResultListener() {
-            @Override
-            public void takePhotoFinish(String path) {
-                LogUtils.i(TAG, "照片存放在：" + path);
-                //拍照回调，去裁剪
-                CropImageUtils.getInstance().cropPicture(ShopsJoinDataActivity.this, path, CropImageUtils.ASPECT_RATIO2);
-            }
-
-            @Override
-            public void selectPictureFinish(String path) {
-                LogUtils.i(TAG, "打开图片：" + path);
-                //相册回调，去裁剪
-                CropImageUtils.getInstance().cropPicture(ShopsJoinDataActivity.this, path, CropImageUtils.ASPECT_RATIO2);
-            }
-
-            @Override
-            public void cropPictureFinish(String path) {
-                LogUtils.i(TAG, "裁剪保存在：" + path);
-                //裁剪回调
-                if (presentView == R.id.tv_identity_photo) {
-                    //上传图片
-                    imageUpload(path, presentView);
-                    shopsJoinDataBinding.sdvIdentityPhoto.setImageURI(Uri.parse("file://" + path));
-                    shopsJoinDataBinding.sdvIdentityPhoto.setVisibility(View.VISIBLE);
-                    shopsJoinDataBinding.ivDelIdentityPhoto.setVisibility(View.VISIBLE);
-                    shopsJoinDataBinding.ivDelIdentityPhoto.setOnClickListener(ShopsJoinDataActivity.this);
-                } else if (presentView == R.id.tv_business_license) {
-                    //上传图片
-                    imageUpload(path, presentView);
-                    shopsJoinDataBinding.sdvBusinessLicense.setImageURI(Uri.parse("file://" + path));
-                    shopsJoinDataBinding.sdvBusinessLicense.setVisibility(View.VISIBLE);
-                    shopsJoinDataBinding.ivDelBusinessLicense.setVisibility(View.VISIBLE);
-                    shopsJoinDataBinding.ivDelBusinessLicense.setOnClickListener(ShopsJoinDataActivity.this);
-                }
-            }
-        });
+//        CropImageUtils.getInstance().onActivityResult(this, requestCode, resultCode, data, new CropImageUtils.OnResultListener() {
+//            @Override
+//            public void takePhotoFinish(String path) {
+//                LogUtils.i(TAG, "照片存放在：" + path);
+//                //拍照回调，去裁剪
+//                CropImageUtils.getInstance().cropPicture(ShopsJoinDataActivity.this, path, CropImageUtils.ASPECT_RATIO2);
+//            }
+//
+//            @Override
+//            public void selectPictureFinish(String path) {
+//                LogUtils.i(TAG, "打开图片：" + path);
+//                //相册回调，去裁剪
+//                CropImageUtils.getInstance().cropPicture(ShopsJoinDataActivity.this, path, CropImageUtils.ASPECT_RATIO2);
+//            }
+//
+//            @Override
+//            public void cropPictureFinish(String path) {
+//                LogUtils.i(TAG, "裁剪保存在：" + path);
+//                //裁剪回调
+//                if (presentView == R.id.tv_identity_photo) {
+//                    //上传图片
+//                    imageUpload(path, presentView);
+//                    shopsJoinDataBinding.sdvIdentityPhoto.setImageURI(Uri.parse("file://" + path));
+//                    shopsJoinDataBinding.sdvIdentityPhoto.setVisibility(View.VISIBLE);
+//                    shopsJoinDataBinding.ivDelIdentityPhoto.setVisibility(View.VISIBLE);
+//                    shopsJoinDataBinding.ivDelIdentityPhoto.setOnClickListener(ShopsJoinDataActivity.this);
+//                } else if (presentView == R.id.tv_business_license) {
+//                    //上传图片
+//                    imageUpload(path, presentView);
+//                    shopsJoinDataBinding.sdvBusinessLicense.setImageURI(Uri.parse("file://" + path));
+//                    shopsJoinDataBinding.sdvBusinessLicense.setVisibility(View.VISIBLE);
+//                    shopsJoinDataBinding.ivDelBusinessLicense.setVisibility(View.VISIBLE);
+//                    shopsJoinDataBinding.ivDelBusinessLicense.setOnClickListener(ShopsJoinDataActivity.this);
+//                }
+//            }
+//        });
 
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
@@ -473,6 +544,39 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
                     for (LocalMedia localMedia : selectList) {
                         Log.i(TAG, "选择图片的本地地址=" + localMedia.getCompressPath());
                     }
+
+                    if (imageViewList.size() != 0) {
+                        imageViewList.clear();
+                    }
+
+//                    for (int i = 0; i < selectList.size(); i++) {
+//                        ImageView imageView = new ImageView(ShopsJoinDataActivity.this);
+//                        imageView.setId(999 + i);
+//                        //为imageView加载本地图片
+//                        imageView.setImageURI(Uri.fromFile(new File(selectList.get(i).getPath())));
+////                        RequestOptions options = new RequestOptions()
+////                                .centerCrop()
+////                                .placeholder(R.color.main_bk)
+////                                .diskCacheStrategy(DiskCacheStrategy.ALL);
+////                        Glide.with(ShopsJoinDataActivity.this)
+////                                .load(selectList.get(i).getPath())
+////                                .apply(options)
+////                                .into(imageView);
+//                        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                        imageViewList.add(imageView);
+//                        Log.e(TAG, "添加了" + i + "张图片");
+//                    }
+//                    shopsJoinDataBinding.tvAddLogo.setImageURI(Uri.fromFile(new File(selectList.get(0).getPath())));
+                    //shopsJoinDataBinding.sdvIdentityPhoto.setImageURI(Uri.parse("file://" + path));
+//                    shopsJoinDataBinding.iv1.setImageURI(Uri.fromFile(new File(selectList.get(0).getPath())));
+//                    shopsJoinDataBinding.iv2.setImageURI(Uri.fromFile(new File(selectList.get(1).getPath())));
+//                    shopsJoinDataBinding.iv3.setImageURI(Uri.fromFile(new File(selectList.get(2).getPath())));
+//                    shopsJoinDataBinding.iv4.setImageURI(Uri.fromFile(new File(selectList.get(3).getPath())));
+                    shopsJoinDataBinding.tvAddBanner.setVisibility(View.GONE);
+                    shopsJoinDataBinding.vpBanner.setVisibility(View.VISIBLE);
+                    shopsJoinDataBinding.tvVpIndicator.setVisibility(View.VISIBLE);
+                    shopsJoinDataBinding.tvVpIndicator.setText("1/" + selectList.size());
+                    pagerAdapter.notifyDataSetChanged();
                     break;
                 default:
                     break;
@@ -486,7 +590,6 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
      * @param url         图片路径
      * @param presentView 当前视图
      */
-
     public void imageUpload(String url, final int presentView) {
         File file = new File(url);
         HttpUtils.doFile(Api.IMAGE_UPLOAD, url, file.getName(), new Callback() {
@@ -504,13 +607,13 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
                 if (Api.STATE_SUCCESS.equals(imageUploadBean.getCode())) {
                     Log.e(TAG, "图片地址 =" + imageUploadBean.getData().get(0));
                     //营业执照
-                    if (presentView == R.id.tv_business_license) {
-                        businessLicensePath = imageUploadBean.getData().get(0);
-                    }
-                    //身份证照片
-                    else if (presentView == R.id.tv_identity_photo) {
-                        identityCardPath = imageUploadBean.getData().get(0);
-                    }
+//                    if (presentView == R.id.tv_business_license) {
+//                        businessLicensePath = imageUploadBean.getData().get(0);
+//                    }
+//                    //身份证照片
+//                    else if (presentView == R.id.tv_identity_photo) {
+//                        identityCardPath = imageUploadBean.getData().get(0);
+//                    }
                 }
             }
         });
