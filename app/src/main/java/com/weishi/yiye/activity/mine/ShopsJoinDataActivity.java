@@ -93,11 +93,6 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
 
     private CheckPermission checkPermission;
 
-    //    private int presentView;
-//    //营业执照图片路径
-//    private String businessLicensePath;
-//    //身份证图片路径
-//    private String identityCardPath;
     private String provinceCode, provinceName, cityCode, cityName, areaCode, areaName;
     private int shopTypeFirstParentId;
     private String shopTypeFirstParentName;
@@ -107,11 +102,16 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
     private Integer shopId;
 
     private List<LocalMedia> selectList = new ArrayList<>();
-    private ArrayList<ImageView> imageViewList = new ArrayList<ImageView>();
     private int maxSelectNum = 9;
+    private int uploadPosition = 0;
+    private StringBuilder sbImg = new StringBuilder();
+    private String alternateImg;
 
     private MyPagerAdapter pagerAdapter;
     private MyPageChangeListener pageChangeListener;
+
+    private String logoPath;
+    private String storeLogo;
 
     @Override
     protected void initView() {
@@ -125,14 +125,14 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
             @Override
             public void permissionSuccess(int requestCode) {
                 switch (requestCode) {
-//                    case CheckPermission.REQUEST_CODE_PERMISSION_CAMERA:
-//                        CropImageUtils.getInstance().takePhoto(ShopsJoinDataActivity.this);
-//                        break;
-//                    case CheckPermission.REQUEST_CODE_PERMISSION_STORAGE:
-//                        CropImageUtils.getInstance().openAlbum(ShopsJoinDataActivity.this);
-//                        break;
-//                    default:
-//                        break;
+                    case CheckPermission.REQUEST_CODE_PERMISSION_CAMERA:
+                        CropImageUtils.getInstance().takePhoto(ShopsJoinDataActivity.this);
+                        break;
+                    case CheckPermission.REQUEST_CODE_PERMISSION_STORAGE:
+                        CropImageUtils.getInstance().openAlbum(ShopsJoinDataActivity.this);
+                        break;
+                    default:
+                        break;
                 }
             }
 
@@ -144,19 +144,6 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
             }
         };
 
-//        WindowManager wm = (WindowManager) ShopsJoinDataActivity.this.getSystemService(Context.WINDOW_SERVICE);
-//        ViewGroup.LayoutParams para1 = shopsJoinDataBinding.rlIdentityPhoto.getLayoutParams();
-//        para1.width = wm.getDefaultDisplay().getWidth();
-//        para1.height = wm.getDefaultDisplay().getWidth() * 1 / 2;
-//        shopsJoinDataBinding.rlIdentityPhoto.setLayoutParams(para1);
-//        ViewGroup.LayoutParams para2 = shopsJoinDataBinding.rlBusinessLicense.getLayoutParams();
-//        para2.width = wm.getDefaultDisplay().getWidth();
-//        para2.height = wm.getDefaultDisplay().getWidth() * 1 / 2;
-//        shopsJoinDataBinding.rlBusinessLicense.setLayoutParams(para2);
-//
-//        shopsJoinDataBinding.tvIdentityPhoto.setOnClickListener(this);
-//        shopsJoinDataBinding.tvBusinessLicense.setOnClickListener(this);
-
         shopsJoinDataBinding.btnSubmitApply.setOnClickListener(this);
         shopsJoinDataBinding.rlChooseAddress.setOnClickListener(this);
         shopsJoinDataBinding.tvChooseShopsClass.setOnClickListener(this);
@@ -166,6 +153,7 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
         shopsJoinDataBinding.vpBanner.setAdapter(pagerAdapter);
         shopsJoinDataBinding.vpBanner.setOnPageChangeListener(pageChangeListener);
         shopsJoinDataBinding.tvAddBanner.setOnClickListener(this);
+        shopsJoinDataBinding.tvAddLogo.setOnClickListener(this);
     }
 
     @Override
@@ -179,16 +167,6 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
             case R.id.tv_add_banner:
                 openAlbum();
                 break;
-//            case R.id.tv_identity_photo:
-//                //记录当前点击view
-//                presentView = R.id.tv_identity_photo;
-//                new PopupWindows(ShopsJoinDataActivity.this, view);
-//                break;
-//            case R.id.tv_business_license:
-//                //记录当前点击view
-//                presentView = R.id.tv_business_license;
-//                new PopupWindows(ShopsJoinDataActivity.this, view);
-//                break;
             case R.id.tv_choose_shops_class:
                 //选择商家分类
                 Intent shopClassIntent = new Intent(this, ShopClassActivity.class);
@@ -199,20 +177,22 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
                 //选择地址区域
                 IntentUtil.startActivity(ShopsJoinDataActivity.this, ProvinceActivity.class, 1);
                 break;
-//            case R.id.iv_del_identity_photo:
-//                shopsJoinDataBinding.sdvIdentityPhoto.setVisibility(View.GONE);
-//                shopsJoinDataBinding.ivDelIdentityPhoto.setVisibility(View.GONE);
-//                break;
-//            case R.id.iv_del_business_license:
-//                shopsJoinDataBinding.sdvBusinessLicense.setVisibility(View.GONE);
-//                shopsJoinDataBinding.ivDelBusinessLicense.setVisibility(View.GONE);
-//                break;
             case R.id.btn_submit_apply:
-                if (shopId != null) {
-                    new PayPopupWindows(ShopsJoinDataActivity.this, shopsJoinDataBinding.btnSubmitApply, shopId + "");
+//                if (shopId != null) {
+//                    new PayPopupWindows(ShopsJoinDataActivity.this, shopsJoinDataBinding.btnSubmitApply, shopId + "");
+//                } else {
+
+                startAnim(null);
+
+                if (selectList != null && selectList.size() != 0) {
+                    imageUpload(selectList.get(uploadPosition).getCompressPath(), uploadPosition);
                 } else {
                     submitApply();
                 }
+//                }
+                break;
+            case R.id.tv_add_logo:
+                new PopupWindows(ShopsJoinDataActivity.this, view);
                 break;
             default:
                 break;
@@ -269,8 +249,6 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
             ImageView imageView = new ImageView(container.getContext());
             imageView.setId(999 + position);
             RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ScreenUtils.getScreenWidth() - SizeUtils.dp2px(20), SizeUtils.dp2px(150));
-//            lp.width = ScreenUtils.getScreenWidth() - SizeUtils.dp2px(20);
-//            lp.height = SizeUtils.dp2px(150);
             imageView.setLayoutParams(lp);
             //为imageView加载本地图片
             imageView.setImageURI(Uri.fromFile(new File(selectList.get(position).getPath())));
@@ -286,7 +264,7 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
-            return false;
+            return view == object;
         }
     }
 
@@ -317,77 +295,89 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
      * 提交申请
      */
     private void submitApply() {
-//        if (ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopsName.getText().toString())) {
-//            Toast.makeText(ShopsJoinDataActivity.this, "请填写商家名称", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        if (ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopsAddress.getText().toString())) {
-//            Toast.makeText(ShopsJoinDataActivity.this, "请填写店铺详细地址", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        if (ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopsRecNo.getText().toString())) {
-//            Toast.makeText(ShopsJoinDataActivity.this, "请填写店铺邀请码", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        if (ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopkeeperName.getText().toString())) {
-//            Toast.makeText(ShopsJoinDataActivity.this, "请填写店主姓名", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-        if (ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopkeeperMobile.getText().toString())) {
-            Toast.makeText(ShopsJoinDataActivity.this, "请填写商家手机号码", Toast.LENGTH_SHORT).show();
+        if (logoPath == null) {
+            Toast.makeText(ShopsJoinDataActivity.this, "请上传商家LOGO", Toast.LENGTH_SHORT).show();
+            stopAnim();
             return;
         }
-        if (!IsIDCard.isValidMobileNo(shopsJoinDataBinding.etShopkeeperMobile.getText().toString())) {
-            Toast.makeText(ShopsJoinDataActivity.this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+        if (selectList.size() == 0) {
+            Toast.makeText(ShopsJoinDataActivity.this, "请添加店铺banner图", Toast.LENGTH_SHORT).show();
+            stopAnim();
+            return;
+        }
+        if (ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopsName.getText().toString())) {
+            Toast.makeText(ShopsJoinDataActivity.this, "请填写商家名称", Toast.LENGTH_SHORT).show();
+            stopAnim();
+            return;
+        }
+        if (ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopkeeperName.getText().toString())) {
+            Toast.makeText(ShopsJoinDataActivity.this, "请填写店主姓名", Toast.LENGTH_SHORT).show();
+            stopAnim();
             return;
         }
         if (ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopkeeperIdentity.getText().toString())) {
             Toast.makeText(ShopsJoinDataActivity.this, "请填写店主身份证号", Toast.LENGTH_SHORT).show();
+            stopAnim();
             return;
         }
         if (!IsIDCard.isIDCard(shopsJoinDataBinding.etShopkeeperIdentity.getText().toString())) {
             Toast.makeText(ShopsJoinDataActivity.this, "请输入有效身份证号码", Toast.LENGTH_SHORT).show();
+            stopAnim();
             return;
         }
         if (ValidatorUtils.isEmptyString(provinceCode)) {
             Toast.makeText(ShopsJoinDataActivity.this, "请选择商家区域", Toast.LENGTH_SHORT).show();
+            stopAnim();
             return;
         }
-//        if (ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopLicenceNo.getText().toString())) {
-//            Toast.makeText(ShopsJoinDataActivity.this, "请填写店铺营业执照号码", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        if (ValidatorUtils.isEmptyString(identityCardPath)) {
-//            Toast.makeText(ShopsJoinDataActivity.this, "请上传身份证照片", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        if (ValidatorUtils.isEmptyString(businessLicensePath)) {
-//            Toast.makeText(ShopsJoinDataActivity.this, "请上传营业执照", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-
+        if (ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopsAddress.getText().toString())) {
+            Toast.makeText(ShopsJoinDataActivity.this, "请填写店铺详细地址", Toast.LENGTH_SHORT).show();
+            stopAnim();
+            return;
+        }
+        if (ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopkeeperMobile.getText().toString())) {
+            Toast.makeText(ShopsJoinDataActivity.this, "请填写商家手机号码", Toast.LENGTH_SHORT).show();
+            stopAnim();
+            return;
+        }
+        if (!IsIDCard.isValidMobileNo(shopsJoinDataBinding.etShopkeeperMobile.getText().toString())) {
+            Toast.makeText(ShopsJoinDataActivity.this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+            stopAnim();
+            return;
+        }
+        if (ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopsRecNo.getText().toString())) {
+            Toast.makeText(ShopsJoinDataActivity.this, "请填写店铺邀请码", Toast.LENGTH_SHORT).show();
+            stopAnim();
+            return;
+        }
         JSONObject jsonParams = new JSONObject();
         try {
-//            jsonParams.put("businessName", shopsJoinDataBinding.etShopsName.getText().toString());
-//            jsonParams.put("corporationName", shopsJoinDataBinding.etShopkeeperName.getText().toString());
-            jsonParams.put("mobile", shopsJoinDataBinding.etShopkeeperMobile.getText().toString());
-//            jsonParams.put("busiFatherType", shopTypeFirstParentId);
-//            jsonParams.put("busiFatherTypeName", shopTypeFirstParentName);
-//            jsonParams.put("busiParentType", shopTypeSecondParentId);
-//            jsonParams.put("busiParentTypeName", shopTypeSecondParentName);
-//            jsonParams.put("licenceNo", shopsJoinDataBinding.etShopLicenceNo.getText().toString());
-//            jsonParams.put("licenceImg", businessLicensePath);
-            jsonParams.put("idCard", shopsJoinDataBinding.etShopkeeperIdentity.getText().toString());
-//            jsonParams.put("idCardImg", identityCardPath);
-//            jsonParams.put("address", shopsJoinDataBinding.etShopsAddress.getText().toString());
             jsonParams.put("userId", mSp.getInt(Constants.USER_ID, 0));
-//            jsonParams.put("id", mSp.getInt(Constants.USER_ID, 0));
-            if (!ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopsRecNo.getText().toString())) {
-                jsonParams.put("inviteCode", shopsJoinDataBinding.etShopsRecNo.getText().toString());
-            }
+            jsonParams.put("alternateImg", alternateImg);
+            jsonParams.put("storeLogo", storeLogo);
+            jsonParams.put("storeName", shopsJoinDataBinding.etShopsName.getText().toString());
+            jsonParams.put("shopkeeperName", shopsJoinDataBinding.etShopkeeperName.getText().toString());
+            jsonParams.put("idCard", shopsJoinDataBinding.etShopkeeperIdentity.getText().toString());
+            jsonParams.put("mobile", shopsJoinDataBinding.etShopkeeperMobile.getText().toString());
             jsonParams.put("provinceCode", provinceCode);
+            jsonParams.put("provinceName", provinceName);
             jsonParams.put("cityCode", cityCode);
+            jsonParams.put("cityName", cityName);
             jsonParams.put("areaCode", areaCode);
+            jsonParams.put("areaName", areaName);
+            jsonParams.put("address", shopsJoinDataBinding.etShopsAddress.getText().toString());
+
+            jsonParams.put("lng", 1.0);
+            jsonParams.put("lat", 1.0);
+
+            jsonParams.put("businessFatherType", shopTypeFirstParentId);
+            jsonParams.put("businessFatherTypeName", shopTypeFirstParentName);
+            jsonParams.put("businessParentType", shopTypeSecondParentId);
+            jsonParams.put("businessParentTypeName", shopTypeSecondParentName);
+            jsonParams.put("businessSortType", -1);
+            jsonParams.put("businessSortTypeName", "");
+
+            jsonParams.put("inviteCode", shopsJoinDataBinding.etShopsRecNo.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -399,6 +389,8 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                stopAnim();
+
                 final String result = response.body().string();
                 Log.e(TAG, result);
 
@@ -407,10 +399,12 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
                     @Override
                     public void run() {
                         if (Api.STATE_SUCCESS.equals(shopsJoinBean.getCode())) {
-                            if (shopsJoinBean.getData().getOnlinePay() == 1) {
-                                shopId = shopsJoinBean.getData().getId();
-                                new PayPopupWindows(ShopsJoinDataActivity.this, shopsJoinDataBinding.btnSubmitApply, shopId + "");
-                            }
+                            Toast.makeText(ShopsJoinDataActivity.this, "资料填写成功", Toast.LENGTH_SHORT).show();
+                            finish();
+//                            if (shopsJoinBean.getData().getOnlinePay() == 1) {
+//                                shopId = shopsJoinBean.getData().getId();
+//                                new PayPopupWindows(ShopsJoinDataActivity.this, shopsJoinDataBinding.btnSubmitApply, shopId + "");
+//                            }
                         } else {
                             Toast.makeText(ShopsJoinDataActivity.this, shopsJoinBean.getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -479,7 +473,6 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
                         CropImageUtils.getInstance().openAlbum(ShopsJoinDataActivity.this);
                     }
                     dismiss();
-
                 }
             });
             bt3.setOnClickListener(new View.OnClickListener() {
@@ -494,42 +487,32 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        CropImageUtils.getInstance().onActivityResult(this, requestCode, resultCode, data, new CropImageUtils.OnResultListener() {
-//            @Override
-//            public void takePhotoFinish(String path) {
-//                LogUtils.i(TAG, "照片存放在：" + path);
-//                //拍照回调，去裁剪
-//                CropImageUtils.getInstance().cropPicture(ShopsJoinDataActivity.this, path, CropImageUtils.ASPECT_RATIO2);
-//            }
-//
-//            @Override
-//            public void selectPictureFinish(String path) {
-//                LogUtils.i(TAG, "打开图片：" + path);
-//                //相册回调，去裁剪
-//                CropImageUtils.getInstance().cropPicture(ShopsJoinDataActivity.this, path, CropImageUtils.ASPECT_RATIO2);
-//            }
-//
-//            @Override
-//            public void cropPictureFinish(String path) {
-//                LogUtils.i(TAG, "裁剪保存在：" + path);
-//                //裁剪回调
-//                if (presentView == R.id.tv_identity_photo) {
-//                    //上传图片
-//                    imageUpload(path, presentView);
-//                    shopsJoinDataBinding.sdvIdentityPhoto.setImageURI(Uri.parse("file://" + path));
-//                    shopsJoinDataBinding.sdvIdentityPhoto.setVisibility(View.VISIBLE);
-//                    shopsJoinDataBinding.ivDelIdentityPhoto.setVisibility(View.VISIBLE);
-//                    shopsJoinDataBinding.ivDelIdentityPhoto.setOnClickListener(ShopsJoinDataActivity.this);
-//                } else if (presentView == R.id.tv_business_license) {
-//                    //上传图片
-//                    imageUpload(path, presentView);
-//                    shopsJoinDataBinding.sdvBusinessLicense.setImageURI(Uri.parse("file://" + path));
-//                    shopsJoinDataBinding.sdvBusinessLicense.setVisibility(View.VISIBLE);
-//                    shopsJoinDataBinding.ivDelBusinessLicense.setVisibility(View.VISIBLE);
-//                    shopsJoinDataBinding.ivDelBusinessLicense.setOnClickListener(ShopsJoinDataActivity.this);
-//                }
-//            }
-//        });
+        CropImageUtils.getInstance().onActivityResult(this, requestCode, resultCode, data, new CropImageUtils.OnResultListener() {
+            @Override
+            public void takePhotoFinish(String path) {
+                LogUtils.i(TAG, "照片存放在：" + path);
+                //拍照回调，去裁剪
+                CropImageUtils.getInstance().cropPicture(ShopsJoinDataActivity.this, path, CropImageUtils.ASPECT_RATIO1);
+            }
+
+            @Override
+            public void selectPictureFinish(String path) {
+                LogUtils.i(TAG, "打开图片：" + path);
+                //相册回调，去裁剪
+                CropImageUtils.getInstance().cropPicture(ShopsJoinDataActivity.this, path, CropImageUtils.ASPECT_RATIO1);
+            }
+
+            @Override
+            public void cropPictureFinish(String path) {
+                LogUtils.i(TAG, "裁剪保存在：" + path);
+                //上传图片
+                //imageUpload(path, presentView);
+                //shopsJoinDataBinding.tvAddLogo.setImageURI(Uri.parse("file://" + path));
+                shopsJoinDataBinding.tvAddLogo.setImageURI(Uri.fromFile(new File(path)));
+                logoPath = path;
+                imageUpload(path);
+            }
+        });
 
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
@@ -545,33 +528,6 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
                         Log.i(TAG, "选择图片的本地地址=" + localMedia.getCompressPath());
                     }
 
-                    if (imageViewList.size() != 0) {
-                        imageViewList.clear();
-                    }
-
-//                    for (int i = 0; i < selectList.size(); i++) {
-//                        ImageView imageView = new ImageView(ShopsJoinDataActivity.this);
-//                        imageView.setId(999 + i);
-//                        //为imageView加载本地图片
-//                        imageView.setImageURI(Uri.fromFile(new File(selectList.get(i).getPath())));
-////                        RequestOptions options = new RequestOptions()
-////                                .centerCrop()
-////                                .placeholder(R.color.main_bk)
-////                                .diskCacheStrategy(DiskCacheStrategy.ALL);
-////                        Glide.with(ShopsJoinDataActivity.this)
-////                                .load(selectList.get(i).getPath())
-////                                .apply(options)
-////                                .into(imageView);
-//                        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//                        imageViewList.add(imageView);
-//                        Log.e(TAG, "添加了" + i + "张图片");
-//                    }
-//                    shopsJoinDataBinding.tvAddLogo.setImageURI(Uri.fromFile(new File(selectList.get(0).getPath())));
-                    //shopsJoinDataBinding.sdvIdentityPhoto.setImageURI(Uri.parse("file://" + path));
-//                    shopsJoinDataBinding.iv1.setImageURI(Uri.fromFile(new File(selectList.get(0).getPath())));
-//                    shopsJoinDataBinding.iv2.setImageURI(Uri.fromFile(new File(selectList.get(1).getPath())));
-//                    shopsJoinDataBinding.iv3.setImageURI(Uri.fromFile(new File(selectList.get(2).getPath())));
-//                    shopsJoinDataBinding.iv4.setImageURI(Uri.fromFile(new File(selectList.get(3).getPath())));
                     shopsJoinDataBinding.tvAddBanner.setVisibility(View.GONE);
                     shopsJoinDataBinding.vpBanner.setVisibility(View.VISIBLE);
                     shopsJoinDataBinding.tvVpIndicator.setVisibility(View.VISIBLE);
@@ -585,12 +541,11 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
     }
 
     /**
-     * 上传图片
+     * 上传单张图片
      *
-     * @param url         图片路径
-     * @param presentView 当前视图
+     * @param url 图片路径
      */
-    public void imageUpload(String url, final int presentView) {
+    public void imageUpload(String url) {
         File file = new File(url);
         HttpUtils.doFile(Api.IMAGE_UPLOAD, url, file.getName(), new Callback() {
             @Override
@@ -606,15 +561,51 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
                 final ImageUploadBean imageUploadBean = GsonUtil.GsonToBean(result, ImageUploadBean.class);
                 if (Api.STATE_SUCCESS.equals(imageUploadBean.getCode())) {
                     Log.e(TAG, "图片地址 =" + imageUploadBean.getData().get(0));
-                    //营业执照
-//                    if (presentView == R.id.tv_business_license) {
-//                        businessLicensePath = imageUploadBean.getData().get(0);
-//                    }
-//                    //身份证照片
-//                    else if (presentView == R.id.tv_identity_photo) {
-//                        identityCardPath = imageUploadBean.getData().get(0);
-//                    }
+                    storeLogo = imageUploadBean.getData().get(0);
                 }
+            }
+        });
+    }
+
+    /**
+     * 多张图片上传
+     *
+     * @param path
+     * @param uploadPosition
+     */
+    public void imageUpload(String path, final int uploadPosition) {
+        File file = new File(path);
+        HttpUtils.doFile(Api.IMAGE_UPLOAD, path, file.getName(), new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+                Log.e(TAG, result);
+
+                final ImageUploadBean imageUploadBean = GsonUtil.GsonToBean(result, ImageUploadBean.class);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (Api.STATE_SUCCESS.equals(imageUploadBean.getCode())) {
+                            Log.e(TAG, "第" + (uploadPosition + 1) + "张图片地址=" + imageUploadBean.getData().get(0));
+
+                            if (uploadPosition == (selectList.size() - 1)) {
+                                //全部图片上传完成
+                                sbImg.append(imageUploadBean.getData().get(0));
+                                alternateImg = sbImg.toString();
+                                Log.e(TAG, "全部图片上传完成，commentImg=" + alternateImg);
+
+                                submitApply();
+                            } else {
+                                sbImg.append(imageUploadBean.getData().get(0) + ";");
+                                imageUpload(selectList.get(uploadPosition + 1).getCompressPath(), uploadPosition + 1);
+                            }
+                        }
+                    }
+                });
             }
         });
     }
@@ -643,7 +634,6 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
         } else {
             shopsJoinDataBinding.tvChooseShopsResult.setText(shopTypeFirstParentName);
         }
-
     }
 
     /**

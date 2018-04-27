@@ -205,7 +205,7 @@ public class Api {
     /**
      * 创建商家申请接口
      */
-    public static final String SAVE_BUSI_APPLY = SERVER_URL + "api/front/user/saveBusiApply";
+    public static final String SAVE_BUSI_APPLY = SERVER_URL + "api/front/user/createBusinessApply";
 
     /**
      * 查询用户商家申请记录
