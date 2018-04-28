@@ -17,7 +17,7 @@ import com.weishi.yiye.common.util.GsonUtil;
 import com.weishi.yiye.common.util.HttpUtils;
 import com.weishi.yiye.common.util.SPUtils;
 import com.weishi.yiye.databinding.ActivitySafetyBinding;
-import com.weishi.yiye.wxapi.WXEntryActivity;
+import com.yskjyxgs.meiye.wxapi.WXEntryActivity;
 
 import java.io.IOException;
 import java.util.HashMap;

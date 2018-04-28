@@ -22,6 +22,9 @@ import com.luck.picture.lib.tools.DateUtils;
 import com.luck.picture.lib.tools.DebugUtil;
 import com.luck.picture.lib.tools.StringUtils;
 import com.weishi.yiye.R;
+import com.weishi.yiye.bean.eventbus.RemoveImgEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -140,6 +143,7 @@ public class GridImageAdapter extends RecyclerView.Adapter<GridImageAdapter.View
                         notifyItemRemoved(index);
                         notifyItemRangeChanged(index, list.size());
                         DebugUtil.i("delete position:", index + "--->remove after:" + list.size());
+                        EventBus.getDefault().post(new RemoveImgEvent(list, index));
                     }
                 }
             });

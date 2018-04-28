@@ -20,7 +20,7 @@ import com.weishi.yiye.common.util.GsonUtil;
 import com.weishi.yiye.common.util.HttpUtils;
 import com.weishi.yiye.common.util.IsIDCard;
 import com.weishi.yiye.databinding.ActivityLoginBinding;
-import com.weishi.yiye.wxapi.WXEntryActivity;
+import com.yskjyxgs.meiye.wxapi.WXEntryActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -82,7 +82,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="10dp"
                         android:text="*"
-                        android:textColor="@color/main_text_color"
+                        android:textColor="@color/main_text_color1"
                         android:textSize="@dimen/font_size_big" />
 
                     <TextView
@@ -129,7 +129,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="*"
-                        android:textColor="@color/main_text_color"
+                        android:textColor="@color/main_text_color1"
                         android:textSize="@dimen/font_size_big" />
 
                     <TextView
@@ -181,7 +181,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="*"
-                        android:textColor="@color/main_text_color"
+                        android:textColor="@color/main_text_color1"
                         android:textSize="@dimen/font_size_big" />
 
                     <TextView
@@ -232,7 +232,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="*"
-                        android:textColor="@color/main_text_color"
+                        android:textColor="@color/main_text_color1"
                         android:textSize="@dimen/font_size_big" />
 
                     <TextView
@@ -285,7 +285,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="*"
-                        android:textColor="@color/main_text_color"
+                        android:textColor="@color/main_text_color1"
                         android:textSize="@dimen/font_size_big" />
 
                     <TextView
@@ -349,7 +349,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="*"
-                        android:textColor="@color/main_text_color"
+                        android:textColor="@color/main_text_color1"
                         android:textSize="@dimen/font_size_big" />
 
                     <TextView
@@ -414,7 +414,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="*"
-                        android:textColor="@color/main_text_color"
+                        android:textColor="@color/main_text_color1"
                         android:textSize="@dimen/font_size_big" />
 
                     <TextView
@@ -473,7 +473,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="*"
-                        android:textColor="@color/main_text_color"
+                        android:textColor="@color/main_text_color1"
                         android:textSize="@dimen/font_size_big" />
 
                     <TextView
@@ -495,7 +495,7 @@
                         android:layout_toRightOf="@+id/tvv12">
 
                         <TextView
-                            android:id="@+id/tv_coordinate"
+                            android:id="@+id/tv_choose_location"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -536,7 +536,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="*"
-                        android:textColor="@color/main_text_color"
+                        android:textColor="@color/main_text_color1"
                         android:textSize="@dimen/font_size_big" />
 
                     <TextView
@@ -586,7 +586,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="*"
-                        android:textColor="@color/main_text_color"
+                        android:textColor="@color/main_text_color1"
                         android:textSize="@dimen/font_size_big" />
 
                     <TextView
@@ -630,7 +630,7 @@
                     android:background="@drawable/btn_white_normal_shape"
                     android:gravity="center"
                     android:text="申请入驻"
-                    android:textColor="@color/main_text_color"
+                    android:textColor="@color/main_text_color1"
                     android:textSize="@dimen/font_size_normal" />
 
             </LinearLayout>
