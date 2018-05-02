@@ -13,12 +13,24 @@ public class ShopConstants {
     public static final String KEY_SHOP_ID = "shopId";
     public static final String KEY_SHOP_NAME = "shopName";
     public static final String KEY_SHOP_TYPE_PARENT_ID = "parentId";
-    public static final String KEY_SHOP_TYPE_LIST= "shopTypeList";
+    public static final String KEY_SHOP_TYPE_LIST = "shopTypeList";
     public static final String KEY_SHOP_LIST = "shopList";
     public static final String KEY_SHOP_KEY_WORDS = "keyWord";
     public static final String TYPE_SHOP_PARENT_ID = "shopTypeParentId";
 
-    /** 第一级的分类 **/
-    public static final String TYPE_SHOP_FIRST_PARENT_ID = "shopTypeFirstParentId";
-    public static final String TYPE_SHOP_FIRST_PARENT_NAME = "shopTypeFirstParentName";
+    /**
+     * 第一级的分类
+     **/
+    public static final String BUSINESS_FATHER_TYPE = "businessFatherType";
+    public static final String BUSINESS_FATHER_TYPE_NAME = "businessFatherTypeName";
+    /**
+     * 第二级的分类
+     **/
+    public static final String BUSINESS_PARENT_TYPE = "businessParentType";
+    public static final String BUSINESS_PARENT_TYPE_NAME = "businessParentTypeName";
+    /**
+     * 第三级的分类
+     **/
+    public static final String BUSINESS_SORT_TYPE = "businessSortType";
+    public static final String BUSINESS_SORT_TYPE_NAME = "businessSortTypeName";
 }

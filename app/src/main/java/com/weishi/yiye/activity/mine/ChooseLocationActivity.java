@@ -1,10 +1,11 @@
-package com.yskjyxgs.meiye;
+package com.weishi.yiye.activity.mine;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.amap.api.fence.GeoFence;
@@ -24,6 +25,7 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.weishi.yiye.R;
+import com.weishi.yiye.base.BaseSwipeBackActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +39,7 @@ import java.util.List;
  * @Version:v1.0.0
  *****************************/
 
-public class ChooseLocationActivity extends AppCompatActivity implements GeoFenceListener, AMap.OnMapClickListener, LocationSource, AMapLocationListener {
+public class ChooseLocationActivity extends BaseSwipeBackActivity implements GeoFenceListener, AMap.OnMapClickListener, LocationSource, AMapLocationListener, View.OnClickListener {
 
     /**
      * 用于显示当前的位置
@@ -57,7 +59,7 @@ public class ChooseLocationActivity extends AppCompatActivity implements GeoFenc
     // 中心点marker
     private Marker centerMarker;
 
-    private BitmapDescriptor ICON_YELLOW = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
+    private BitmapDescriptor ICON_YELLOW = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE);
     private BitmapDescriptor ICON_RED = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
     private MarkerOptions markerOption = null;
     private List<Marker> markerList = new ArrayList<Marker>();
@@ -65,18 +67,34 @@ public class ChooseLocationActivity extends AppCompatActivity implements GeoFenc
     private TextView tv;
     private TextView tvResult;
 
+    private TextView rightTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_location);
-        setTitle("高德地图");
+        setTitleCenter("坐标选择");
+        rightTitle = (TextView) findViewById(R.id.tv_right_title);
+        rightTitle.setVisibility(View.VISIBLE);
+        rightTitle.setText("保存");
+        rightTitle.setOnClickListener(this);
 
-        tvResult = (TextView) findViewById(R.id.tvResult);
+        //tvResult = (TextView) findViewById(R.id.tvResult);
         tv = (TextView) findViewById(R.id.tv);
         mMapView = (MapView) findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
         markerOption = new MarkerOptions().draggable(true);
         init();
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     void init() {
@@ -148,7 +166,6 @@ public class ChooseLocationActivity extends AppCompatActivity implements GeoFenc
         super.onDestroy();
         mMapView.onDestroy();
 
-
         if (null != mlocationClient) {
             mlocationClient.onDestroy();
         }
@@ -178,8 +195,9 @@ public class ChooseLocationActivity extends AppCompatActivity implements GeoFenc
         markerOption.icon(ICON_YELLOW);
         centerLatLng = latLng;
         addCenterMarker(centerLatLng);
-        tv.setBackgroundColor(getResources().getColor(R.color.red));
-        tv.setText("选中的坐标：" + centerLatLng.longitude + "," + centerLatLng.latitude);
+        //tv.setBackgroundColor(getResources().getColor(R.color.red));
+        tv.setVisibility(View.VISIBLE);
+        tv.setText("经度：" + centerLatLng.longitude + "\n" + "纬度：" + centerLatLng.latitude);
     }
 
     /**
@@ -196,7 +214,7 @@ public class ChooseLocationActivity extends AppCompatActivity implements GeoFenc
                         + amapLocation.getErrorInfo();
                 Log.e("AmapErr", errText);
                 //   tvResult.setVisibility(View.VISIBLE);
-                tvResult.setText(errText);
+                //tvResult.setText(errText);
             }
         }
     }
@@ -241,5 +259,22 @@ public class ChooseLocationActivity extends AppCompatActivity implements GeoFenc
         }
         centerMarker.setPosition(latlng);
         markerList.add(centerMarker);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_right_title:
+                if (centerLatLng != null) {
+                    Intent intent = getIntent();
+                    intent.putExtra("lng", centerLatLng.longitude);
+                    intent.putExtra("lat", centerLatLng.latitude);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

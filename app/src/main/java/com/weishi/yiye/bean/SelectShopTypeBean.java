@@ -11,41 +11,58 @@ import java.io.Serializable;
  * @Version:v1.0.0
  *****************************/
 public class SelectShopTypeBean implements Serializable {
+    private int businessFatherType = -1;
+    private String businessFatherTypeName = "";
+    private int businessParentType = -1;
+    private String businessParentTypeName = "";
+    private int businessSortType = -1;
+    private String businessSortTypeName = "";
 
-    private int shopTypeFirstParentId;
-    private String shopTypeFirstParentName;
-    private int shopTypeSecondParentId;
-    private String shopTypeSecondParentName;
-
-    public int getShopTypeFirstParentId() {
-        return shopTypeFirstParentId;
+    public int getBusinessFatherType() {
+        return businessFatherType;
     }
 
-    public void setShopTypeFirstParentId(int shopTypeFirstParentId) {
-        this.shopTypeFirstParentId = shopTypeFirstParentId;
+    public void setBusinessFatherType(int businessFatherType) {
+        this.businessFatherType = businessFatherType;
     }
 
-    public String getShopTypeFirstParentName() {
-        return shopTypeFirstParentName;
+    public String getBusinessFatherTypeName() {
+        return businessFatherTypeName;
     }
 
-    public void setShopTypeFirstParentName(String shopTypeFirstParentName) {
-        this.shopTypeFirstParentName = shopTypeFirstParentName;
+    public void setBusinessFatherTypeName(String businessFatherTypeName) {
+        this.businessFatherTypeName = businessFatherTypeName;
     }
 
-    public int getShopTypeSecondParentId() {
-        return shopTypeSecondParentId;
+    public int getBusinessParentType() {
+        return businessParentType;
     }
 
-    public void setShopTypeSecondParentId(int shopTypeSecondParentId) {
-        this.shopTypeSecondParentId = shopTypeSecondParentId;
+    public void setBusinessParentType(int businessParentType) {
+        this.businessParentType = businessParentType;
     }
 
-    public String getShopTypeSecondParentName() {
-        return shopTypeSecondParentName;
+    public String getBusinessParentTypeName() {
+        return businessParentTypeName;
     }
 
-    public void setShopTypeSecondParentName(String shopTypeSecondParentName) {
-        this.shopTypeSecondParentName = shopTypeSecondParentName;
+    public void setBusinessParentTypeName(String businessParentTypeName) {
+        this.businessParentTypeName = businessParentTypeName;
+    }
+
+    public int getBusinessSortType() {
+        return businessSortType;
+    }
+
+    public void setBusinessSortType(int businessSortType) {
+        this.businessSortType = businessSortType;
+    }
+
+    public String getBusinessSortTypeName() {
+        return businessSortTypeName;
+    }
+
+    public void setBusinessSortTypeName(String businessSortTypeName) {
+        this.businessSortTypeName = businessSortTypeName;
     }
 }

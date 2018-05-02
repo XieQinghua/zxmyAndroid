@@ -182,9 +182,10 @@
 
         <!--选择坐标-->
         <activity
-            android:name="com.yskjyxgs.meiye.ChooseLocationActivity"
+            android:name=".activity.mine.ChooseLocationActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/JK.SwipeBack.Transparent.Theme" />
 
         <!--系统消息-->
         <activity
@@ -393,7 +394,19 @@
 
         <!--商家类型-->
         <activity
-            android:name=".activity.ShopClassActivity"
+            android:name=".activity.BusinessFatherActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/JK.SwipeBack.Transparent.Theme" />
+
+        <activity
+            android:name=".activity.BusinessParentActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/JK.SwipeBack.Transparent.Theme" />
+
+        <activity
+            android:name=".activity.BusinessSortActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/JK.SwipeBack.Transparent.Theme" />

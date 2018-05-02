@@ -36,19 +36,18 @@ import okhttp3.Response;
 /*****************************
  * @Copyright(c) 2014-2018
  * 长沙壹晟众美网络科技有限公司 All Rights Reserved.
- * @Author：yezhouyong
+ * @Author：xieqinghua
  * @Date：2018/2/5
- * @Description：区域选择省
+ * @Description：第二级分类选择
  * @Version:v1.0.0
  *****************************/
-public class ShopClassActivity extends BaseSwipeBackActivity implements View.OnClickListener {
+public class BusinessParentActivity extends BaseSwipeBackActivity implements View.OnClickListener {
     private static final String TAG = ShopDetailActivity.class.getSimpleName();
     private ActivityAddressLayoutBinding addressLayoutBinding;
     private ShopTypeAdapter adapter;
     private List<ShopTypeBean.ShopType> shopTypes = new ArrayList<ShopTypeBean.ShopType>();
-    private int sortId;//类型的父ID
-    private int shopTypeFirstParentId;//第一级类型的父ID
-    private String shopTypeFirstParentName;//第一级类型的名字
+    private int businessFatherType;//第一级类型的父ID
+    private String businessFatherTypeName;//第一级类型的名字
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,39 +67,21 @@ public class ShopClassActivity extends BaseSwipeBackActivity implements View.OnC
 
     @Override
     protected void initView() {
-        addressLayoutBinding = DataBindingUtil.setContentView(ShopClassActivity.this, R.layout.activity_address_layout);
+        addressLayoutBinding = DataBindingUtil.setContentView(BusinessParentActivity.this, R.layout.activity_address_layout);
         setTitleCenter("请选择商家分类");
-        sortId = getIntent().getIntExtra(ShopConstants.TYPE_SHOP_PARENT_ID, 0);
-        shopTypeFirstParentId = getIntent().getIntExtra(ShopConstants.TYPE_SHOP_FIRST_PARENT_ID, 0);
-        shopTypeFirstParentName = getIntent().getStringExtra(ShopConstants.TYPE_SHOP_FIRST_PARENT_NAME);
+        businessFatherType = getIntent().getIntExtra(ShopConstants.BUSINESS_FATHER_TYPE, 0);
+        businessFatherTypeName = getIntent().getStringExtra(ShopConstants.BUSINESS_FATHER_TYPE_NAME);
         adapter = new ShopTypeAdapter(this, shopTypes);
         addressLayoutBinding.addressList.setAdapter(adapter);
         addressLayoutBinding.addressList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //第一级才会继续往下跳
-                if (ShopConstants.DEFAULT_VALUE_SHOP_ID == sortId) {
-                    Intent shopClassIntent = new Intent(ShopClassActivity.this, ShopClassActivity.class);
-                    shopClassIntent.putExtra(ShopConstants.TYPE_SHOP_PARENT_ID, shopTypes.get(position).getSortId());
-                    shopClassIntent.putExtra(ShopConstants.TYPE_SHOP_FIRST_PARENT_ID, shopTypes.get(position).getSortId());
-                    shopClassIntent.putExtra(ShopConstants.TYPE_SHOP_FIRST_PARENT_NAME, shopTypes.get(position).getTypeName());
-                    startActivity(shopClassIntent);
-                }
-                //否则直接变更记录
-                else {
-                    //选择完分类后发送事件
-                    SelectShopTypeBean model = new SelectShopTypeBean();
-                    model.setShopTypeFirstParentId(shopTypeFirstParentId);
-                    model.setShopTypeFirstParentName(shopTypeFirstParentName);
-                    model.setShopTypeSecondParentId(shopTypes.get(position).getSortId());
-                    model.setShopTypeSecondParentName(shopTypes.get(position).getTypeName());
-
-                    SelectShopTypeEvent sEvent = new SelectShopTypeEvent();
-                    sEvent.setModel(model);
-                    EventBus.getDefault().post(sEvent);
-                    EventBus.getDefault().post(new FinishEvents());
-                    finish();
-                }
+                Intent shopClassIntent = new Intent(BusinessParentActivity.this, BusinessSortActivity.class);
+                shopClassIntent.putExtra(ShopConstants.BUSINESS_FATHER_TYPE, businessFatherType);
+                shopClassIntent.putExtra(ShopConstants.BUSINESS_FATHER_TYPE_NAME, businessFatherTypeName);
+                shopClassIntent.putExtra(ShopConstants.BUSINESS_PARENT_TYPE, shopTypes.get(position).getSortId());
+                shopClassIntent.putExtra(ShopConstants.BUSINESS_PARENT_TYPE_NAME, shopTypes.get(position).getTypeName());
+                startActivity(shopClassIntent);
             }
         });
 
@@ -114,7 +95,7 @@ public class ShopClassActivity extends BaseSwipeBackActivity implements View.OnC
 
     private void getShopType() {
         Map<String, Object> mapParams = new HashMap<>();
-        mapParams.put("sortId", sortId);
+        mapParams.put("sortId", businessFatherType);
         HttpUtils.doGet(Api.GET_PROPERTY_SORT, mapParams, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -135,12 +116,12 @@ public class ShopClassActivity extends BaseSwipeBackActivity implements View.OnC
                             adapter.setData(shopTypes);
                             adapter.notifyDataSetChanged();
                         } else {
-                            SelectShopTypeBean model = new SelectShopTypeBean();
-                            model.setShopTypeFirstParentId(shopTypeFirstParentId);
-                            model.setShopTypeFirstParentName(shopTypeFirstParentName);
+                            SelectShopTypeBean selectShopTypeBean = new SelectShopTypeBean();
+                            selectShopTypeBean.setBusinessFatherType(businessFatherType);
+                            selectShopTypeBean.setBusinessFatherTypeName(businessFatherTypeName);
 
                             SelectShopTypeEvent sEvent = new SelectShopTypeEvent();
-                            sEvent.setModel(model);
+                            sEvent.setModel(selectShopTypeBean);
                             EventBus.getDefault().post(sEvent);
                             EventBus.getDefault().post(new FinishEvents());
                             finish();

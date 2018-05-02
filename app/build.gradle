@@ -20,6 +20,12 @@ android {
         abortOnError true
     }
 
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
     //签名
     signingConfigs {
         debug {

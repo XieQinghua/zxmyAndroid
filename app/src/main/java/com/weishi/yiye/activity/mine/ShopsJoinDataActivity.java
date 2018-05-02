@@ -29,8 +29,8 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.weishi.yiye.R;
+import com.weishi.yiye.activity.BusinessFatherActivity;
 import com.weishi.yiye.activity.ProvinceActivity;
-import com.weishi.yiye.activity.ShopClassActivity;
 import com.weishi.yiye.base.BaseSwipeBackActivity;
 import com.weishi.yiye.bean.ImageUploadBean;
 import com.weishi.yiye.bean.SelectAddressBean;
@@ -40,12 +40,10 @@ import com.weishi.yiye.bean.eventbus.SelectAddressEvent;
 import com.weishi.yiye.bean.eventbus.SelectShopTypeEvent;
 import com.weishi.yiye.common.Api;
 import com.weishi.yiye.common.Constants;
-import com.weishi.yiye.common.ShopConstants;
 import com.weishi.yiye.common.util.CheckPermission;
 import com.weishi.yiye.common.util.CropImageUtils;
 import com.weishi.yiye.common.util.GsonUtil;
 import com.weishi.yiye.common.util.HttpUtils;
-import com.weishi.yiye.common.util.IntentUtil;
 import com.weishi.yiye.common.util.IsIDCard;
 import com.weishi.yiye.common.util.ValidatorUtils;
 import com.weishi.yiye.databinding.ActivityShopsJoinDataBinding;
@@ -57,6 +55,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,17 +76,20 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
     private static final String TAG = ShopsJoinDataActivity.class.getSimpleName();
 
     private static final int EDIT_IMAGE = 1;
+    private static final int CHOOSE_LOCATION = 2;
     private ActivityShopsJoinDataBinding shopsJoinDataBinding;
 
     private CheckPermission checkPermission;
 
     private String provinceCode, provinceName, cityCode, cityName, areaCode, areaName;
-    private int shopTypeFirstParentId;
-    private String shopTypeFirstParentName;
-    private int shopTypeSecondParentId;
-    private String shopTypeSecondParentName;
+    private int businessFatherType;
+    private String businessFatherTypeName;
+    private int businessParentType;
+    private String businessParentTypeName;
+    private int businessSortType;
+    private String businessSortTypeName;
 
-    private Integer shopId;
+    private Double lng, lat;
 
     private List<LocalMedia> selectList = new ArrayList<>();
     private int maxSelectNum = 9;
@@ -159,13 +161,11 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
                 break;
             case R.id.tv_choose_shops_class:
                 //选择商家分类
-                Intent shopClassIntent = new Intent(this, ShopClassActivity.class);
-                shopClassIntent.putExtra(ShopConstants.TYPE_SHOP_PARENT_ID, ShopConstants.DEFAULT_VALUE_SHOP_ID);
-                startActivity(shopClassIntent);
+                startActivity(new Intent(ShopsJoinDataActivity.this, BusinessFatherActivity.class));
                 break;
             case R.id.rl_choose_address:
                 //选择地址区域
-                IntentUtil.startActivity(ShopsJoinDataActivity.this, ProvinceActivity.class, 1);
+                startActivity(new Intent(ShopsJoinDataActivity.this, ProvinceActivity.class));
                 break;
             case R.id.btn_submit_apply:
 //                if (shopId != null) {
@@ -185,8 +185,7 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
                 new PopupWindows(ShopsJoinDataActivity.this, view);
                 break;
             case R.id.tv_choose_location:
-                startActivity(new Intent(ShopsJoinDataActivity.this,
-                        com.yskjyxgs.meiye.ChooseLocationActivity.class));
+                startActivityForResult(new Intent(ShopsJoinDataActivity.this, ChooseLocationActivity.class), CHOOSE_LOCATION);
                 break;
             default:
                 break;
@@ -339,6 +338,11 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
             stopAnim();
             return;
         }
+        if (lng == null) {
+            Toast.makeText(ShopsJoinDataActivity.this, "请选择坐标", Toast.LENGTH_SHORT).show();
+            stopAnim();
+            return;
+        }
         if (ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopkeeperMobile.getText().toString())) {
             Toast.makeText(ShopsJoinDataActivity.this, "请填写商家手机号码", Toast.LENGTH_SHORT).show();
             stopAnim();
@@ -371,15 +375,15 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
             jsonParams.put("areaName", areaName);
             jsonParams.put("address", shopsJoinDataBinding.etShopsAddress.getText().toString());
 
-            jsonParams.put("lng", 1.0);
-            jsonParams.put("lat", 1.0);
+            jsonParams.put("lng", lng);
+            jsonParams.put("lat", lat);
 
-            jsonParams.put("businessFatherType", shopTypeFirstParentId);
-            jsonParams.put("businessFatherTypeName", shopTypeFirstParentName);
-            jsonParams.put("businessParentType", shopTypeSecondParentId);
-            jsonParams.put("businessParentTypeName", shopTypeSecondParentName);
-            jsonParams.put("businessSortType", -1);
-            jsonParams.put("businessSortTypeName", "");
+            jsonParams.put("businessFatherType", businessFatherType);
+            jsonParams.put("businessFatherTypeName", businessFatherTypeName);
+            jsonParams.put("businessParentType", businessParentType);
+            jsonParams.put("businessParentTypeName", businessParentTypeName);
+            jsonParams.put("businessSortType", businessSortType);
+            jsonParams.put("businessSortTypeName", businessSortTypeName);
             if (!ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopsRecNo.getText().toString())) {
                 jsonParams.put("inviteCode", shopsJoinDataBinding.etShopsRecNo.getText().toString());
             }
@@ -428,7 +432,7 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
             view.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_ins));
             LinearLayout ll_popup = (LinearLayout) view.findViewById(R.id.ll_popup);
             ll_popup.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_bottom_in));
-            setWidth(ViewGroup.LayoutParams.FILL_PARENT);
+            setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
             //修改高度显示，解决被手机底部虚拟键挡住的问题
             setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
             //实例化一个ColorDrawable颜色为半透明
@@ -553,6 +557,13 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
                             shopsJoinDataBinding.vpBanner.setVisibility(View.GONE);
                         }
                     }
+                case CHOOSE_LOCATION:
+                    if (data != null) {
+                        lng = data.getDoubleExtra("lng", 0);
+                        lat = data.getDoubleExtra("lat", 0);
+                        shopsJoinDataBinding.tvChooseLocation.setText("经度：" + new DecimalFormat("#0.0000").format(lng) +
+                                "；纬度：" + new DecimalFormat("#0.0000").format(lat));
+                    }
                 default:
                     break;
             }
@@ -644,14 +655,21 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
     @Subscribe
     public void onEvent(SelectShopTypeEvent event) {
         SelectShopTypeBean selectShopTypeBean = event.model;
-        shopTypeFirstParentId = selectShopTypeBean.getShopTypeFirstParentId();
-        shopTypeFirstParentName = selectShopTypeBean.getShopTypeFirstParentName();
-        shopTypeSecondParentId = selectShopTypeBean.getShopTypeSecondParentId();
-        shopTypeSecondParentName = selectShopTypeBean.getShopTypeSecondParentName();
-        if (shopTypeSecondParentName != null) {
-            shopsJoinDataBinding.tvChooseShopsResult.setText(shopTypeFirstParentName + "-" + shopTypeSecondParentName);
+        businessFatherType = selectShopTypeBean.getBusinessFatherType();
+        businessFatherTypeName = selectShopTypeBean.getBusinessFatherTypeName();
+        businessParentType = selectShopTypeBean.getBusinessParentType();
+        businessParentTypeName = selectShopTypeBean.getBusinessParentTypeName();
+        businessSortType = selectShopTypeBean.getBusinessSortType();
+        businessSortTypeName = selectShopTypeBean.getBusinessSortTypeName();
+        //Log.e(TAG, "businessFatherTypeName=" + businessFatherTypeName + "businessParentTypeName=" + businessParentTypeName + "businessSortTypeName=" + businessSortTypeName);
+        if (businessParentType != -1) {
+            if (businessSortType != -1) {
+                shopsJoinDataBinding.tvChooseShopsResult.setText(businessFatherTypeName + "-" + businessParentTypeName + "-" + businessSortTypeName);
+            } else {
+                shopsJoinDataBinding.tvChooseShopsResult.setText(businessFatherTypeName + "-" + businessParentTypeName);
+            }
         } else {
-            shopsJoinDataBinding.tvChooseShopsResult.setText(shopTypeFirstParentName);
+            shopsJoinDataBinding.tvChooseShopsResult.setText(businessFatherTypeName);
         }
     }
 }

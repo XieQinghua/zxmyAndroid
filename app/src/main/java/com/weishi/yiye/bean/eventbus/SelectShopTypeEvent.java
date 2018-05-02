@@ -1,6 +1,5 @@
 package com.weishi.yiye.bean.eventbus;
 
-import com.weishi.yiye.bean.SelectAddressBean;
 import com.weishi.yiye.bean.SelectShopTypeBean;
 
 /*****************************
@@ -15,7 +14,7 @@ public class SelectShopTypeEvent {
     public SelectShopTypeBean model; //换成最后地址的model
     public String code;
     public String name;
-    public int type=0;
+    public int type = 0;
 
     public void setModel(SelectShopTypeBean model) {
         this.model = model;
