@@ -443,12 +443,12 @@
                         android:textColorHint="@color/app_text_color2"
                         android:textSize="@dimen/font_size_normal" />
 
-                    <ImageView
+                    <!--<ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/icon_right_enter" />
+                        android:src="@drawable/icon_right_enter" />-->
 
                     <View
                         android:layout_width="match_parent"
@@ -586,6 +586,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="*"
+                        android:visibility="invisible"
                         android:textColor="@color/main_text_color1"
                         android:textSize="@dimen/font_size_big" />
 

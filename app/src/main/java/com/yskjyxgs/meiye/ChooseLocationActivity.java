@@ -179,8 +179,7 @@ public class ChooseLocationActivity extends AppCompatActivity implements GeoFenc
         centerLatLng = latLng;
         addCenterMarker(centerLatLng);
         tv.setBackgroundColor(getResources().getColor(R.color.red));
-        tv.setText("选中的坐标：" + centerLatLng.longitude + ","
-                + centerLatLng.latitude);
+        tv.setText("选中的坐标：" + centerLatLng.longitude + "," + centerLatLng.latitude);
     }
 
     /**

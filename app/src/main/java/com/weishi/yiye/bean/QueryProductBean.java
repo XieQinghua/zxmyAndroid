@@ -14,7 +14,7 @@ import java.util.List;
 
 public class QueryProductBean implements Serializable {
     private int id;
-    private int productNum;
+    private String productNum;
     private int busiFatherType;
     private int busiParentType;
     private double price;
@@ -140,11 +140,11 @@ public class QueryProductBean implements Serializable {
         this.id = id;
     }
 
-    public int getProductNum() {
+    public String getProductNum() {
         return productNum;
     }
 
-    public void setProductNum(int productNum) {
+    public void setProductNum(String productNum) {
         this.productNum = productNum;
     }
 

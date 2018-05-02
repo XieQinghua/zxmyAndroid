@@ -178,7 +178,7 @@ public class ShopsJoinImageActivity extends BaseSwipeBackActivity implements Vie
             imageView.setLayoutParams(lp);
 
             //为imageView加载本地图片
-            imageView.setImageURI(Uri.fromFile(new File(selectList.get(position).getPath())));
+            imageView.setImageURI(Uri.fromFile(new File(selectList.get(position).getCompressPath())));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
             (container).addView(imageView);

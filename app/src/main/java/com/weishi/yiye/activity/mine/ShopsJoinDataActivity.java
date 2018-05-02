@@ -108,6 +108,7 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
 
         //解决华为虚拟按键遮挡布局底部按键
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         checkPermission = new CheckPermission(this) {
             @Override
@@ -245,7 +246,7 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
             imageView.setLayoutParams(lp);
 
             //为imageView加载本地图片
-            imageView.setImageURI(Uri.fromFile(new File(selectList.get(position).getPath())));
+            imageView.setImageURI(Uri.fromFile(new File(selectList.get(position).getCompressPath())));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -348,11 +349,11 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
             stopAnim();
             return;
         }
-        if (ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopsRecNo.getText().toString())) {
-            Toast.makeText(ShopsJoinDataActivity.this, "请填写店铺邀请码", Toast.LENGTH_SHORT).show();
-            stopAnim();
-            return;
-        }
+//        if (ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopsRecNo.getText().toString())) {
+//            Toast.makeText(ShopsJoinDataActivity.this, "请填写店铺邀请码", Toast.LENGTH_SHORT).show();
+//            stopAnim();
+//            return;
+//        }
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("userId", mSp.getInt(Constants.USER_ID, 0));
@@ -379,8 +380,9 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
             jsonParams.put("businessParentTypeName", shopTypeSecondParentName);
             jsonParams.put("businessSortType", -1);
             jsonParams.put("businessSortTypeName", "");
-
-            jsonParams.put("inviteCode", shopsJoinDataBinding.etShopsRecNo.getText().toString());
+            if (!ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopsRecNo.getText().toString())) {
+                jsonParams.put("inviteCode", shopsJoinDataBinding.etShopsRecNo.getText().toString());
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -652,216 +654,4 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
             shopsJoinDataBinding.tvChooseShopsResult.setText(shopTypeFirstParentName);
         }
     }
-
-//    /**
-//     * 选择支付方式弹窗
-//     */
-//    private class PayPopupWindows extends PopupWindow {
-//
-//        private PayPopupWindows(final Context mContext, View parent, final String orderNum) {
-//            View view = View.inflate(mContext, R.layout.popup_payment_mode, null);
-//            RelativeLayout rl_popup = (RelativeLayout) view.findViewById(R.id.rl_popup);
-//            rl_popup.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_bottom_in));
-//            setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-//            setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-//            setBackgroundDrawable(new ColorDrawable(0xb0000000));
-//            view.setOnTouchListener(new View.OnTouchListener() {
-//                @Override
-//                public boolean onTouch(View view, MotionEvent motionEvent) {
-//                    int height = view.findViewById(R.id.rl_popup).getTop();
-//                    int y = (int) motionEvent.getY();
-//                    if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-//                        if (y < height) {
-//                            dismiss();
-//                        }
-//                    }
-//                    return true;
-//                }
-//            });
-//            setFocusable(true);
-//            setOutsideTouchable(true);
-//            setContentView(view);
-//            showAtLocation(parent, Gravity.CENTER, 0, 0);
-//            update();
-//
-//            ImageView del = (ImageView) view.findViewById(R.id.iv_del_pop);
-//            del.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    dismiss();
-//                }
-//            });
-//            final RadioButton rbAlipay = (RadioButton) view.findViewById(R.id.rb_alipay);
-//            final RadioButton rbWeChatPay = (RadioButton) view.findViewById(R.id.rb_wechat_pay);
-//            final RadioButton rbUnionPay = (RadioButton) view.findViewById(R.id.rb_unionpay);
-//            Button btnPayment = (Button) view.findViewById(R.id.btn_payment);
-//            btnPayment.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    if (rbAlipay.isChecked()) {
-//                        recharge(orderNum, Constants.ALIPAY_APP);
-//                        dismiss();
-//                    } else if (rbWeChatPay.isChecked()) {
-//                        recharge(orderNum, Constants.TENGPAY_APP);
-//                        dismiss();
-//                    } else if (rbUnionPay.isChecked()) {
-//                        recharge(orderNum, Constants.UNIONPAY_APP);
-//                        dismiss();
-//                    }
-//                }
-//            });
-//        }
-//    }
-//
-//    /**
-//     * 积分充值
-//     *
-//     * @param orderNum
-//     * @param paymentMode AlipayApp 支付宝APP支付 TengPayApp 微信APP支付
-//     */
-//    private void recharge(String orderNum, String paymentMode) {
-//        JSONObject jsonParams = new JSONObject();
-//        try {
-//            jsonParams.put("userId", mSp.getInt(Constants.USER_ID, 0));
-//            jsonParams.put("payMethod", paymentMode);
-//            jsonParams.put("payType", "ApplyMerchantPay");
-//            //jsonParams.put("amount", scoreNumebr);
-//            jsonParams.put("objId", orderNum);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        switch (paymentMode) {
-//            case Constants.ALIPAY_APP:
-//                HttpUtils.doPost(Api.USER_SCORE_RECHARGE, jsonParams, new Callback() {
-//                    @Override
-//                    public void onFailure(Call call, IOException e) {
-//                    }
-//
-//                    @Override
-//                    public void onResponse(Call call, Response response) throws IOException {
-//                        String result = response.body().string();
-//                        Log.e(TAG, result);
-//
-//                        final RechargeBean rechargeBean = GsonUtil.GsonToBean(result, RechargeBean.class);
-//                        //支付宝支付
-//                        aliPay(rechargeBean);
-//                    }
-//                });
-//                break;
-//            case Constants.TENGPAY_APP:
-//                HttpUtils.doPost(Api.USER_SCORE_RECHARGE, jsonParams, new Callback() {
-//                    @Override
-//                    public void onFailure(Call call, IOException e) {
-//                    }
-//
-//                    @Override
-//                    public void onResponse(Call call, Response response) throws IOException {
-//                        String result = response.body().string();
-//                        Log.e(TAG, result);
-//
-//                        final RechargeBean rechargeBean = GsonUtil.GsonToBean(result, RechargeBean.class);
-//                        //微信支付
-//                        wechatPay(rechargeBean);
-//                    }
-//                });
-//                break;
-//            case Constants.UNIONPAY_APP:
-//                Toast.makeText(ShopsJoinDataActivity.this, "银联支付暂未开通", Toast.LENGTH_SHORT).show();
-//                break;
-//            default:
-//                break;
-//        }
-//    }
-//
-//    /**
-//     * 充值-微信支付处理
-//     *
-//     * @param rechargeBean 充值参数实体类
-//     */
-//    private void wechatPay(RechargeBean rechargeBean) {
-//        // 通过WXAPIFactory工厂，获取IWXAPI实例
-//        IWXAPI api = WXAPIFactory.createWXAPI(ShopsJoinDataActivity.this, Constants.WETCHAT_APP_ID, true);
-//        api.registerApp(Constants.WETCHAT_APP_ID);
-//        boolean isPaySupported = api.getWXAppSupportAPI() >= com.tencent.mm.opensdk.constants.Build.PAY_SUPPORTED_SDK_INT;
-//        if (isPaySupported) {
-//            PayReq req = new PayReq();
-//            // 将应用的appId注册到微信
-//            req.appId = Constants.WETCHAT_APP_ID;
-//            req.partnerId = rechargeBean.getData().wxdata.partnerid;
-//            req.prepayId = rechargeBean.getData().wxdata.prepayid;
-//            req.packageValue = "Sign=WXPay";
-//            req.nonceStr = rechargeBean.getData().wxdata.noncestr;
-//            req.timeStamp = rechargeBean.getData().wxdata.timestamp;
-//            req.sign = rechargeBean.getData().wxdata.sign;
-//            api.sendReq(req);
-//        } else {
-//            Toast.makeText(ShopsJoinDataActivity.this, "您的手机不支持微信支付！", Toast.LENGTH_LONG).show();
-//        }
-//    }
-//
-//    /**
-//     * 支付宝成功返回码
-//     */
-//    public static final String SDK_PAY_FLAG_SUCCESS = "9000";
-//    /**
-//     * 支付宝消息通知
-//     */
-//    private static final int SDK_PAY_FLAG = 10000;
-//    @SuppressLint("HandlerLeak")
-//    private Handler mHandler = new Handler() {
-//        @SuppressWarnings("unused")
-//        @Override
-//        public void handleMessage(Message msg) {
-//            switch (msg.what) {
-//                case SDK_PAY_FLAG: {
-//                    @SuppressWarnings("unchecked")
-//                    PayResultBean payResult = new PayResultBean((Map<String, String>) msg.obj);
-//                    /**
-//                     对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
-//                     */
-//                    // 同步返回需要验证的信息
-//                    String resultInfo = payResult.getResult();
-//                    String resultStatus = payResult.getResultStatus();
-//                    // 判断resultStatus 为9000则代表支付成功
-//                    if (TextUtils.equals(resultStatus, SDK_PAY_FLAG_SUCCESS)) {
-//                        // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-//                        Toast.makeText(ShopsJoinDataActivity.this, "商家入驻申请提交成功", Toast.LENGTH_SHORT).show();
-//                        finish();
-//                    } else {
-//                        // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-//                        Toast.makeText(ShopsJoinDataActivity.this, "支付失败", Toast.LENGTH_LONG).show();
-//                    }
-//                    break;
-//                }
-//                default:
-//                    break;
-//            }
-//        }
-//
-//        ;
-//    };
-//
-//    /**
-//     * 充值-支付宝支付处理
-//     *
-//     * @param rechargeBean 充值参数实体类
-//     */
-//    private void aliPay(final RechargeBean rechargeBean) {
-//        Runnable payRunnable = new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                PayTask alipay = new PayTask(ShopsJoinDataActivity.this);
-//                Map<String, String> result = alipay.payV2(rechargeBean.getData().orderStr, true);
-//                Message msg = new Message();
-//                msg.what = SDK_PAY_FLAG;
-//                msg.obj = result;
-//                mHandler.sendMessage(msg);
-//            }
-//        };
-//
-//        Thread payThread = new Thread(payRunnable);
-//        payThread.start();
-//    }
 }
