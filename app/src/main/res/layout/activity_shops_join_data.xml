@@ -38,7 +38,7 @@
                         android:drawableTop="@drawable/icon_add"
                         android:gravity="center"
                         android:padding="45dp"
-                        android:text="点击添加banner图"
+                        android:text="点击添加店铺轮播图"
                         android:textColor="@color/app_text_color2"
                         android:textSize="@dimen/font_size_normal" />
 
@@ -92,7 +92,7 @@
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="2dp"
                         android:layout_toRightOf="@+id/tv0"
-                        android:text="商家LOGO"
+                        android:text="店铺LOGO"
                         android:textColor="@color/app_text_color1"
                         android:textSize="@dimen/font_size_normal" />
 
@@ -139,7 +139,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="2dp"
                         android:layout_toRightOf="@+id/tv1"
-                        android:text="商家名称："
+                        android:text="店铺名称："
                         android:textColor="@color/app_text_color1"
                         android:textSize="@dimen/font_size_normal" />
 
@@ -150,7 +150,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/tvv1"
                         android:background="@null"
-                        android:hint="请填写商家名称"
+                        android:hint="请填写店铺名称"
                         android:imeOptions="actionDone"
                         android:maxLines="1"
                         android:padding="10dp"
@@ -242,7 +242,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="2dp"
                         android:layout_toRightOf="@+id/tv5"
-                        android:text="身份证号码："
+                        android:text="身份证号："
                         android:textColor="@color/app_text_color1"
                         android:textSize="@dimen/font_size_normal" />
 
@@ -546,7 +546,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="2dp"
                         android:layout_toRightOf="@+id/tv10"
-                        android:text="商家号码："
+                        android:text="手机号码："
                         android:textColor="@color/app_text_color1"
                         android:textSize="@dimen/font_size_normal" />
 

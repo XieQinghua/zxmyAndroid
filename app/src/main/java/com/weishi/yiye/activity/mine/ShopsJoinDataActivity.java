@@ -299,17 +299,17 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
      */
     private void submitApply() {
         if (logoPath == null) {
-            Toast.makeText(ShopsJoinDataActivity.this, "请上传商家LOGO", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ShopsJoinDataActivity.this, "请上传店铺LOGO", Toast.LENGTH_SHORT).show();
             stopAnim();
             return;
         }
         if (selectList.size() == 0) {
-            Toast.makeText(ShopsJoinDataActivity.this, "请添加店铺banner图", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ShopsJoinDataActivity.this, "请添加店铺轮播图", Toast.LENGTH_SHORT).show();
             stopAnim();
             return;
         }
         if (ValidatorUtils.isEmptyString(shopsJoinDataBinding.etShopsName.getText().toString())) {
-            Toast.makeText(ShopsJoinDataActivity.this, "请填写商家名称", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ShopsJoinDataActivity.this, "请填写店铺名称", Toast.LENGTH_SHORT).show();
             stopAnim();
             return;
         }
