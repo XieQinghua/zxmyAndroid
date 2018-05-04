@@ -122,19 +122,19 @@ dependencies {
 }
 
 MobSDK {
-    appKey "23d1b90cc622a"
-    appSecret "1806fd8fb71c0213225f0eb542dff04a"
+    appKey "2595f4b09fd20"
+    appSecret "a5967710be5d9bf972dc981b8d5caba1"
 
     ShareSDK {
         //平台配置信息
         devInfo {
             Wechat {
-                appId "wx2bf3127030b5618e"
-                appSecret "c2517eb75d38e168be0c0720443b376e"
+                appId "wx09c468b270e307bd"
+                appSecret "f5f96baf2e1fa11cdda6ea07e7a30f3b"
             }
             WechatMoments {
                 appId "wx2bf3127030b5618e"
-                appSecret "c2517eb75d38e168be0c0720443b376e"
+                appSecret "f5f96baf2e1fa11cdda6ea07e7a30f3b"
             }
 //            QQ {
 //                appId "1104935393"

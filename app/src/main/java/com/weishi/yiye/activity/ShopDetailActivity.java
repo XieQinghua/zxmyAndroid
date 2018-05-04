@@ -110,7 +110,7 @@ public class ShopDetailActivity extends BaseSwipeBackActivity implements View.On
         lp.setMargins(SizeUtils.dp2px(10), para.height - SizeUtils.dp2px(30), 0, 0);
 
         iv_right = (ImageView) findViewById(R.id.iv_right);
-        iv_right.setVisibility(View.GONE);
+        iv_right.setVisibility(View.VISIBLE);
         iv_right.setImageResource(R.drawable.icon_dark_share);
         iv_right.setOnClickListener(this);
 

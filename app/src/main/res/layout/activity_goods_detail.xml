@@ -4,7 +4,6 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:custom="http://schemas.android.com/apk/res-auto"
-        xmlns:fresco="http://schemas.android.com/apk/res-auto"
         android:id="@+id/parent_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -209,6 +208,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
+                        android:visibility="visible"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -221,7 +221,8 @@
                                 android:layout_width="0dp"
                                 android:layout_height="48dp"
                                 android:layout_weight="1"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:visibility="gone">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -241,7 +242,8 @@
 
                             <View
                                 android:layout_width="60dp"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:visibility="gone" />
 
                             <RelativeLayout
                                 android:id="@+id/rl_title_center"
@@ -256,7 +258,7 @@
                                     android:layout_centerInParent="true"
                                     android:layout_gravity="center"
                                     android:text="最新评价"
-                                    android:textColor="@color/grey_text"
+                                    android:textColor="@color/main_text_color"
                                     android:textSize="@dimen/font_size_normal" />
 
                                 <View
@@ -264,8 +266,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="2dp"
                                     android:layout_alignParentBottom="true"
-                                    android:background="@color/main_text_color"
-                                    android:visibility="gone" />
+                                    android:background="@color/main_text_color" />
                             </RelativeLayout>
 
                             <View
@@ -309,12 +310,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
-                        android:background="@color/main_bk" />
+                        android:background="@color/main_bk"
+                        android:visibility="gone" />
 
                     <RelativeLayout
                         android:id="@+id/rl_left_detail"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -337,12 +340,14 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/main_bk" />
+                        android:background="@color/main_bk"
+                        android:visibility="gone" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp">
+                        android:layout_marginBottom="10dp"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/tv_detail_name"
@@ -424,7 +429,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="10dp">
+                        android:padding="10dp"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"

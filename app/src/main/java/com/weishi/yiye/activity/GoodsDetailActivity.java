@@ -96,7 +96,7 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
 
     private View line_left, line_center, line_right;
     private TextView tv_left, tv_center, tv_right;
-    private RelativeLayout rl_title_top_center, rl_title_top_left, rl_title_top_right;
+    private RelativeLayout rl_title_top_left, rl_title_top_center, rl_title_top_right;
 
     private int left;//购买须知
     private int center;//最新评价
@@ -156,15 +156,16 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
         goodsDetailBinding.rlRightDetail.setOnClickListener(this);
 
         //标题栏三个点击事件
-        rl_title_top_right.setOnClickListener(this);
-        rl_title_top_left.setOnClickListener(this);
+        //rl_title_top_left.setOnClickListener(this);
         rl_title_top_center.setOnClickListener(this);
+        rl_title_top_right.setOnClickListener(this);
+
+        //goodsDetailBinding.rlTitleLeft.setOnClickListener(this);
         goodsDetailBinding.rlTitleCenter.setOnClickListener(this);
-        goodsDetailBinding.rlTitleLeft.setOnClickListener(this);
         goodsDetailBinding.rlTitleRight.setOnClickListener(this);
 
         iv_right = (ImageView) findViewById(R.id.iv_right);
-        iv_right.setVisibility(View.GONE);
+        iv_right.setVisibility(View.VISIBLE);
         iv_right.setImageResource(R.drawable.icon_dark_share);
         iv_right.setOnClickListener(this);
 
@@ -185,12 +186,10 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
         //当布局的状态或者控件的可见性发生改变回调的接口
         goodsDetailBinding.mslLayout.setOnScrollListener(this);
         findViewById(R.id.parent_layout).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-
             @Override
             public void onGlobalLayout() {
                 //这一步很重要，使得上面的购买布局和下面的购买布局重合
                 onScroll(goodsDetailBinding.mslLayout.getScrollY());
-
             }
         });
     }
@@ -559,16 +558,16 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
                     startActivity(intent);
                 }
                 break;
-            case R.id.rl_title_left:
-                goodsDetailBinding.mslLayout.smoothScrollTo(0, goodsDetailBinding.rlLeftDetail.getTop() - layout);
-
-                line_left.setBackgroundColor(getResources().getColor(R.color.main_text_color));
-                line_right.setBackgroundColor(getResources().getColor(R.color.white));
-                line_center.setBackgroundColor(getResources().getColor(R.color.white));
-                tv_left.setTextColor(getResources().getColor(R.color.main_text_color));
-                tv_right.setTextColor(getResources().getColor(R.color.grey_text));
-                tv_center.setTextColor(getResources().getColor(R.color.grey_text));
-                break;
+//            case R.id.rl_title_left:
+//                goodsDetailBinding.mslLayout.smoothScrollTo(0, goodsDetailBinding.rlLeftDetail.getTop() - layout);
+//
+//                line_left.setBackgroundColor(getResources().getColor(R.color.main_text_color));
+//                line_right.setBackgroundColor(getResources().getColor(R.color.white));
+//                line_center.setBackgroundColor(getResources().getColor(R.color.white));
+//                tv_left.setTextColor(getResources().getColor(R.color.main_text_color));
+//                tv_right.setTextColor(getResources().getColor(R.color.grey_text));
+//                tv_center.setTextColor(getResources().getColor(R.color.grey_text));
+//                break;
             case R.id.rl_title_center:
                 goodsDetailBinding.mslLayout.smoothScrollTo(0, goodsDetailBinding.rlCenterDetail.getTop() - layout);
 
@@ -589,16 +588,16 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
                 tv_right.setTextColor(getResources().getColor(R.color.main_text_color));
                 tv_center.setTextColor(getResources().getColor(R.color.grey_text));
                 break;
-            case R.id.rl_title_top_left:
-                goodsDetailBinding.mslLayout.smoothScrollTo(0, goodsDetailBinding.rlLeftDetail.getTop() - layout);
-
-                line_left.setBackgroundColor(getResources().getColor(R.color.main_text_color));
-                line_right.setBackgroundColor(getResources().getColor(R.color.white));
-                line_center.setBackgroundColor(getResources().getColor(R.color.white));
-                tv_left.setTextColor(getResources().getColor(R.color.main_text_color));
-                tv_right.setTextColor(getResources().getColor(R.color.grey_text));
-                tv_center.setTextColor(getResources().getColor(R.color.grey_text));
-                break;
+//            case R.id.rl_title_top_left:
+//                goodsDetailBinding.mslLayout.smoothScrollTo(0, goodsDetailBinding.rlLeftDetail.getTop() - layout);
+//
+//                line_left.setBackgroundColor(getResources().getColor(R.color.main_text_color));
+//                line_right.setBackgroundColor(getResources().getColor(R.color.white));
+//                line_center.setBackgroundColor(getResources().getColor(R.color.white));
+//                tv_left.setTextColor(getResources().getColor(R.color.main_text_color));
+//                tv_right.setTextColor(getResources().getColor(R.color.grey_text));
+//                tv_center.setTextColor(getResources().getColor(R.color.grey_text));
+//                break;
             case R.id.rl_title_top_center:
                 goodsDetailBinding.mslLayout.smoothScrollTo(0, goodsDetailBinding.rlCenterDetail.getTop() - layout);
 
@@ -783,12 +782,19 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
             tv_right.setTextColor(getResources().getColor(R.color.grey_text));
             tv_center.setTextColor(getResources().getColor(R.color.main_text_color));
         } else {
-            line_left.setBackgroundColor(getResources().getColor(R.color.main_text_color));
+//            line_left.setBackgroundColor(getResources().getColor(R.color.main_text_color));
+//            line_right.setBackgroundColor(getResources().getColor(R.color.white));
+//            line_center.setBackgroundColor(getResources().getColor(R.color.white));
+//            tv_left.setTextColor(getResources().getColor(R.color.main_text_color));
+//            tv_right.setTextColor(getResources().getColor(R.color.grey_text));
+//            tv_center.setTextColor(getResources().getColor(R.color.grey_text));
+
+            line_left.setBackgroundColor(getResources().getColor(R.color.white));
             line_right.setBackgroundColor(getResources().getColor(R.color.white));
-            line_center.setBackgroundColor(getResources().getColor(R.color.white));
-            tv_left.setTextColor(getResources().getColor(R.color.main_text_color));
+            line_center.setBackgroundColor(getResources().getColor(R.color.main_text_color));
+            tv_left.setTextColor(getResources().getColor(R.color.grey_text));
             tv_right.setTextColor(getResources().getColor(R.color.grey_text));
-            tv_center.setTextColor(getResources().getColor(R.color.grey_text));
+            tv_center.setTextColor(getResources().getColor(R.color.main_text_color));
         }
     }
 

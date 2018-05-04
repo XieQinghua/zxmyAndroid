@@ -53,6 +53,7 @@ public class InviteFriendActivity extends BaseSwipeBackActivity implements View.
     private ActivityInviteFriendBinding inviteFriendBinding;
     protected Handler handler = new Handler();
     private String invitationCode = "W7SK";
+    private String inviteFriendUrl;
 
     @Override
     protected void initView() {
@@ -111,7 +112,8 @@ public class InviteFriendActivity extends BaseSwipeBackActivity implements View.
             @Override
             public void run() {
                 Log.e(TAG, mSp.getString(ConfigConstants.INVITED_REGISTER, "") + "?nickName=" + mSp.getString(Constants.NICKNAME, "") + "&inviteCode=" + invitationCode);
-                Bitmap bitmap = QRCodeEncoder.syncEncodeQRCode(mSp.getString(ConfigConstants.INVITED_REGISTER, "") + "?nickName=" + mSp.getString(Constants.NICKNAME, "") + "&inviteCode=" + invitationCode, BGAQRCodeUtil.dp2px(InviteFriendActivity.this, 150));
+                inviteFriendUrl = mSp.getString(ConfigConstants.INVITED_REGISTER, "") + "?nickName=" + mSp.getString(Constants.NICKNAME, "") + "&inviteCode=" + invitationCode;
+                Bitmap bitmap = QRCodeEncoder.syncEncodeQRCode(inviteFriendUrl, BGAQRCodeUtil.dp2px(InviteFriendActivity.this, 150));
                 inviteFriendBinding.sdvQrcode.setImageBitmap(QRCodeUtil.addLogo(bitmap, UIUtil.readBitMap(InviteFriendActivity.this, R.mipmap.ic_launcher)));
             }
         });
@@ -166,9 +168,9 @@ public class InviteFriendActivity extends BaseSwipeBackActivity implements View.
         // text是分享文本，所有平台都需要这个字段
         oks.setText(mSp.getString(Constants.NICKNAME, "") + "邀请您加入众享美业");
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-        oks.setImageUrl("http://my.lianqumall.com/img/zc/logo.png");
+        oks.setImageUrl("http://zhongxiang.oss-cn-shanghai.aliyuncs.com/0141325b-48f0-4da4-99b8-7dd9e0697565");
         // url在微信、微博，Facebook等平台中使用
-        oks.setUrl("http://my.lianqumall.com/register.html?nickName=" + mSp.getString(Constants.NICKNAME, "") + "&inviteCode=" + invitationCode);
+        oks.setUrl(inviteFriendUrl);
         //oks.setUrl("http://yiye-h5-test.lianqumall.com/yylmh5/html/register.html?inviteCode=" + invitationCode);
         // 启动分享GUI
         oks.show(this);
