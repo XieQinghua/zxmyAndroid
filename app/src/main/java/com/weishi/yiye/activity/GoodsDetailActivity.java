@@ -89,6 +89,7 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
     private ArrayList<String> imgUrlList = new ArrayList<>();
     private int downPosition = 0;
     private ArrayList<String> imgPathList = new ArrayList<>();
+    private String productDetail = "";
 
     private ViewGroup.LayoutParams para;
     private int productId;
@@ -145,7 +146,7 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
         /**轮播图*/
         para = goodsDetailBinding.sliderLayout.getLayoutParams();
         para.width = ScreenUtils.getScreenWidth();
-        para.height = ScreenUtils.getScreenWidth() * 326 / 750;
+        para.height = ScreenUtils.getScreenWidth() * 848 / 1080;
         goodsDetailBinding.sliderLayout.setLayoutParams(para);
 
         goodsDetailBinding.sliderLayout.setPresetTransformer(SliderLayout.Transformer.Accordion);
@@ -248,11 +249,11 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
                             }
                             productInfo = goodsDetailBean.getData().getProductInfo();
                             if (productInfo != null) {
-                                if (productInfo.getAlternateImgList() != null && productInfo.getAlternateImgList().size() != 0) {
-                                    for (String name : productInfo.getAlternateImgList()) {
+                                if (productInfo.getAlternateImgs() != null && productInfo.getAlternateImgs().size() != 0) {
+                                    for (GoodsDetailBean.DataBean.ProductInfoBean.AlternateImgsBean bean : productInfo.getAlternateImgs()) {
                                         TextSliderView textSliderView = new TextSliderView(GoodsDetailActivity.this);
                                         // initialize a SliderLayout
-                                        textSliderView.image(name)
+                                        textSliderView.image(bean.getContent())
                                                 .setScaleType(BaseSliderView.ScaleType.CenterCrop)
                                                 .setOnSliderClickListener(GoodsDetailActivity.this);
 
@@ -302,25 +303,28 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
                                 goodsDetailBinding.tvTime.setText(productInfo.getIndate());
                                 goodsDetailBinding.tvMsg.setText(productInfo.getReserveInformation());
                                 goodsDetailBinding.tvEvent.setText(productInfo.getNotes());
-                                goodsDetailBinding.tvGoodsDetail.setText(productInfo.getDescription());
 
-                                if (productInfo.getDetailImgList() != null && productInfo.getDetailImgList().size() != 0) {
-//                                    goodsDetailBinding.llDetailImg.setVisibility(View.VISIBLE);
-//                                    ViewGroup.LayoutParams para = goodsDetailBinding.llDetailImg.getLayoutParams();
-//                                    para.width = ScreenUtils.getScreenWidth();
-//                                    para.height = ScreenUtils.getScreenWidth() * 1 / 3;
-//                                    goodsDetailBinding.llDetailImg.setLayoutParams(para);
-                                    imgUrlList = (ArrayList<String>) productInfo.getDetailImgList();
+
+                                if (productInfo.getDetailImgs() != null && productInfo.getDetailImgs().size() != 0) {
+                                    if (productInfo.getDetailImgs().get(0).getContentType() == 1) {
+                                        productDetail = productInfo.getDetailImgs().get(0).getContent();
+                                        goodsDetailBinding.tvGoodsDetail.setText(productDetail);
+                                    }
+
+                                    for (GoodsDetailBean.DataBean.ProductInfoBean.DetailImgsBean bean : productInfo.getDetailImgs()) {
+                                        if (bean.getContentType() == 0) {
+                                            imgUrlList.add(bean.getContent());
+                                        }
+                                    }
+
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                         checkPermission.permission(CheckPermission.REQUEST_CODE_PERMISSION_STORAGE);
                                     } else {
                                         downFile(imgUrlList.get(downPosition), downPosition);
                                     }
-//                                    productDetailImgAdapter.setData(imgUrlList);
-//                                    productDetailImgAdapter.notifyDataSetChanged();
                                 }
 
-                                goodsDetailBinding.tvGrade.setText(productInfo.getStarLevel() + "分");
+                                goodsDetailBinding.tvGrade.setText(new DecimalFormat("#0.0").format(productInfo.getStarLevel()) + "分");
                                 goodsDetailBinding.rb.setStar((float) productInfo.getStarLevel());
                                 goodsDetailBinding.tvShopName.setText(productInfo.getStoreName());
                                 goodsDetailBinding.tvShopName.setOnClickListener(new View.OnClickListener() {
@@ -553,8 +557,8 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
             case R.id.rl_right_detail:
                 if (null != productInfo) {
                     Intent intent = new Intent(GoodsDetailActivity.this, GoodsInsideDetailActivity.class);
-                    intent.putExtra("productDetail", productInfo.getProductDetail());//文字内容
-                    intent.putExtra("detailImgList", (ArrayList<String>) productInfo.getDetailImgList());//图片路径
+                    intent.putExtra("productDetail", productDetail);//文字内容
+                    intent.putExtra("detailImgList", imgUrlList);//图片路径
                     startActivity(intent);
                 }
                 break;

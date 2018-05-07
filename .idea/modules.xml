@@ -10,9 +10,10 @@
       <module fileurl="file://D:\projects\companys\meiye\customer\ZxingLibrary\ZxingLibrary.iml" filepath="D:\projects\companys\meiye\customer\ZxingLibrary\ZxingLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://D:\projects\companys\meiye\customer\app\app.iml" filepath="D:\projects\companys\meiye\customer\app\app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/customer.iml" filepath="$PROJECT_DIR$/customer.iml" />
+      <module fileurl="file://D:\Code\zxmyAndroid\customer.iml" filepath="D:\Code\zxmyAndroid\customer.iml" />
       <module fileurl="file://$PROJECT_DIR$/picture_library/picture_library.iml" filepath="$PROJECT_DIR$/picture_library/picture_library.iml" />
       <module fileurl="file://D:\projects\companys\meiye\customer\picture_library\picture_library.iml" filepath="D:\projects\companys\meiye\customer\picture_library\picture_library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zxmyAndroid.iml" filepath="$PROJECT_DIR$/zxmyAndroid.iml" />
       <module fileurl="file://D:\projects\companys\meiye\customer\zxmyAndroid.iml" filepath="D:\projects\companys\meiye\customer\zxmyAndroid.iml" />
     </modules>
   </component>

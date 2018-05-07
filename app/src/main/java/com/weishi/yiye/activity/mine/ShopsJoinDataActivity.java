@@ -555,6 +555,7 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
                         } else {
                             shopsJoinDataBinding.tvAddBanner.setVisibility(View.VISIBLE);
                             shopsJoinDataBinding.vpBanner.setVisibility(View.GONE);
+                            shopsJoinDataBinding.tvVpIndicator.setVisibility(View.GONE);
                         }
                     }
                 case CHOOSE_LOCATION:

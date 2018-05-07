@@ -104,7 +104,7 @@ public class ShopDetailActivity extends BaseSwipeBackActivity implements View.On
         /**轮播图(banner为单张图片，增加图册入口)*/
         para = shopDetailBinding.rlGoodsImg.getLayoutParams();
         para.width = ScreenUtils.getScreenWidth();
-        para.height = ScreenUtils.getScreenWidth() * 326 / 750;
+        para.height = ScreenUtils.getScreenWidth() * 848 / 1080;
         shopDetailBinding.rlGoodsImg.setLayoutParams(para);
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) shopDetailBinding.sdvShopsHead.getLayoutParams();
         lp.setMargins(SizeUtils.dp2px(10), para.height - SizeUtils.dp2px(30), 0, 0);
@@ -284,7 +284,7 @@ public class ShopDetailActivity extends BaseSwipeBackActivity implements View.On
                                     }
                                 });
                                 shopDetailBinding.rb.setStar((float) shopDetailInfo.getStarLevel());
-                                shopDetailBinding.tvGrade.setText(shopDetailInfo.getStarLevel() + "分");
+                                shopDetailBinding.tvGrade.setText(new DecimalFormat("#0.0").format(shopDetailInfo.getStarLevel()) + "分");
                                 shopDetailBinding.ivServiceTel.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {

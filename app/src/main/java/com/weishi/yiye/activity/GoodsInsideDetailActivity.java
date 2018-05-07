@@ -63,7 +63,9 @@ public class GoodsInsideDetailActivity extends BaseSwipeBackActivity {
         checkPermission = new CheckPermission(this) {
             @Override
             public void permissionSuccess(int requestCode) {
-                downFile(goodDetailImages.get(downPosition), downPosition);
+                if (goodDetailImages.size() != 0) {
+                    downFile(goodDetailImages.get(downPosition), downPosition);
+                }
             }
 
             @Override
@@ -88,7 +90,9 @@ public class GoodsInsideDetailActivity extends BaseSwipeBackActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkPermission.permission(CheckPermission.REQUEST_CODE_PERMISSION_STORAGE);
         } else {
-            downFile(goodDetailImages.get(downPosition), downPosition);
+            if (goodDetailImages.size() != 0) {
+                downFile(goodDetailImages.get(downPosition), downPosition);
+            }
         }
     }
 
