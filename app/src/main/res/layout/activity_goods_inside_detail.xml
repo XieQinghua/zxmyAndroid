@@ -12,32 +12,13 @@
 
         <include layout="@layout/activity_layout_foot" />
 
-        <ScrollView
+        <ListView
+            android:id="@+id/lv_goods_images"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rl_layout_title">
+            android:layout_below="@+id/rl_layout_title"
+            android:divider="@null"
+            android:padding="@dimen/icon_padding" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_goods_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/icon_padding"
-                    android:textColor="@color/app_text_color1"
-                    android:textSize="@dimen/font_size_normal" />
-
-                <com.weishi.yiye.view.MyListView
-                    android:id="@+id/lv_goods_images"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:divider="@null"
-                    android:padding="@dimen/icon_padding" />
-
-            </LinearLayout>
-        </ScrollView>
     </RelativeLayout>
 </layout>

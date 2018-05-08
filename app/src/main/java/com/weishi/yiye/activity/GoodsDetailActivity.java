@@ -30,6 +30,7 @@ import com.weishi.yiye.base.BaseSwipeBackActivity;
 import com.weishi.yiye.bean.CommentBean;
 import com.weishi.yiye.bean.CommonBean;
 import com.weishi.yiye.bean.GoodsDetailBean;
+import com.weishi.yiye.bean.ImageTextBean;
 import com.weishi.yiye.common.Api;
 import com.weishi.yiye.common.ConfigConstants;
 import com.weishi.yiye.common.Constants;
@@ -86,9 +87,9 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
     private List<CommentBean.DataBean.ListBean> commentsList = new ArrayList<CommentBean.DataBean.ListBean>();
 
     private GoodsImagesAdapter goodsImagesAdapter;
-    private ArrayList<String> imgUrlList = new ArrayList<>();
+    private ArrayList<GoodsDetailBean.DataBean.ProductInfoBean.DetailImgsBean> imgUrlList = new ArrayList<>();
     private int downPosition = 0;
-    private ArrayList<String> imgPathList = new ArrayList<>();
+    private ArrayList<ImageTextBean> imgPathList = new ArrayList<>();
     private String productDetail = "";
 
     private ViewGroup.LayoutParams para;
@@ -306,16 +307,7 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
 
 
                                 if (productInfo.getDetailImgs() != null && productInfo.getDetailImgs().size() != 0) {
-                                    if (productInfo.getDetailImgs().get(0).getContentType() == 1) {
-                                        productDetail = productInfo.getDetailImgs().get(0).getContent();
-                                        goodsDetailBinding.tvGoodsDetail.setText(productDetail);
-                                    }
-
-                                    for (GoodsDetailBean.DataBean.ProductInfoBean.DetailImgsBean bean : productInfo.getDetailImgs()) {
-                                        if (bean.getContentType() == 0) {
-                                            imgUrlList.add(bean.getContent());
-                                        }
-                                    }
+                                    imgUrlList = (ArrayList<GoodsDetailBean.DataBean.ProductInfoBean.DetailImgsBean>) productInfo.getDetailImgs();
 
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                         checkPermission.permission(CheckPermission.REQUEST_CODE_PERMISSION_STORAGE);
@@ -367,15 +359,13 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
         });
     }
 
-    private void downFile(String url, final int downPosition) {
-        final String fileName = url.substring(url.lastIndexOf("/") + 1);
-        final String imgPath = CropImageUtils.createImagePath(fileName);
-        //判断内存中是否存在改图片
-        if (isExists(imgPath)) {
-            imgPathList.add(imgPath);
+    private void downFile(GoodsDetailBean.DataBean.ProductInfoBean.DetailImgsBean bean, final int downPosition) {
+        if (bean.getContentType() != 0) {
+            imgPathList.add(new ImageTextBean(1, bean.getContent()));
+
             if (downPosition == (imgUrlList.size() - 1)) {
                 //全部图片下载完成
-                Log.e(TAG, "全部图片均下载过");
+                //Log.e(TAG, "全部图片均下载过");
                 stopAnim();
                 runOnUiThread(new Runnable() {
                     @Override
@@ -388,59 +378,82 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
                 downFile(imgUrlList.get(downPosition + 1), downPosition + 1);
             }
         } else {
-            //下载图片
-            HttpUtils.downFile(url, new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Log.e(TAG, e.getMessage());
+
+            final String fileName = bean.getContent().substring(bean.getContent().lastIndexOf("/") + 1);
+            final String imgPath = CropImageUtils.createImagePath(fileName);
+            //判断内存中是否存在改图片
+            if (isExists(imgPath)) {
+                imgPathList.add(new ImageTextBean(0, imgPath));
+
+                if (downPosition == (imgUrlList.size() - 1)) {
+                    //全部图片下载完成
+                    //Log.e(TAG, "全部图片均下载过");
+                    stopAnim();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            goodsImagesAdapter.setData(imgPathList);
+                            goodsImagesAdapter.notifyDataSetChanged();
+                        }
+                    });
+                } else {
+                    downFile(imgUrlList.get(downPosition + 1), downPosition + 1);
                 }
+            } else {
+                //下载图片
+                HttpUtils.downFile(bean.getContent(), new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.e(TAG, e.getMessage());
+                    }
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    InputStream is = null;
-                    byte[] buf = new byte[2048];
-                    int len = 0;
-                    FileOutputStream fos = null;
-                    try {
-                        is = response.body().byteStream();
-                        File file = new File(imgPath);
-                        fos = new FileOutputStream(file);
-                        while ((len = is.read(buf)) != -1) {
-                            fos.write(buf, 0, len);
-                        }
-                        fos.flush();
-                        //Log.e(TAG, "保存第" + (downPosition + 1) + "张图片到" + imgPath);
-                        imgPathList.add(imgPath);
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        InputStream is = null;
+                        byte[] buf = new byte[2048];
+                        int len = 0;
+                        FileOutputStream fos = null;
+                        try {
+                            is = response.body().byteStream();
+                            File file = new File(imgPath);
+                            fos = new FileOutputStream(file);
+                            while ((len = is.read(buf)) != -1) {
+                                fos.write(buf, 0, len);
+                            }
+                            fos.flush();
+                            //Log.e(TAG, "保存第" + (downPosition + 1) + "张图片到" + imgPath);
+                            imgPathList.add(new ImageTextBean(0, imgPath));
 
-                        if (downPosition == (imgUrlList.size() - 1)) {
-                            //全部图片下载完成
-                            Log.e(TAG, "全部图片下载完成");
+                            if (downPosition == (imgUrlList.size() - 1)) {
+                                //全部图片下载完成
+                                Log.e(TAG, "全部图片下载完成");
 
-                            stopAnim();
-                            //开始渲染
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    goodsImagesAdapter.setData(imgPathList);
-                                    goodsImagesAdapter.notifyDataSetChanged();
-                                }
-                            });
+                                stopAnim();
+                                //开始渲染
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        goodsImagesAdapter.setData(imgPathList);
+                                        goodsImagesAdapter.notifyDataSetChanged();
+                                    }
+                                });
 
-                        } else {
-                            downFile(imgUrlList.get(downPosition + 1), downPosition + 1);
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } finally {
-                        if (is != null) {
-                            is.close();
-                        }
-                        if (fos != null) {
-                            fos.close();
+                            } else {
+                                downFile(imgUrlList.get(downPosition + 1), downPosition + 1);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } finally {
+                            if (is != null) {
+                                is.close();
+                            }
+                            if (fos != null) {
+                                fos.close();
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
         }
     }
 
@@ -557,8 +570,7 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
             case R.id.rl_right_detail:
                 if (null != productInfo) {
                     Intent intent = new Intent(GoodsDetailActivity.this, GoodsInsideDetailActivity.class);
-                    intent.putExtra("productDetail", productDetail);//文字内容
-                    intent.putExtra("detailImgList", imgUrlList);//图片路径
+                    intent.putExtra("imgPathList", imgPathList);
                     startActivity(intent);
                 }
                 break;

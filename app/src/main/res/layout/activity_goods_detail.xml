@@ -208,8 +208,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:visibility="visible"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="visible">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -576,28 +576,13 @@
                         android:layout_height="1dp"
                         android:background="@color/main_bk" />
 
-                    <LinearLayout
+                    <com.weishi.yiye.view.MyListView
+                        android:id="@+id/lv_goods_images"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:divider="@null"
+                        android:padding="@dimen/icon_padding" />
 
-                        <TextView
-                            android:id="@+id/tv_goods_detail"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="@dimen/icon_padding"
-                            android:paddingRight="@dimen/icon_padding"
-                            android:paddingTop="@dimen/icon_padding"
-                            android:textSize="@dimen/font_size_middle" />
-
-                        <com.weishi.yiye.view.MyListView
-                            android:id="@+id/lv_goods_images"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:divider="@null"
-                            android:padding="@dimen/icon_padding" />
-
-                    </LinearLayout>
                 </LinearLayout>
 
                 <include

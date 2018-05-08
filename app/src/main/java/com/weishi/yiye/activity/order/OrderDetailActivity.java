@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.TimeUtils;
 import com.weishi.yiye.R;
 import com.weishi.yiye.activity.GoodsDetailActivity;
-import com.weishi.yiye.activity.GoodsInsideDetailActivity;
 import com.weishi.yiye.application.YiyeApplication;
 import com.weishi.yiye.base.BaseSwipeBackActivity;
 import com.weishi.yiye.bean.CommonBean;
@@ -35,7 +34,6 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -276,15 +274,15 @@ public class OrderDetailActivity extends BaseSwipeBackActivity implements View.O
 
         orderDetailBinding.tvDescription.setText(orderDetailBean.getData().getDescription());
 
-        orderDetailBinding.tvImageText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(OrderDetailActivity.this, GoodsInsideDetailActivity.class);
-                intent.putExtra("productDetail", orderDetailBean.getData().getProductDetail());
-                intent.putExtra("detailImgList", (ArrayList<String>) orderDetailBean.getData().getDetailImgList());
-                startActivity(intent);
-            }
-        });
+//        orderDetailBinding.tvImageText.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(OrderDetailActivity.this, GoodsInsideDetailActivity.class);
+//                intent.putExtra("productDetail", orderDetailBean.getData().getProductDetail());
+//                intent.putExtra("detailImgList", (ArrayList<String>) orderDetailBean.getData().getDetailImgList());
+//                startActivity(intent);
+//            }
+//        });
         orderDetailBinding.tvOrderNumber.setText(orderDetailBean.getData().getOrderNum());
         orderDetailBinding.tvOrderPhone.setText(orderDetailBean.getData().getMobile());
         if (orderDetailBean.getData().getPayTime() != null) {
