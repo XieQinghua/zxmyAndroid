@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.compress.Luban;
 import com.luck.picture.lib.config.PictureConfig;
@@ -103,6 +104,8 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
     private String logoPath;
     private String storeLogo;
 
+    private ViewGroup.LayoutParams para;
+
     @Override
     protected void initView() {
         shopsJoinDataBinding = DataBindingUtil.setContentView(ShopsJoinDataActivity.this, R.layout.activity_shops_join_data);
@@ -134,6 +137,11 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
                 LogUtils.e(TAG, "权限申请失败！");
             }
         };
+
+        para = shopsJoinDataBinding.rlImgInfo.getLayoutParams();
+        para.width = ScreenUtils.getScreenWidth();
+        para.height = ScreenUtils.getScreenWidth() * 848 / 1080;
+        shopsJoinDataBinding.rlImgInfo.setLayoutParams(para);
 
         shopsJoinDataBinding.btnSubmitApply.setOnClickListener(this);
         shopsJoinDataBinding.rlChooseAddress.setOnClickListener(this);
@@ -408,7 +416,7 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
                     @Override
                     public void run() {
                         if (Api.STATE_SUCCESS.equals(shopsJoinBean.getCode())) {
-                            Toast.makeText(ShopsJoinDataActivity.this, "资料填写成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ShopsJoinDataActivity.this, "申请成功等待平台审核", Toast.LENGTH_LONG).show();
                             finish();
 //                            if (shopsJoinBean.getData().getOnlinePay() == 1) {
 //                                shopId = shopsJoinBean.getData().getId();

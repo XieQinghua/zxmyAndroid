@@ -91,7 +91,14 @@ public class ShopsJoinActivity extends BaseSwipeBackActivity {
                                     break;
                                 case 1:
                                     shopsJoinBinding.btnJoin.setText("审核通过");
-                                    shopsJoinBinding.btnJoin.setClickable(false);
+                                    shopsJoinBinding.btnJoin.setClickable(true);
+                                    shopsJoinBinding.btnJoin.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            startActivity(new Intent(ShopsJoinActivity.this, ShopsJoinInfoActivity.class));
+                                            finish();
+                                        }
+                                    });
                                     break;
                                 case 2:
                                     shopsJoinBinding.btnJoin.setText("立即入驻");
@@ -105,17 +112,17 @@ public class ShopsJoinActivity extends BaseSwipeBackActivity {
                                     });
                                     break;
                                 case 3:
-                                    shopsJoinBinding.btnJoin.setText("支付入驻费" + businessApplyBean.getData().getPayMoney() + "元");
-                                    shopsJoinBinding.btnJoin.setClickable(true);
-                                    shopsJoinBinding.btnJoin.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            new PayPopupWindows(ShopsJoinActivity.this,
-                                                    shopsJoinBinding.btnJoin,
-                                                    businessApplyBean.getData().getBusinessId() + "");
-                                        }
-                                    });
-                                    break;
+//                                    shopsJoinBinding.btnJoin.setText("支付入驻费" + businessApplyBean.getData().getPayMoney() + "元");
+//                                    shopsJoinBinding.btnJoin.setClickable(true);
+//                                    shopsJoinBinding.btnJoin.setOnClickListener(new View.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(View view) {
+//                                            new PayPopupWindows(ShopsJoinActivity.this,
+//                                                    shopsJoinBinding.btnJoin,
+//                                                    businessApplyBean.getData().getBusinessId() + "");
+//                                        }
+//                                    });
+//                                    break;
                                 default:
                                     break;
                             }

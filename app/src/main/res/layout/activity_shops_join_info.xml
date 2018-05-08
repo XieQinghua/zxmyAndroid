@@ -2,6 +2,7 @@
 <layout>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/main_text_color"
@@ -31,17 +32,16 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/white">
 
-                    <TextView
+                    <!--<TextView
                         android:id="@+id/tv_add_banner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:drawablePadding="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:drawableTop="@drawable/icon_add"
-                        android:padding="50dp"
+                        android:gravity="center"
+                        android:padding="45dp"
                         android:text="点击添加店铺轮播图"
                         android:textColor="@color/app_text_color2"
-                        android:textSize="@dimen/font_size_normal" />
+                        android:textSize="@dimen/font_size_normal" />-->
 
                     <android.support.v4.view.ViewPager
                         android:id="@+id/vp_banner"
@@ -62,7 +62,7 @@
                         android:paddingRight="10dp"
                         android:textColor="@color/white"
                         android:textSize="@dimen/font_size_middle"
-                        android:visibility="invisible" />
+                        android:visibility="visible" />
 
                 </RelativeLayout>
 
@@ -97,14 +97,18 @@
                         android:textColor="@color/app_text_color1"
                         android:textSize="@dimen/font_size_normal" />
 
-                    <ImageView
-                        android:id="@+id/tv_add_logo"
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/sdv_logo"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginBottom="10dp"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/img_add_pic" />
+                        fresco:placeholderImage="@drawable/icon_default_user_head"
+                        fresco:placeholderImageScaleType="fitCenter"
+                        fresco:roundAsCircle="true"
+                        fresco:roundingBorderColor="@color/white"
+                        fresco:roundingBorderWidth="1dp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -144,14 +148,13 @@
                         android:textColor="@color/app_text_color1"
                         android:textSize="@dimen/font_size_normal" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/et_shops_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/tvv1"
                         android:background="@null"
-                        android:hint="请填写店铺名称"
                         android:imeOptions="actionDone"
                         android:maxLines="1"
                         android:padding="10dp"
@@ -196,14 +199,13 @@
                         android:textColor="@color/app_text_color1"
                         android:textSize="@dimen/font_size_normal" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/et_shopkeeper_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/tvv4"
                         android:background="@null"
-                        android:hint="请填写店主姓名"
                         android:imeOptions="actionDone"
                         android:maxLines="1"
                         android:padding="10dp"
@@ -247,7 +249,7 @@
                         android:textColor="@color/app_text_color1"
                         android:textSize="@dimen/font_size_normal" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/et_shopkeeper_identity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -255,7 +257,6 @@
                         android:layout_toRightOf="@+id/tvv5"
                         android:background="@null"
                         android:digits="0123456789x"
-                        android:hint="请填写店主身份证号"
                         android:imeOptions="actionDone"
                         android:maxLines="1"
                         android:padding="10dp"
@@ -312,18 +313,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:hint="点击后进行分类的选择"
                             android:padding="10dp"
                             android:textColor="@color/app_text_color1"
                             android:textColorHint="@color/app_text_color2"
                             android:textSize="@dimen/font_size_normal" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/icon_right_enter" />
                     </RelativeLayout>
 
                     <View
@@ -376,19 +370,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:hint="点击选择"
                             android:padding="10dp"
                             android:textColor="@color/app_text_color1"
                             android:textColorHint="@color/app_text_color2"
                             android:textSize="@dimen/font_size_normal" />
-
-                        <ImageView
-                            android:id="@+id/iv_shop_area"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/icon_right_enter" />
                     </RelativeLayout>
 
                     <View
@@ -436,20 +421,12 @@
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/tvv8"
                         android:background="@null"
-                        android:hint="街道 楼牌号等"
                         android:imeOptions="actionDone"
                         android:maxLines="1"
                         android:padding="10dp"
                         android:textColor="@color/app_text_color1"
                         android:textColorHint="@color/app_text_color2"
                         android:textSize="@dimen/font_size_normal" />
-
-                    <!--<ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/icon_right_enter" />-->
 
                     <View
                         android:layout_width="match_parent"
@@ -500,18 +477,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:hint="点击选择"
                             android:padding="10dp"
                             android:textColor="@color/app_text_color1"
                             android:textColorHint="@color/app_text_color2"
                             android:textSize="@dimen/font_size_normal" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/icon_right_enter" />
                     </RelativeLayout>
 
                     <View
@@ -558,7 +528,6 @@
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/tvv10"
                         android:background="@null"
-                        android:hint="请填写商家手机号码"
                         android:imeOptions="actionDone"
                         android:inputType="phone"
                         android:maxLines="1"
@@ -577,6 +546,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:background="@color/white"
                     android:orientation="horizontal"
                     android:padding="10dp">
@@ -609,7 +579,6 @@
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/tvv9"
                         android:background="@null"
-                        android:hint="请填写邀请码"
                         android:imeOptions="actionDone"
                         android:maxLines="1"
                         android:padding="10dp"
@@ -633,7 +602,8 @@
                     android:gravity="center"
                     android:text="申请入驻"
                     android:textColor="@color/main_text_color1"
-                    android:textSize="@dimen/font_size_normal" />
+                    android:textSize="@dimen/font_size_normal"
+                    android:visibility="gone" />
 
             </LinearLayout>
         </ScrollView>
