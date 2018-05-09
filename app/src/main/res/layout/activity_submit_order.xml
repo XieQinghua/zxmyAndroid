@@ -93,7 +93,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="121"
                                 android:textColor="@color/app_text_color2"
                                 android:textSize="@dimen/font_size_middle" />
                         </LinearLayout>
@@ -152,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:padding="20dp"
-                    android:text="小计"
+                    android:text="总计"
                     android:textColor="@color/app_text_color1"
                     android:textSize="@dimen/font_size_normal" />
 
@@ -194,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:padding="20dp"
-                    android:text="实付金额"
+                    android:text="预约金小计"
                     android:textColor="@color/app_text_color1"
                     android:textSize="@dimen/font_size_normal" />
 
@@ -212,6 +211,47 @@
                         android:layout_height="wrap_content"
                         android:text="999"
                         android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/font_size_normal"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="@dimen/font_size_middle" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="20dp"
+                    android:text="尾款小计"
+                    android:textColor="@color/app_text_color1"
+                    android:textSize="@dimen/font_size_normal" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_final_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="999"
+                        android:textColor="@color/app_text_color2"
                         android:textSize="@dimen/font_size_normal"
                         android:textStyle="bold" />
 
@@ -265,7 +305,7 @@
                 android:layout_height="@dimen/button_top_bar"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="50dp"
                 android:background="@drawable/btn_red_selector"
                 android:gravity="center"
                 android:text="@string/submit_order"

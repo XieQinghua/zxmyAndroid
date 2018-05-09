@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.qbw.customview.RefreshLoadMoreLayout;
 import com.weishi.yiye.R;
-import com.weishi.yiye.adapter.QueryShopsAdapter;
+import com.weishi.yiye.adapter.RecNearbyShopsAdapter;
 import com.weishi.yiye.application.YiyeApplication;
 import com.weishi.yiye.base.BaseSwipeBackActivity;
 import com.weishi.yiye.bean.KeyWordBean;
@@ -75,7 +75,7 @@ public class SearchActivity extends BaseSwipeBackActivity implements View.OnClic
     private int pageSize = 10;
     private boolean hasNextPage = true;
     private ListView lv_rec_shops;
-    private QueryShopsAdapter mRecShopsAdapter;
+    private RecNearbyShopsAdapter mRecShopsAdapter;
 
     private List<QueryShopBean> shopsDatas = new ArrayList<QueryShopBean>();
 
@@ -137,7 +137,7 @@ public class SearchActivity extends BaseSwipeBackActivity implements View.OnClic
         mRefreshloadmore.init(new RefreshLoadMoreLayout.Config(this).showLastRefreshTime(getClass()).autoLoadMore());
         mRefreshloadmore.setCanRefresh(false);
 
-        mRecShopsAdapter = new QueryShopsAdapter(SearchActivity.this, R.layout.item_rec_shops);
+        mRecShopsAdapter = new RecNearbyShopsAdapter(SearchActivity.this, R.layout.item_rec_nearby_shops);
         lv_rec_shops.setAdapter(mRecShopsAdapter);
     }
 
@@ -161,9 +161,9 @@ public class SearchActivity extends BaseSwipeBackActivity implements View.OnClic
                                 .getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
 
-        Intent tempIntent = new Intent(SearchActivity.this, SearchResultActivity.class);
-        tempIntent.putExtra(ShopConstants.KEY_SHOP_KEY_WORDS, keyword);
-        startActivity(tempIntent);
+        Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+        intent.putExtra(ShopConstants.KEY_SHOP_KEY_WORDS, keyword);
+        startActivity(intent);
     }
 
     /**

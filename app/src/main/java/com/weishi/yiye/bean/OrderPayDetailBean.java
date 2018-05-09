@@ -14,7 +14,7 @@ public class OrderPayDetailBean {
     /**
      * code : 200
      * message : SUCCESS
-     * data : {"id":477,"userId":"23256","orderId":"1803082101180001","payInCash":150,"payInBalance":0,"payInScore":0,"payInCommission":0,"payInPaymentForGoods":0,"isDelete":"0","createTime":1520542878000,"scanOrderId":""}
+     * data : {"id":755,"userId":"23256","orderId":"1805091410170001","payInCash":0,"payInBalance":320,"payInScore":0,"payInCommission":0,"amount":320,"isDelete":"0","createTime":1525846218000,"scanOrderId":""}
      */
 
     private String code;
@@ -47,16 +47,16 @@ public class OrderPayDetailBean {
 
     public static class DataBean {
         /**
-         * id : 477
+         * id : 755
          * userId : 23256
-         * orderId : 1803082101180001
-         * payInCash : 150.0
-         * payInBalance : 0.0
+         * orderId : 1805091410170001
+         * payInCash : 0.0
+         * payInBalance : 320.0
          * payInScore : 0.0
          * payInCommission : 0.0
-         * payInPaymentForGoods : 0.0
+         * amount : 320.0
          * isDelete : 0
-         * createTime : 1520542878000
+         * createTime : 1525846218000
          * scanOrderId :
          */
 
@@ -67,7 +67,7 @@ public class OrderPayDetailBean {
         private double payInBalance;
         private double payInScore;
         private double payInCommission;
-        private double payInPaymentForGoods;
+        private double amount;
         private String isDelete;
         private long createTime;
         private String scanOrderId;
@@ -128,12 +128,12 @@ public class OrderPayDetailBean {
             this.payInCommission = payInCommission;
         }
 
-        public double getPayInPaymentForGoods() {
-            return payInPaymentForGoods;
+        public double getAmount() {
+            return amount;
         }
 
-        public void setPayInPaymentForGoods(double payInPaymentForGoods) {
-            this.payInPaymentForGoods = payInPaymentForGoods;
+        public void setAmount(double amount) {
+            this.amount = amount;
         }
 
         public String getIsDelete() {

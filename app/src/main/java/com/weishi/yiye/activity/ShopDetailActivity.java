@@ -283,7 +283,7 @@ public class ShopDetailActivity extends BaseSwipeBackActivity implements View.On
                                                 shopDetailBinding.tvShopAddress);
                                     }
                                 });
-                                shopDetailBinding.rb.setStar((float) shopDetailInfo.getStarLevel());
+                                shopDetailBinding.rb.setStar((float) Math.ceil(shopDetailInfo.getStarLevel()));
                                 shopDetailBinding.tvGrade.setText(new DecimalFormat("#0.0").format(shopDetailInfo.getStarLevel()) + "分");
                                 shopDetailBinding.ivServiceTel.setOnClickListener(new View.OnClickListener() {
                                     @Override

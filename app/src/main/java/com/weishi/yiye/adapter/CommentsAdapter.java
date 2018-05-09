@@ -14,6 +14,7 @@ import com.weishi.yiye.common.Constants;
 import com.weishi.yiye.common.util.FullyGridLayoutManager;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -51,7 +52,7 @@ public class CommentsAdapter extends CommonAdapter<CommentBean.DataBean.ListBean
         holder.setText(R.id.tv_comment_time, TimeUtils.millis2String(dataBean.getCreatetime(),
                 new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault())));
         holder.setStar(R.id.rb, dataBean.getCommentLv());
-        holder.setText(R.id.tv_grade, dataBean.getCommentLv() + "分");
+        holder.setText(R.id.tv_grade, new DecimalFormat("#0.0").format(dataBean.getCommentLv()) + "分");
         holder.setText(R.id.tv_comment_content, dataBean.getContent());
 
         if (dataBean.getCommentImgList() != null && dataBean.getCommentImgList().size() != 0) {

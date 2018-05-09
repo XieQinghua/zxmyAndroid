@@ -154,6 +154,9 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
         shopsJoinDataBinding.tvAddBanner.setOnClickListener(this);
         shopsJoinDataBinding.tvAddLogo.setOnClickListener(this);
         shopsJoinDataBinding.tvChooseLocation.setOnClickListener(this);
+
+        //默认登录用户手机号
+        shopsJoinDataBinding.etShopkeeperMobile.setText(mSp.getString(Constants.PHONE, ""));
     }
 
     @Override

@@ -147,7 +147,8 @@ public class ViewHolder {
      */
     public ViewHolder setStar(int viewId, double grade) {
         RatingBar rb = getView(viewId);
-        rb.setStar((int) Math.floor(grade));
+        //向上取整数
+        rb.setStar((int) Math.ceil(grade));
         return this;
     }
 

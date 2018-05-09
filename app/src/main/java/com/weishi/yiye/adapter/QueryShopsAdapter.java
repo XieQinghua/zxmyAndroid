@@ -48,7 +48,7 @@ public class QueryShopsAdapter extends CommonAdapter<QueryShopBean> {
         holder.setText(R.id.tv_address, recShopsBean.getAddress());
         holder.setText(R.id.tv_distance, new DecimalFormat("#0.0").format(recShopsBean.getDistance() / 1000) + "km");
         holder.setStar(R.id.rb, recShopsBean.getStarLevel());
-        holder.setText(R.id.tv_grade, recShopsBean.getStarLevel() + "分");
+        holder.setText(R.id.tv_grade, new DecimalFormat("#0.0").format(recShopsBean.getStarLevel()) + "分");
 
         holder.getView(R.id.btn_enter_shops).setOnClickListener(new View.OnClickListener() {
             @Override

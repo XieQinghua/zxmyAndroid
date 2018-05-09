@@ -104,10 +104,9 @@ public class OrderDetailActivity extends BaseSwipeBackActivity implements View.O
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(OrderDetailActivity.this, PayScoreActivity.class);
-                        intent.putExtra("orderPrice", orderDetailBean.getData().getOrderPrice());
                         intent.putExtra("orderNum", orderDetailBean.getData().getOrderNum());
-                        intent.putExtra("rewardPoint", orderDetailBean.getData().getRewardPoint());
                         startActivity(intent);
+                        finish();
                     }
                 });
                 orderDetailBinding.btnCancel.setText("取消订单");

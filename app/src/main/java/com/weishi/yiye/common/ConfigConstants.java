@@ -18,6 +18,7 @@ public class ConfigConstants {
     public static final String USER_COVERCHARGE = "userCoverCharge";
     public static final String BELONG_BUSI_CHARGE = "belongBusiCharge";
     public static final String NOT_BELONG_BUSI_CHARGE = "notBelongBusiCharge";
+    public static final String SUBSCRIPTION_RATE = "subscriptionRate";
 
     //app更新
     public static final String VERSIONCODE = "versionCode";

@@ -155,6 +155,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener,
             orderInfo.setVisibility(View.VISIBLE);
             loginInfo.setVisibility(View.GONE);
             getOrderNum();
+            pageNum = 1;
             getData(pageNum);
         } else {
             orderInfo.setVisibility(View.GONE);
@@ -176,6 +177,7 @@ public class OrderFragment extends BaseFragment implements View.OnClickListener,
             return;
         }
         getOrderNum();
+        pageNum = 1;
         getData(pageNum);
     }
 

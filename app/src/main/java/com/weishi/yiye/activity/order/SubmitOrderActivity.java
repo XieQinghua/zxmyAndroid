@@ -14,6 +14,7 @@ import com.weishi.yiye.bean.GoodsDetailBean;
 import com.weishi.yiye.bean.SubmitOrderBean;
 import com.weishi.yiye.bean.eventbus.OrderActionEvent;
 import com.weishi.yiye.common.Api;
+import com.weishi.yiye.common.ConfigConstants;
 import com.weishi.yiye.common.Constants;
 import com.weishi.yiye.common.util.GsonUtil;
 import com.weishi.yiye.common.util.HttpUtils;
@@ -45,6 +46,7 @@ public class SubmitOrderActivity extends BaseSwipeBackActivity implements View.O
     private static final String TAG = SubmitOrderActivity.class.getSimpleName();
     private ActivitySubmitOrderBinding submitOrderBinding;
     private GoodsDetailBean goodsDetailBean;
+    private double subscriptionRate;
 
     @Override
     protected void initView() {
@@ -54,6 +56,8 @@ public class SubmitOrderActivity extends BaseSwipeBackActivity implements View.O
 
         goodsDetailBean = (GoodsDetailBean) getIntent().getSerializableExtra("goods_detail");
         submitOrderBinding.btnSubmitOrder.setOnClickListener(this);
+
+        subscriptionRate = Double.parseDouble(mSp.getString(ConfigConstants.SUBSCRIPTION_RATE, "")) / 100;
     }
 
     @Override
@@ -69,14 +73,17 @@ public class SubmitOrderActivity extends BaseSwipeBackActivity implements View.O
         submitOrderBinding.amountView.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
             @Override
             public void onAmountChange(View view, int amount) {
-//                submitOrderBinding.tvGoodsScore.setText("￥" + new DecimalFormat("#0.00").format((goodsDetailBean.getData().getProductInfo().getPrice()) * amount));
-//                submitOrderBinding.tvGoodsAmount.setText("数量：x" + amount);
                 submitOrderBinding.tvSubtotalScore.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format((goodsDetailBean.getData().getProductInfo().getPrice()) * amount));
-                submitOrderBinding.tvPaymentScore.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format((goodsDetailBean.getData().getProductInfo().getPrice()) * amount));
+                submitOrderBinding.tvPaymentScore.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format((goodsDetailBean.getData().getProductInfo().getPrice()) * amount * subscriptionRate));
+                submitOrderBinding.tvFinalPayment.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format(goodsDetailBean.getData().getProductInfo().getPrice() * amount * (1 - subscriptionRate)));
             }
         });
+        //总计
         submitOrderBinding.tvSubtotalScore.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format(goodsDetailBean.getData().getProductInfo().getPrice()));
-        submitOrderBinding.tvPaymentScore.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format(goodsDetailBean.getData().getProductInfo().getPrice()));
+        //预约金小计
+        submitOrderBinding.tvPaymentScore.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format(goodsDetailBean.getData().getProductInfo().getPrice() * subscriptionRate));
+        //尾款小计
+        submitOrderBinding.tvFinalPayment.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format(goodsDetailBean.getData().getProductInfo().getPrice() * (1 - subscriptionRate)));
         //手机号码隐藏中间四位
         submitOrderBinding.tvPhone.setText(mSp.getString(Constants.PHONE, "")
                 .replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2"));
@@ -136,11 +143,10 @@ public class SubmitOrderActivity extends BaseSwipeBackActivity implements View.O
 
                             //跳转积分支付页面，传值
                             Intent intent = new Intent(SubmitOrderActivity.this, PayScoreActivity.class);
-                            intent.putExtra("orderPrice", submitOrderBean.getData().getOrderPrice());
+                            //intent.putExtra("orderPrice", submitOrderBean.getData().getOrderPrice());
                             intent.putExtra("orderNum", submitOrderBean.getData().getOrderNum());
-                            intent.putExtra("rewardPoint", submitOrderBean.getData().getRewardPoint());
-                            intent.putExtra("payInBalance", submitOrderBean.getData().getPayInBalance());
-                            intent.putExtra("payInCash", submitOrderBean.getData().getPayInCash());
+                            //intent.putExtra("payInBalance", submitOrderBean.getData().getPayInBalance());
+                            //intent.putExtra("payInCash", submitOrderBean.getData().getPayInCash());
                             startActivity(intent);
 
                             finish();

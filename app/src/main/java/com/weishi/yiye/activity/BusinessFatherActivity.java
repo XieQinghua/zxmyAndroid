@@ -1,6 +1,5 @@
 package com.weishi.yiye.activity;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,10 +9,11 @@ import android.widget.AdapterView;
 import com.weishi.yiye.R;
 import com.weishi.yiye.adapter.ShopTypeAdapter;
 import com.weishi.yiye.base.BaseSwipeBackActivity;
+import com.weishi.yiye.bean.SelectShopTypeBean;
 import com.weishi.yiye.bean.ShopTypeBean;
 import com.weishi.yiye.bean.eventbus.FinishEvents;
+import com.weishi.yiye.bean.eventbus.SelectShopTypeEvent;
 import com.weishi.yiye.common.Api;
-import com.weishi.yiye.common.ShopConstants;
 import com.weishi.yiye.common.util.GsonUtil;
 import com.weishi.yiye.common.util.HttpUtils;
 import com.weishi.yiye.databinding.ActivityAddressLayoutBinding;
@@ -70,10 +70,23 @@ public class BusinessFatherActivity extends BaseSwipeBackActivity implements Vie
         addressLayoutBinding.addressList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent shopClassIntent = new Intent(BusinessFatherActivity.this, BusinessParentActivity.class);
-                shopClassIntent.putExtra(ShopConstants.BUSINESS_FATHER_TYPE, shopTypes.get(position).getSortId());
-                shopClassIntent.putExtra(ShopConstants.BUSINESS_FATHER_TYPE_NAME, shopTypes.get(position).getTypeName());
-                startActivity(shopClassIntent);
+//                Intent shopClassIntent = new Intent(BusinessFatherActivity.this, BusinessParentActivity.class);
+//                shopClassIntent.putExtra(ShopConstants.BUSINESS_FATHER_TYPE, shopTypes.get(position).getSortId());
+//                shopClassIntent.putExtra(ShopConstants.BUSINESS_FATHER_TYPE_NAME, shopTypes.get(position).getTypeName());
+//                startActivity(shopClassIntent);
+                SelectShopTypeBean selectShopTypeBean = new SelectShopTypeBean();
+                selectShopTypeBean.setBusinessFatherType(shopTypes.get(position).getSortId());
+                selectShopTypeBean.setBusinessFatherTypeName(shopTypes.get(position).getTypeName());
+                selectShopTypeBean.setBusinessParentType(-1);
+                selectShopTypeBean.setBusinessParentTypeName("");
+                selectShopTypeBean.setBusinessSortType(-1);
+                selectShopTypeBean.setBusinessSortTypeName("");
+
+                SelectShopTypeEvent sEvent = new SelectShopTypeEvent();
+                sEvent.setModel(selectShopTypeBean);
+                EventBus.getDefault().post(sEvent);
+                EventBus.getDefault().post(new FinishEvents());
+                finish();
             }
         });
 

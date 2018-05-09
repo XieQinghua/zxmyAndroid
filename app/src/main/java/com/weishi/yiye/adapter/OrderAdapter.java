@@ -59,9 +59,7 @@ public class OrderAdapter extends CommonAdapter<RecentOrderBean.DataBean.ListBea
                         @Override
                         public void onClick(View view) {
                             Intent intent = new Intent(mContext, PayScoreActivity.class);
-                            intent.putExtra("orderPrice", bean.getOrderPrice());
                             intent.putExtra("orderNum", bean.getOrderNum());
-                            intent.putExtra("rewardPoint", bean.getRewardPoint());
                             mContext.startActivity(intent);
                         }
                     });
@@ -168,9 +166,7 @@ public class OrderAdapter extends CommonAdapter<RecentOrderBean.DataBean.ListBea
                         @Override
                         public void onClick(View view) {
                             Intent intent = new Intent(mContext, PayScoreActivity.class);
-                            intent.putExtra("orderPrice", bean.getOrderPrice());
                             intent.putExtra("orderNum", bean.getOrderNum());
-                            intent.putExtra("rewardPoint", bean.getRewardPoint());
                             mContext.startActivity(intent);
                         }
                     });

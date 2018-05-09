@@ -67,36 +67,17 @@ public class PayScoreActivity extends BaseSwipeBackActivity implements View.OnCl
 
     private ActivityPayScoreBinding payScoreBinding;
 
-    private double orderPrice;
     private String orderNum;
-    private int rewardPoint;
     private String payPassWd = "";
 
-    private double payInBalance, payInCash;
+    private double orderPrice, payInBalance, payInCash;
 
     @Override
     protected void initView() {
         payScoreBinding = DataBindingUtil.setContentView(PayScoreActivity.this, R.layout.activity_pay_score);
         setTitleCenter("余额支付");
 
-        orderPrice = getIntent().getDoubleExtra("orderPrice", 0);
         orderNum = getIntent().getStringExtra("orderNum");
-        rewardPoint = getIntent().getIntExtra("rewardPoint", 0);
-        if (null != getIntent().getStringExtra("payInBalance") &&
-                null != getIntent().getStringExtra("payInCash")) {
-            payInBalance = getIntent().getDoubleExtra("payInBalance", 0);
-            payInCash = getIntent().getDoubleExtra("payInCash", 0);
-        } else {
-            getOrderPayDetail();
-        }
-
-        payScoreBinding.tvPaymentScore.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format(orderPrice));
-        payScoreBinding.tvGiveScore.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format(rewardPoint));
-        payScoreBinding.tvPayInBalance.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format(payInBalance));
-        payScoreBinding.tvPayInCash.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format(payInCash));
-
-        payScoreBinding.tvServiceCharge.setText("注：需收取10%服务费，合计支付" +
-                new DecimalFormat("#0.00").format(orderPrice * 110 / 100));
 
         payScoreBinding.btnAffirmPayment.setOnClickListener(this);
     }
@@ -107,6 +88,7 @@ public class PayScoreActivity extends BaseSwipeBackActivity implements View.OnCl
         if (!mSp.getBoolean(Constants.IS_EXISTS, false)) {
             startActivity(new Intent(PayScoreActivity.this, SetPaymentActivity.class));
         }
+        getOrderPayDetail();
     }
 
     /**
@@ -138,8 +120,10 @@ public class PayScoreActivity extends BaseSwipeBackActivity implements View.OnCl
                     public void run() {
                         if (Api.STATE_SUCCESS.equals(orderPayDetailBean.getCode())) {
                             if (orderPayDetailBean.getData() != null) {
+                                orderPrice = orderPayDetailBean.getData().getAmount();
                                 payInBalance = orderPayDetailBean.getData().getPayInBalance();
                                 payInCash = orderPayDetailBean.getData().getPayInCash();
+                                payScoreBinding.tvPaymentScore.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format(orderPrice));
                                 payScoreBinding.tvPayInBalance.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format(payInBalance));
                                 payScoreBinding.tvPayInCash.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format(payInCash));
                             }
@@ -167,6 +151,7 @@ public class PayScoreActivity extends BaseSwipeBackActivity implements View.OnCl
      * 积分支付
      */
     private void payScore() {
+        payScoreBinding.btnAffirmPayment.setClickable(false);
         payPassWd = payScoreBinding.etPaymentCode.getText().toString().trim();
 
         //校验六位数字
@@ -210,10 +195,11 @@ public class PayScoreActivity extends BaseSwipeBackActivity implements View.OnCl
                                 //现金支付
                                 new PopupWindows(PayScoreActivity.this, payScoreBinding.btnAffirmPayment, orderNum);
                                 EventBus.getDefault().post(new ChangeScoreEvent(ChangeScoreEvent.SCORE_PAY));
+                                payScoreBinding.btnAffirmPayment.setClickable(true);
                             } else {
                                 //支付成功
                                 Intent intent = new Intent(PayScoreActivity.this, PaySuccessActivity.class);
-                                intent.putExtra("orderPrice", (double) orderPrice);
+                                intent.putExtra("orderPrice", orderPrice);
                                 startActivity(intent);
 
                                 EventBus.getDefault().post(new ChangeScoreEvent(ChangeScoreEvent.SCORE_PAY));
@@ -223,7 +209,9 @@ public class PayScoreActivity extends BaseSwipeBackActivity implements View.OnCl
                             }
                         } else {
                             Toast.makeText(PayScoreActivity.this, orderPayBean.getMessage(), Toast.LENGTH_SHORT).show();
+                            payScoreBinding.btnAffirmPayment.setClickable(true);
                         }
+
                     }
                 });
             }
@@ -404,7 +392,7 @@ public class PayScoreActivity extends BaseSwipeBackActivity implements View.OnCl
                     if (TextUtils.equals(resultStatus, SDK_PAY_FLAG_SUCCESS)) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                         Intent intent = new Intent(PayScoreActivity.this, PaySuccessActivity.class);
-                        intent.putExtra("orderPrice", (double) orderPrice);
+                        intent.putExtra("orderPrice", orderPrice);
                         startActivity(intent);
 
                         EventBus.getDefault().post(new ChangeScoreEvent(ChangeScoreEvent.SCORE_PAY));

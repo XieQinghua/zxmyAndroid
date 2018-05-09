@@ -631,8 +631,8 @@
                     android:layout_margin="50dp"
                     android:background="@drawable/btn_white_normal_shape"
                     android:gravity="center"
-                    android:text="申请入驻"
-                    android:textColor="@color/main_text_color1"
+                    android:text="确认提交"
+                    android:textColor="@color/main_text_color"
                     android:textSize="@dimen/font_size_normal" />
 
             </LinearLayout>
