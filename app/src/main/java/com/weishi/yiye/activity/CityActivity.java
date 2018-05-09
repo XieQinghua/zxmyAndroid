@@ -1,11 +1,14 @@
 package com.weishi.yiye.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.weishi.yiye.R;
+import com.weishi.yiye.activity.nearby.LocationListActivity;
 import com.weishi.yiye.adapter.AddressAdapter;
 import com.weishi.yiye.base.BaseSwipeBackActivity;
 import com.weishi.yiye.bean.AddressBean;
@@ -43,13 +46,16 @@ public class CityActivity extends BaseSwipeBackActivity implements View.OnClickL
     private ActivityAddressLayoutBinding addressLayoutBinding;
     private AddressAdapter adapter;
     private List<AddressBean.Address> addressModels = new ArrayList<>();
+    private int flags;
     private String provinceCode, provinceName;
+    private int RESULT_CODE = 10;
 
     @Override
     protected void initView() {
         addressLayoutBinding = DataBindingUtil.setContentView(CityActivity.this, R.layout.activity_address_layout);
         setTitleCenter("请选择市");
 
+        flags = getIntent().getFlags();
         provinceCode = getIntent().getExtras().getString(Constants.AREA_PROVINCE_CODE);
         provinceName = getIntent().getExtras().getString(Constants.AREA_PROVINCE_NAME);
         adapter = new AddressAdapter(CityActivity.this, addressModels);
@@ -59,7 +65,14 @@ public class CityActivity extends BaseSwipeBackActivity implements View.OnClickL
         addressLayoutBinding.addressList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                IntentUtil.startActivity(CityActivity.this, AreaActivity.class, 0, Constants.AREA_PROVINCE_CODE, provinceCode, Constants.AREA_PROVINCE_NAME, provinceName, Constants.AREA_CITY_CODE, addressModels.get(position).getCode(), Constants.AREA_CITY_NAME, addressModels.get(position).getName());
+                if (flags == LocationListActivity.CHOOSE_CITY) {
+                    Intent intent = new Intent();
+                    intent.putExtra("city", addressModels.get(position).getName());
+                    setResult(RESULT_CODE, intent);
+                    finish();
+                } else {
+                    IntentUtil.startActivity(CityActivity.this, AreaActivity.class, flags, Constants.AREA_PROVINCE_CODE, provinceCode, Constants.AREA_PROVINCE_NAME, provinceName, Constants.AREA_CITY_CODE, addressModels.get(position).getCode(), Constants.AREA_CITY_NAME, addressModels.get(position).getName());
+                }
             }
         });
     }

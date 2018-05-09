@@ -1,5 +1,6 @@
 package com.weishi.yiye.activity.mine;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -78,6 +79,7 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
 
     private static final int EDIT_IMAGE = 1;
     private static final int CHOOSE_LOCATION = 2;
+    private static final int CHOOSE_ADDRESS = 3;
     private ActivityShopsJoinDataBinding shopsJoinDataBinding;
 
     private CheckPermission checkPermission;
@@ -164,6 +166,7 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
 
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -176,7 +179,7 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
                 break;
             case R.id.rl_choose_address:
                 //选择地址区域
-                startActivity(new Intent(ShopsJoinDataActivity.this, ProvinceActivity.class));
+                startActivity(new Intent(ShopsJoinDataActivity.this, ProvinceActivity.class).setFlags(CHOOSE_ADDRESS));
                 break;
             case R.id.btn_submit_apply:
 //                if (shopId != null) {

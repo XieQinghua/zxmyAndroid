@@ -13,23 +13,21 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/location_address"
+            android:id="@+id/tv_city"
             android:layout_width="wrap_content"
             android:layout_height="28dp"
-            android:background="@drawable/location_top_b_"
-            android:drawableRight="@drawable/location_xl"
             android:gravity="center"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="长沙"
-            android:textColor="@color/main_text_color"
-            android:visibility="gone" />
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="长沙市"
+            android:textSize="@dimen/font_size_normal"
+            android:textColor="@color/app_text_color1"
+            android:visibility="visible" />
 
         <EditText
             android:id="@+id/et_location"
             android:layout_width="match_parent"
             android:layout_height="28dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/btn_search_shape"
             android:drawableLeft="@drawable/icon_edit_search"

@@ -1,5 +1,6 @@
 package com.weishi.yiye.activity.nearby;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -22,12 +23,18 @@ import com.amap.api.maps.AMap.OnMarkerClickListener;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.geocoder.GeocodeAddress;
+import com.amap.api.services.geocoder.GeocodeQuery;
+import com.amap.api.services.geocoder.GeocodeResult;
+import com.amap.api.services.geocoder.GeocodeSearch;
+import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.InputtipsQuery;
 import com.amap.api.services.help.Tip;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.weishi.yiye.R;
+import com.weishi.yiye.activity.ProvinceActivity;
 import com.weishi.yiye.adapter.LocationListAdapter;
 import com.weishi.yiye.application.YiyeApplication;
 import com.weishi.yiye.base.BaseSwipeBackActivity;
@@ -56,6 +63,7 @@ public class LocationListActivity extends BaseSwipeBackActivity implements OnMar
         View.OnClickListener,
         LocationUtils.LocationUtilsinterface, PoiSearch.OnPoiSearchListener {
     private static final String TAG = LocationListActivity.class.getSimpleName();
+    public static final int CHOOSE_CITY = 5;
     private ActivityLocationBinding locationBinding;
     private LocationListAdapter adapter;
     private List<LocationListBean> listdata;
@@ -65,7 +73,7 @@ public class LocationListActivity extends BaseSwipeBackActivity implements OnMar
     private View mHeader;
     private EditText et_location;
     private LinearLayout ll_location;
-    private TextView tv_location;
+    private TextView tv_location, tv_city;
 
     @Override
     protected void initView() {
@@ -79,8 +87,16 @@ public class LocationListActivity extends BaseSwipeBackActivity implements OnMar
         mHeader = LayoutInflater.from(LocationListActivity.this).inflate(R.layout.activity_location_header, null);
         et_location = (EditText) mHeader.findViewById(R.id.et_location);
         ll_location = (LinearLayout) mHeader.findViewById(R.id.ll_location);
+        tv_city = (TextView) mHeader.findViewById(R.id.tv_city);
         tv_location = (TextView) mHeader.findViewById(R.id.tv_location);
         locationBinding.lvLocationList.addHeaderView(mHeader);
+
+        if (YiyeApplication.locationListBean != null) {
+            tv_city.setText(YiyeApplication.locationListBean.getCity());
+        } else {
+            tv_city.setText("定位中..");
+        }
+        tv_city.setOnClickListener(this);
 
         et_location.addTextChangedListener(this);
         adapter = new LocationListAdapter(this, R.layout.item_location);
@@ -221,12 +237,16 @@ public class LocationListActivity extends BaseSwipeBackActivity implements OnMar
 
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_location:
                 tv_location.setText("定位中..");
                 new LocationUtils(this, this);
+                break;
+            case R.id.tv_city:
+                startActivityForResult(new Intent(LocationListActivity.this, ProvinceActivity.class).setFlags(CHOOSE_CITY), CHOOSE_CITY);
                 break;
             default:
                 break;
@@ -274,5 +294,63 @@ public class LocationListActivity extends BaseSwipeBackActivity implements OnMar
     @Override
     public void onPoiItemSearched(PoiItem poiItem, int i) {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case CHOOSE_CITY:
+                if (data != null) {
+                    tv_city.setText(data.getStringExtra("city"));
+                    //根据城市名发编译经纬度
+                    getLatlon(data.getStringExtra("city"));
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void getLatlon(String cityName) {
+        GeocodeSearch geocodeSearch = new GeocodeSearch(LocationListActivity.this);
+
+        GeocodeQuery geocodeQuery = new GeocodeQuery(cityName.trim(), cityName.trim());
+        geocodeSearch.getFromLocationNameAsyn(geocodeQuery);
+
+        geocodeSearch.setOnGeocodeSearchListener(new GeocodeSearch.OnGeocodeSearchListener() {
+            @Override
+            public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
+
+            }
+
+            @Override
+            public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
+                if (i == 1000) {
+                    if (geocodeResult != null && geocodeResult.getGeocodeAddressList() != null &&
+                            geocodeResult.getGeocodeAddressList().size() > 0) {
+                        GeocodeAddress geocodeAddress = geocodeResult.getGeocodeAddressList().get(0);
+                        double latitude = geocodeAddress.getLatLonPoint().getLatitude();//纬度
+                        double longitude = geocodeAddress.getLatLonPoint().getLongitude();//经度
+                        String adcode = geocodeAddress.getAdcode();//区域编码
+
+                        Log.e("地理编码", geocodeAddress.getAdcode() + "");
+                        Log.e("纬度latitude", latitude + "");
+                        Log.e("经度longititude", longitude + "");
+
+                        startAnim(null);
+
+                        PoiSearch.Query query = new PoiSearch.Query("", "餐饮服务|购物服务|住宿服务|风景名胜|交通设施服务|地名地址信息", "");
+                        query.setPageSize(20);
+                        PoiSearch search = new PoiSearch(LocationListActivity.this, query);
+                        search.setBound(new PoiSearch.SearchBound(new LatLonPoint(latitude, longitude), 10000));
+                        search.setOnPoiSearchListener(LocationListActivity.this);
+                        search.searchPOIAsyn();
+                    } else {
+                        Log.e(TAG, "地址名出错");
+                    }
+                }
+            }
+        });
     }
 }

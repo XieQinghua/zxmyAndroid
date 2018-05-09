@@ -1,11 +1,14 @@
 package com.weishi.yiye.activity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
 import com.weishi.yiye.R;
+import com.weishi.yiye.activity.nearby.LocationListActivity;
 import com.weishi.yiye.adapter.AddressAdapter;
 import com.weishi.yiye.base.BaseSwipeBackActivity;
 import com.weishi.yiye.bean.AddressBean;
@@ -44,6 +47,7 @@ public class ProvinceActivity extends BaseSwipeBackActivity implements View.OnCl
     private AddressAdapter adapter;
     private List<AddressBean.Address> addressModels = new ArrayList<AddressBean.Address>();
     private int flags;
+    private int RESULT_CODE = 10;
 
     @Override
     protected void initView() {
@@ -54,9 +58,20 @@ public class ProvinceActivity extends BaseSwipeBackActivity implements View.OnCl
         adapter = new AddressAdapter(this, addressModels);
         addressLayoutBinding.addressList.setAdapter(adapter);
         addressLayoutBinding.addressList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @SuppressLint("WrongConstant")
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                IntentUtil.startActivity(ProvinceActivity.this, CityActivity.class, flags, Constants.AREA_PROVINCE_CODE, addressModels.get(position).getCode(), Constants.AREA_PROVINCE_NAME, addressModels.get(position).getName());
+                if (flags == LocationListActivity.CHOOSE_CITY) {
+                    Intent intent = new Intent(ProvinceActivity.this, CityActivity.class);
+                    intent.putExtra(Constants.AREA_PROVINCE_CODE, addressModels.get(position).getCode());
+                    intent.putExtra(Constants.AREA_PROVINCE_NAME, addressModels.get(position).getName());
+                    intent.setFlags(LocationListActivity.CHOOSE_CITY);
+                    startActivityForResult(intent, LocationListActivity.CHOOSE_CITY);
+                } else {
+                    IntentUtil.startActivity(ProvinceActivity.this, CityActivity.class, flags,
+                            Constants.AREA_PROVINCE_CODE, addressModels.get(position).getCode(),
+                            Constants.AREA_PROVINCE_NAME, addressModels.get(position).getName());
+                }
             }
         });
 
@@ -116,5 +131,22 @@ public class ProvinceActivity extends BaseSwipeBackActivity implements View.OnCl
     @Subscribe
     public void onEvent(FinishEvents event) {
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case LocationListActivity.CHOOSE_CITY:
+                if (data != null) {
+                    Intent intent = new Intent();
+                    intent.putExtra("city", data.getStringExtra("city"));
+                    setResult(RESULT_CODE, intent);
+                    finish();
+                }
+                break;
+            default:
+                break;
+        }
     }
 }
