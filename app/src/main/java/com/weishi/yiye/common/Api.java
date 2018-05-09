@@ -208,6 +208,11 @@ public class Api {
     public static final String SAVE_BUSI_APPLY = SERVER_URL + "api/front/user/createBusinessApply";
 
     /**
+     * 获取商家信息接口
+     */
+    public static final String FIND_BUSI_APPLY_INFO = SERVER_URL + "api/front/user/findBusiApplyInfo";
+
+    /**
      * 查询用户商家申请记录
      */
     public static final String GET_BUSINESS_APPLY = SERVER_URL + "api/front/user/getBusinessApply";

@@ -22,6 +22,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ScreenUtils;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.compress.Luban;
 import com.luck.picture.lib.config.PictureConfig;
@@ -68,6 +69,8 @@ public class ShopsJoinImageActivity extends BaseSwipeBackActivity implements Vie
 
     private CustomDialog customDialog;
 
+    private ViewGroup.LayoutParams para;
+
     @Override
     protected void initView() {
         shopsJoinImageBinding = DataBindingUtil.setContentView(ShopsJoinImageActivity.this, R.layout.activity_shops_join_image);
@@ -78,6 +81,11 @@ public class ShopsJoinImageActivity extends BaseSwipeBackActivity implements Vie
         rightTitle.setOnClickListener(this);
         selectList = (List<LocalMedia>) getIntent().getSerializableExtra("selectList");
         imgPosition = getIntent().getIntExtra("imgPosition", 0);
+
+        para = shopsJoinImageBinding.rlImgInfo.getLayoutParams();
+        para.width = ScreenUtils.getScreenWidth();
+        para.height = ScreenUtils.getScreenWidth() * 848 / 1080;
+        shopsJoinImageBinding.rlImgInfo.setLayoutParams(para);
 
         pagerAdapter = new MyPagerAdapter();
         pageChangeListener = new MyPageChangeListener();

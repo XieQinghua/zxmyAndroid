@@ -130,7 +130,9 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
                         callPhone();
                         break;
                     case CheckPermission.REQUEST_CODE_PERMISSION_STORAGE:
-                        downFile(imgUrlList.get(downPosition), downPosition);
+                        if (imgUrlList != null & imgUrlList.size() != 0) {
+                            downFile(imgUrlList.get(downPosition), downPosition);
+                        }
                         break;
                     default:
                         break;
@@ -316,7 +318,7 @@ public class GoodsDetailActivity extends BaseSwipeBackActivity implements ViewPa
                                     }
                                 }
 
-                                goodsDetailBinding.tvGrade.setText(new DecimalFormat("#0.0").format(productInfo.getStarLevel()) + "分");
+                                 goodsDetailBinding.tvGrade.setText(new DecimalFormat("#0.0").format(productInfo.getStarLevel()) + "分");
                                 goodsDetailBinding.rb.setStar((float) productInfo.getStarLevel());
                                 goodsDetailBinding.tvShopName.setText(productInfo.getStoreName());
                                 goodsDetailBinding.tvShopName.setOnClickListener(new View.OnClickListener() {
