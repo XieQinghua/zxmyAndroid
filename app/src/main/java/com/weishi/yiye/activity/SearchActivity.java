@@ -164,6 +164,7 @@ public class SearchActivity extends BaseSwipeBackActivity implements View.OnClic
         Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
         intent.putExtra(ShopConstants.KEY_SHOP_KEY_WORDS, keyword);
         startActivity(intent);
+        finish();
     }
 
     /**

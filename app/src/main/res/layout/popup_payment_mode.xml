@@ -80,7 +80,7 @@
                     android:text="微信"
                     android:textColor="@color/app_text_color1"
                     android:textSize="@dimen/font_size_normal"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
                 <RadioButton
                     android:id="@+id/rb_unionpay"

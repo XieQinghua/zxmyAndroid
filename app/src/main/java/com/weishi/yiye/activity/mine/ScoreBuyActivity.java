@@ -228,7 +228,12 @@ public class ScoreBuyActivity extends BaseSwipeBackActivity implements View.OnCl
 
                         final RechargeBean rechargeBean = GsonUtil.GsonToBean(result, RechargeBean.class);
                         //微信支付
-                        wechatPay(rechargeBean);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                wechatPay(rechargeBean);
+                            }
+                        });
                     }
                 });
                 break;
@@ -357,7 +362,7 @@ public class ScoreBuyActivity extends BaseSwipeBackActivity implements View.OnCl
      */
     public void callPhone() {
         CustomDialog.Builder builder = new CustomDialog.Builder(ScoreBuyActivity.this);
-        builder.setMessage( getResources().getString(R.string.yiye_service_tel_number));
+        builder.setMessage(getResources().getString(R.string.yiye_service_tel_number));
         builder.setTitleVisibility(View.GONE);
         builder.setPositiveButton("呼叫", new android.content.DialogInterface.OnClickListener() {
             @Override

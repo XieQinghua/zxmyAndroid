@@ -207,6 +207,7 @@ public class SearchResultActivity extends BaseSwipeBackActivity implements View.
         switch (view.getId()) {
             case R.id.tv_search:
                 startActivity(new Intent(SearchResultActivity.this, SearchActivity.class));
+                finish();
                 break;
             case R.id.rl_all:
             case R.id.rl_fit_all:

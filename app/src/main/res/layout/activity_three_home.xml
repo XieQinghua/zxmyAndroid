@@ -49,6 +49,7 @@
                     android:paddingLeft="6dp"
                     android:paddingRight="30dp"
                     android:singleLine="true"
+                    android:text="@string/search_goods"
                     android:textColor="#9B9B9B"
                     android:textSize="@dimen/font_size_middle" />
 
@@ -101,6 +102,7 @@
             android:background="@color/mask_black"
             android:orientation="vertical"
             android:visibility="gone">
+
             <RelativeLayout
                 android:id="@+id/rl_fit_address"
                 android:layout_width="match_parent"
@@ -125,6 +127,7 @@
                     android:paddingRight="10dp"
                     android:src="@drawable/icon_refresh" />
             </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_top_bar"

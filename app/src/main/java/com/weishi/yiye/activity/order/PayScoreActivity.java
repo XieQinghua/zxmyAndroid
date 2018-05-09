@@ -327,7 +327,12 @@ public class PayScoreActivity extends BaseSwipeBackActivity implements View.OnCl
 
                         final RechargeBean rechargeBean = GsonUtil.GsonToBean(result, RechargeBean.class);
                         //微信支付
-                        wechatPay(rechargeBean);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                wechatPay(rechargeBean);
+                            }
+                        });
                     }
                 });
                 break;

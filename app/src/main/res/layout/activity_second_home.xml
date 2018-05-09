@@ -49,6 +49,7 @@
                     android:paddingLeft="6dp"
                     android:paddingRight="30dp"
                     android:singleLine="true"
+                    android:text="@string/search_goods"
                     android:textColor="#9B9B9B"
                     android:textSize="@dimen/font_size_middle" />
 
