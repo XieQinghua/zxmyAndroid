@@ -54,7 +54,7 @@ public class ProductImageActivity extends BaseSwipeBackActivity {
     @Override
     protected void initView() {
         productImageBinding = DataBindingUtil.setContentView(ProductImageActivity.this, R.layout.activity_product_image);
-        setTitleCenter("商品图片");
+        setTitleCenter("商家图片");
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 

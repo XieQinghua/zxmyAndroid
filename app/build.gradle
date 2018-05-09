@@ -133,7 +133,7 @@ MobSDK {
                 appSecret "f5f96baf2e1fa11cdda6ea07e7a30f3b"
             }
             WechatMoments {
-                appId "wx2bf3127030b5618e"
+                appId "wx09c468b270e307bd"
                 appSecret "f5f96baf2e1fa11cdda6ea07e7a30f3b"
             }
 //            QQ {

@@ -42,7 +42,7 @@ public class Constants {
     /**
      * 微信支付AppID
      */
-    public static final String WETCHAT_APP_ID = "wx2bf3127030b5618e";
+    public static final String WETCHAT_APP_ID = "wx09c468b270e307bd";
 
     /*加载公共广告的URL*/
     public static final String INTENT_COMMON_ADV_URL = "advUrl";

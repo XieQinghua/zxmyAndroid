@@ -19,13 +19,13 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:scrollbars="none">
 
                 <RadioGroup
                     android:id="@+id/rg"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_top_bar"
-                    android:background="@color/white"
                     android:orientation="horizontal" />
 
             </HorizontalScrollView>
