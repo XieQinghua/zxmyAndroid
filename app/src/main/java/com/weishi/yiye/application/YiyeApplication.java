@@ -9,6 +9,7 @@ import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.Utils;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.mob.MobSDK;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -45,7 +46,8 @@ public class YiyeApplication extends Application {
         /**初始化工具类类库**/
         Utils.init(this);
         /**初始化图片加载库**/
-        Fresco.initialize(this);
+        ImagePipelineConfig frescoConfig = ImagePipelineConfig.newBuilder(getApplicationContext()).setDownsampleEnabled(true).build();
+        Fresco.initialize(this, frescoConfig);
         /**初始化分享插件*/
         MobSDK.init(this);
         /**注册微信*/
