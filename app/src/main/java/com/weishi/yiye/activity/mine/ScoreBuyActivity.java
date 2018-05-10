@@ -231,7 +231,11 @@ public class ScoreBuyActivity extends BaseSwipeBackActivity implements View.OnCl
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                wechatPay(rechargeBean);
+                                if (Api.STATE_SUCCESS.equals(rechargeBean.getCode())) {
+                                    wechatPay(rechargeBean);
+                                } else {
+                                    Toast.makeText(ScoreBuyActivity.this, rechargeBean.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
                     }

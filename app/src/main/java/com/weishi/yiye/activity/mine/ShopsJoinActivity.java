@@ -245,7 +245,11 @@ public class ShopsJoinActivity extends BaseSwipeBackActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                wechatPay(rechargeBean);
+                                if (Api.STATE_SUCCESS.equals(rechargeBean.getCode())) {
+                                    wechatPay(rechargeBean);
+                                } else {
+                                    Toast.makeText(ShopsJoinActivity.this, rechargeBean.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
                     }

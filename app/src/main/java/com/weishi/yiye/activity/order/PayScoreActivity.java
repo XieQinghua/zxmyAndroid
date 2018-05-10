@@ -330,7 +330,11 @@ public class PayScoreActivity extends BaseSwipeBackActivity implements View.OnCl
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                wechatPay(rechargeBean);
+                                if (Api.STATE_SUCCESS.equals(rechargeBean.getCode())) {
+                                    wechatPay(rechargeBean);
+                                } else {
+                                    Toast.makeText(PayScoreActivity.this, rechargeBean.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
                     }

@@ -15,11 +15,6 @@ public class Api {
 //    public static final String SERVER_URL = "http://yiye-test.lianqumall.com/";
 
     /**
-     * 李季测试地址
-     */
-//    public static final String SERVER_URL = "http://192.168.3.5:9898/";
-
-    /**
      * 谢宇翔测试地址
      */
 //    public static final String SERVER_URL = "http://192.168.0.192:9898/";
@@ -28,6 +23,11 @@ public class Api {
      * 众享美业地址
      */
 //    public static final String SERVER_URL = "http://120.79.147.7:10080/";
+
+    /**
+     * 众享美业正式地址
+     */
+//    public static final String SERVER_URL = "https://shopapi.zxmeiye.com/";
 
     /**
      * 众享美业测试环境地址
