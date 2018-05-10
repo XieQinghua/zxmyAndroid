@@ -64,9 +64,9 @@ public class YiyeApplication extends Application {
 
     private void registerToWX() {
         //第二个参数是指你应用在微信开放平台上的AppID
-        mWxApi = WXAPIFactory.createWXAPI(this, Constants.WEIXIN_APP_ID, false);
+        mWxApi = WXAPIFactory.createWXAPI(this, Constants.WETCHAT_APP_ID, false);
         //将该app注册到微信
-        mWxApi.registerApp(Constants.WEIXIN_APP_ID);
+        mWxApi.registerApp(Constants.WETCHAT_APP_ID);
     }
 
     @Override

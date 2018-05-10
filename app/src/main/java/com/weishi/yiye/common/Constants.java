@@ -44,25 +44,33 @@ public class Constants {
      */
     public static final String WETCHAT_APP_ID = "wx09c468b270e307bd";
 
-    /*加载公共广告的URL*/
+    /**
+     * 加载公共广告的URL
+     */
     public static final String INTENT_COMMON_ADV_URL = "advUrl";
-    /*加载公共广告的标题*/
+    /**
+     * 加载公共广告的标题
+     */
     public static final String INTENT_COMMON_ADV_TITLE = "advTitle";
 
-    /*区域相关的常量:省*/
+    /**
+     * 区域相关的常量:省
+     */
     public static final String AREA_PROVINCE = "province";
     public static final String AREA_PROVINCE_CODE = "provinceCode";
     public static final String AREA_PROVINCE_NAME = "provinceName";
-    /*区域相关的常量:市*/
-    public static final String AREA_AREA = "area";
-    public static final String AREA_AREA_CODE = "areaCode";
-    public static final String AREA_AREA_NAME = "areaName";
-    /*区域相关的常量:区*/
-    /*区域相关的常量:区*/
+    /**
+     * 区域相关的常量:市
+     */
     public static final String AREA_CITY = "city";
     public static final String AREA_CITY_CODE = "cityCode";
     public static final String AREA_CITY_NAME = "cityName";
-    public static final String WEIXIN_APP_ID = "wx2bf3127030b5618e";
+    /**
+     * 区域相关的常量:区
+     */
+    public static final String AREA_AREA = "area";
+    public static final String AREA_AREA_CODE = "areaCode";
+    public static final String AREA_AREA_NAME = "areaName";
 
     //相册中图片对象集合
     public static final String IMAGE_LIST = "image_list";
