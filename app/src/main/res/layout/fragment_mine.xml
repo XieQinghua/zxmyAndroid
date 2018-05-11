@@ -149,6 +149,7 @@
                 android:paddingRight="20dp"
                 android:paddingTop="15dp"
                 android:text="余额充值"
+                android:visibility="gone"
                 android:textColor="@color/app_main_text_color"
                 android:textSize="@dimen/font_size_normal" />
 
@@ -156,7 +157,7 @@
                 android:id="@+id/tv_shops_join"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:drawableLeft="@drawable/icon_shops_join"
                 android:drawablePadding="10dp"

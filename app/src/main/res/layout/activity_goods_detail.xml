@@ -579,7 +579,7 @@
                     <com.weishi.yiye.view.MyListView
                         android:id="@+id/lv_goods_images"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:divider="@null"
                         android:padding="@dimen/icon_padding" />
 

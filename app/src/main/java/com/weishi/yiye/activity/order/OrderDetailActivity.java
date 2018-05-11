@@ -21,6 +21,7 @@ import com.weishi.yiye.bean.OrderDetailBean;
 import com.weishi.yiye.bean.eventbus.ChangeScoreEvent;
 import com.weishi.yiye.bean.eventbus.OrderActionEvent;
 import com.weishi.yiye.common.Api;
+import com.weishi.yiye.common.ConfigConstants;
 import com.weishi.yiye.common.GoodsConstants;
 import com.weishi.yiye.common.util.CheckPermission;
 import com.weishi.yiye.common.util.GsonUtil;
@@ -294,7 +295,13 @@ public class OrderDetailActivity extends BaseSwipeBackActivity implements View.O
         }
         orderDetailBinding.tvNumber.setText(orderDetailBean.getData().getNumber() + "");
         orderDetailBinding.tvOrderPrice.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format(orderDetailBean.getData().getOrderPrice()));
-        orderDetailBinding.tvRealPrice.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format(orderDetailBean.getData().getOrderPrice()));
+        double subscriptionRate;
+        if (!mSp.getString(ConfigConstants.SUBSCRIPTION_RATE, "").equals("")) {
+            subscriptionRate = Double.parseDouble(mSp.getString(ConfigConstants.SUBSCRIPTION_RATE, "")) / 100;
+        } else {
+            subscriptionRate = 0.20;
+        }
+        orderDetailBinding.tvRealPrice.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format(orderDetailBean.getData().getOrderPrice() * subscriptionRate));
         orderDetailBinding.llDetailInfo.setVisibility(View.VISIBLE);
     }
 

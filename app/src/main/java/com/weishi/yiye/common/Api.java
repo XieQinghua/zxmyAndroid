@@ -22,7 +22,7 @@ public class Api {
     /**
      * 众享美业地址
      */
-//    public static final String SERVER_URL = "http://120.79.147.7:10080/";
+    public static final String SERVER_URL = "http://120.79.147.7:10080/";
 
     /**
      * 众享美业正式地址
@@ -32,7 +32,7 @@ public class Api {
     /**
      * 众享美业测试环境地址
      */
-    public static final String SERVER_URL = "http://47.98.103.60:10080/";
+//    public static final String SERVER_URL = "http://47.98.103.60:10080/";
 
     public static final String STATE_SUCCESS = "200";
 
