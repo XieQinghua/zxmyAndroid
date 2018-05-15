@@ -40,7 +40,7 @@ import okhttp3.Response;
  * @Version:v1.0.0
  *****************************/
 public class BusinessFatherActivity extends BaseSwipeBackActivity implements View.OnClickListener {
-    private static final String TAG = ShopDetailActivity.class.getSimpleName();
+    private static final String TAG = BusinessFatherActivity.class.getSimpleName();
     private ActivityAddressLayoutBinding addressLayoutBinding;
     private ShopTypeAdapter adapter;
     private List<ShopTypeBean.ShopType> shopTypes = new ArrayList<ShopTypeBean.ShopType>();

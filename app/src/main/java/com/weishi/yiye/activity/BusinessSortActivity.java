@@ -41,7 +41,7 @@ import okhttp3.Response;
  * @Version:v1.0.0
  *****************************/
 public class BusinessSortActivity extends BaseSwipeBackActivity implements View.OnClickListener {
-    private static final String TAG = ShopDetailActivity.class.getSimpleName();
+    private static final String TAG = BusinessSortActivity.class.getSimpleName();
     private ActivityAddressLayoutBinding addressLayoutBinding;
     private ShopTypeAdapter adapter;
     private List<ShopTypeBean.ShopType> shopTypes = new ArrayList<ShopTypeBean.ShopType>();

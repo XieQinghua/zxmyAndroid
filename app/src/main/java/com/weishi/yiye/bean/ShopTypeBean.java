@@ -61,7 +61,7 @@ public class ShopTypeBean implements Serializable {
         private String ombre;
         private int sortId;
         private int weight;
-        private String property;
+        private Object property;
 
         public String getFatherTypeName() {
             return fatherTypeName;
@@ -103,11 +103,11 @@ public class ShopTypeBean implements Serializable {
             this.weight = weight;
         }
 
-        public String getProperty() {
+        public Object getProperty() {
             return property;
         }
 
-        public void setProperty(String property) {
+        public void setProperty(Object property) {
             this.property = property;
         }
 
