@@ -98,7 +98,7 @@ public class InviteFriendActivity extends BaseSwipeBackActivity implements View.
                         if (null != inviteFriendBean && null != inviteFriendBean.getData()) {
                             invitationCode = inviteFriendBean.getData().getInvitationCode();
                             inviteFriendBinding.tvInvitationCode.setText(invitationCode);
-                            inviteFriendBinding.tvCommissionMoney.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format(inviteFriendBean.getData().getProfitCount() * 1d / 10000));
+                            inviteFriendBinding.tvCommissionMoney.setText(getString(R.string.money_unit) + new DecimalFormat("#0.00").format(inviteFriendBean.getData().getScore() * 1d / 10000));
                             createQRCode();
                         }
                     }

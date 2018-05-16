@@ -58,12 +58,13 @@ public class InviteFriendBean implements Serializable {
          */
 
         private int subCount;
-        private int profitCount;
+        private double profitCount;
         private int secondSubCount;
         private String nickname;
         private int firstSubCount;
         private String invitationCode;
 //        private List<IdsBean> ids;
+        private double score;
 
         public int getSubCount() {
             return subCount;
@@ -73,11 +74,11 @@ public class InviteFriendBean implements Serializable {
             this.subCount = subCount;
         }
 
-        public int getProfitCount() {
+        public double getProfitCount() {
             return profitCount;
         }
 
-        public void setProfitCount(int profitCount) {
+        public void setProfitCount(double profitCount) {
             this.profitCount = profitCount;
         }
 
@@ -111,6 +112,14 @@ public class InviteFriendBean implements Serializable {
 
         public void setInvitationCode(String invitationCode) {
             this.invitationCode = invitationCode;
+        }
+
+        public double getScore() {
+            return score;
+        }
+
+        public void setScore(double score) {
+            this.score = score;
         }
 
 //        public List<IdsBean> getIds() {
