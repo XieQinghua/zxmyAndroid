@@ -296,14 +296,17 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
          * This method will be invoked when a new page becomes selected.
          * position: Position index of the new selected page.
          */
+        @Override
         public void onPageSelected(int position) {
             shopsJoinDataBinding.tvVpIndicator.setVisibility(View.VISIBLE);
             shopsJoinDataBinding.tvVpIndicator.setText((position + 1) + "/" + selectList.size());
         }
 
+        @Override
         public void onPageScrollStateChanged(int arg0) {
         }
 
+        @Override
         public void onPageScrolled(int arg0, float arg1, int arg2) {
         }
     }
@@ -440,6 +443,7 @@ public class ShopsJoinDataActivity extends BaseSwipeBackActivity implements View
 
     private class PopupWindows extends PopupWindow {
 
+        @SuppressLint("NewApi")
         private PopupWindows(final Context mContext, View parent) {
 
             View view = View.inflate(mContext, R.layout.popup_choose_pic, null);
